@@ -7,8 +7,7 @@ ggedit(p.in,viewer)
 
 **Arguments**
 
-**p.in** ggplot object or list of ggplot objects
-**viewer** paneViewer(),dialogViewer() or browserViewer()
+**p.in** ggplot object or list of ggplot objects viewer paneViewer(),dialogViewer() or browserViewer()
 
 **Details** Can be called from the console or from the addin menu. if called from the addin menu highlight in the editor pane the object the will pass through to the function.
 
