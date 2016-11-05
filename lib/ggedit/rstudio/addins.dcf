@@ -1,0 +1,4 @@
+Name: ggedit
+Description: Edit ggplot layers aesthetics and theme elements.
+Binding: ggeditAddin
+Interactive: true

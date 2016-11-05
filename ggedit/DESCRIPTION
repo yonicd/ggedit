@@ -1,0 +1,13 @@
+Package: ggedit
+Type: Package
+Title: Interactive ggplot aesthetic editor
+Version: 0.0.1
+Date: 2016-10-31
+Author: Jonathan Sidi [aut, cre]
+Maintainer: Jonathan Sidi <yonis@metrumrg.com>
+Description: interactively edit ggplot layer aesthetics and theme definitions
+Depends: R (>= 2.3.0), shiny, shinyBS, reshape2, grid, gridExtra, scales, ggplot2 (>= 2.1.0), plyr, colourpicker (>= 0.2), dplyr (>= 0.5), miniUI
+License: GPL-2 (GNU General Public License Version 2)
+LazyData: true
+NeedsCompilation: no
+Packaged: 2016-10-31 22:01:00 UTC; Yoni
