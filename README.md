@@ -1,5 +1,12 @@
 # ggedit
+
+##Overview
 Interactively edit ggplot layer aesthetics and theme definitions
+
+##Installation
+```
+devtools::install_github("yonicd/ggedit",subdir="ggedit")
+```
 
 Depends: R (>= 2.3.0), shiny, shinyBS, reshape2, grid, gridExtra, scales, ggplot2 (>= 2.1.0), plyr, colourpicker (>= 0.2), dplyr (>= 0.5), miniUI
 
