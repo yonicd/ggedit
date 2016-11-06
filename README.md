@@ -26,9 +26,9 @@ Can be called from the console or from the addin menu. if called from the addin 
 
 returns a list of objects
 
-**UpdatedPlots** list of ggplot object with updated aesthetics and themes
+**UpdatedPlots** list of ggplot objects with updated aesthetics and themes
 
-**UpdatedLayers** layer objects from the UpdatedPlots
+**UpdatedLayers** list of layer objects from the UpdatedPlots
 
 **UpdateLayerElements** layer elements in list form from UpdatedLayers
 
