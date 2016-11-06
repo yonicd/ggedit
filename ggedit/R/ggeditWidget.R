@@ -221,16 +221,16 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
 
         #Render Plot----
         output$Plot=renderPlot({
-          pListPrint(objList.new)
+          plot.ggedit(objList.new)
         },height=minHeight*.6)
 
         observeEvent(input$updateElem,{
           output$Plot=renderPlot({
             if(input$sendElem==0){
-              pListPrint(objList.new)
+              plot.ggedit(objList.new)
             }else{
               pList.out=update.Layer()
-              pListPrint(pList.out)
+              plot.ggedit(pList.out)
             }
           },height=minHeight*.6)
         })
@@ -238,21 +238,24 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
         observeEvent(input$updateTheme,{
           output$Plot=renderPlot({
             if(input$sendTheme==0){
-              pListPrint(objList.new)
+              plot.ggedit(objList.new)
             }else{
               pList.out=update.Theme()
-              pListPrint(pList.out)
+              plot.ggedit(pList.out)
             }
           },height=minHeight*.6)
         })
 
         observeEvent(input$SetThemeGrid,{
           pList.out=update.ThemeGrid()
-          output$Plot=renderPlot({pListPrint(pList.out)},height=minHeight*.6)
+          output$Plot=renderPlot({plot.ggedit(pList.out)},height=minHeight*.6)
         })
 
         observeEvent(input$done, {
-          ggeditOut=list(UpdatedPlots=objList.new,UpdatedLayers=layersListObj(obj = objList.new,lbl=names(obj)),UpdatedLayersElements=layersList(objList.new))
+          UpdatedPlots=objList.new
+          class(UpdatedPlots)=c("ggedit",class(UpdatedPlots))
+          ggeditOut=list(UpdatedPlots=UpdatedPlots,UpdatedLayers=layersListObj(obj = objList.new,lbl=names(obj)),UpdatedLayersElements=layersList(objList.new))
+          class(ggeditOut)=c("ggedit",class(ggeditOut))
           if(exists('themeUpdate',envir = .GlobalEnv)) ggeditOut$UpdatedThemes=themeUpdate
           rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate')],envir = .GlobalEnv)
           stopApp(ggeditOut)
