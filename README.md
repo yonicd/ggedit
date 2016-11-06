@@ -28,6 +28,8 @@ returns a list of objects
 
 **UpdatedPlots** list of ggplot object with updated aesthetics and themes
 
-**UpdatedLayers** list of all the layer objects from the UpdatedPlots
+**UpdatedLayers** layer objects from the UpdatedPlots
+
+**UpdateLayerElements** layer elements in list form from UpdatedLayers
 
 **UpdatedTheme** list of ggplot theme objects of the UpdatedPlots
