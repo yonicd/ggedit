@@ -54,7 +54,7 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
             if(numElem[item]==1) {
               newLayer=cloneLayer(obj.new$layers[[layer.idx]])
               newLayer$aes_params[[item]]=eval(parse(text=paste0('input$pop',toupper(item))))
-              obj.new$layers[[layer.idx]]<<-NULL
+              #obj.new$layers[[layer.idx]]<<-NULL
               obj.new$layers[[layer.idx]]<<-newLayer
             }else{
               if(obj.Elems[[layer.idx]][[item]][['class']][[1]]=='numeric'){
