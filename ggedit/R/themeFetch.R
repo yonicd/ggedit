@@ -15,6 +15,7 @@ themeFetch=function(a=theme_get()){
     obj=mapply(c, name=obj.name[idx],value=obj.val[idx], class=obj.class[idx],SIMPLIFY=FALSE)
     
     obj$call=class(a[[obj.names[i]]])[1]
+    if(obj.names[i]%in%c('legend.position','legend.justification')) obj$call=gsub('legend.','',obj.names[i])
     if(length(obj.names.split[[i]])==1){
       vout[[obj.names.split[[i]][1]]]=obj
     }else{

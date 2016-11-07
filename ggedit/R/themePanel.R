@@ -1,18 +1,23 @@
 themePanel=function(obj.in,obj.name){
   lapply(names(obj.in) ,FUN = function(item){
     do.call(what = tabPanel,
-            args = list(title=item,
-                        lapply(head(names(obj.in[[item]]),-1),
-                               FUN=function(subitem){
-                                 x=obj.in[[item]][[subitem]]
-                                 txt.in=unique(c(obj.name,item,subitem))
-                                 if(obj.name=="legend"&item%in%c("position","justification")) txt.in=c(obj.name,item,subitem)
-                                 obj=textInput(inputId = paste0(c("pop",txt.in),collapse=""),
-                                               label = x['name'],
-                                               value = x['value']
-                                 )
-                                 return(obj)
-                               })
+    args = list(title=item,
+          fluidRow(lapply(head(names(obj.in[[item]]),-1),
+                 FUN=function(subitem){
+                   x=obj.in[[item]][[subitem]]
+                   txt.in=unique(c(obj.name,item,subitem))
+                   if(obj.name=="legend"&item%in%c("position","justification")) txt.in=c(obj.name,item,subitem)
+                   obj=column(width=3,textInput(inputId = paste0(c("pop",txt.in),collapse=""),
+                                 label = x['name'],
+                                 value = x['value'])
+                   )
+                   return(obj)
+                       })),
+          HTML(paste0(
+            paste(names(themeTips[[obj.in[[item]]$call]]),
+                        unlist(themeTips[[obj.in[[item]]$call]]),
+                        sep=': '),
+                      sep="<br/>"))
             )
     )
   }
