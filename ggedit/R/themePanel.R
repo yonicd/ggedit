@@ -14,7 +14,7 @@ themePanel=function(obj.in,obj.name){
                    return(obj)
                        })),
           HTML(paste0(
-            paste(names(themeTips[[obj.in[[item]]$call]]),
+            paste(paste0('<b>',names(themeTips[[obj.in[[item]]$call]]),'</b>'),
                         unlist(themeTips[[obj.in[[item]]$call]]),
                         sep=': '),
                       sep="<br/>"))

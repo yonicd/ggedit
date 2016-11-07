@@ -199,7 +199,7 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
         })
 
         output$popTheme=renderUI({
-          bsModal(id = "updateThemePopup", title = "Update Plot Theme", trigger = "updateTheme", size = "large",
+          bsModal(id = "updateThemePopup", title = HTML('Update Plot Theme <a href="http://docs.ggplot2.org/0.9.3.1/theme.html" target="_blank">(help)</a>'), trigger = "updateTheme", size = "large",
 
                   do.call(tabsetPanel,
 
