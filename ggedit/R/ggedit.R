@@ -1,7 +1,7 @@
+#' @export
+
 ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),...) {
-  
-  
-  
+
   if(!Sys.getenv("RSTUDIO") == "1") viewer=browserViewer()
   
   if(is.ggplot(p.in)) p.in=list(p.in)
