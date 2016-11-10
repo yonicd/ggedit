@@ -1,4 +1,15 @@
+#' @title Interactive shiny widget for editing ggplot layers and themes
 #' @export
+#' @description 
+#' Control where the gadget is displayed in RStudio (pane,dialog,browser)
+#' @param p.in ggplot2 plot object or list of objects
+#' @param viewer shiny viewer options
+#' @param idx numeric of which index of geom to remove
+#' @examples
+#' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
+#' p=p+geom_point(aes(colour=Species))+geom_line()
+#' pnew=ggedit(p)
+#' pnew
 
 ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),...) {
 

@@ -1,3 +1,21 @@
+#' @title Creates an independent copy of a ggplot object layer
+#' @export
+#' @description 
+#' Creates copies of ggplot layers from within ggplot objects
+#'  that are independent of the parent object.
+#' @details ggplot objects are comprimsed of layer objects. Once compiled they 
+#' are part of the plot object environment and if they are changed internally regardless of 
+#' where they are in the (ie different environment) it will change the original plot. This function allows to 
+#' create replicates of the plot layers and edit them independent of the original plot.
+#' @param l ggplot2 object layer
+#' @return ggproto object
+#' @examples
+#' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
+#' p=p+geom_point(aes(colour=Species))+geom_line()
+#' p$layers[[1]]
+#' newLayer=cloneLayer(l=p$layers[[1]])
+#' all.equal(p$layers[[1]],newLayer)
+
 cloneLayer=function(l){
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
