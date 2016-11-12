@@ -180,7 +180,6 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
           objList.new[[as.numeric(input$activePlot)]]<<-obj.new
 
           themeUpdate<<-lapply(objList.new,function(p) p$theme)
-          #if(output.in) ggeditOut$UpdatedThemes<<-themeUpdate
           return(objList.new)
         })
 
