@@ -5,9 +5,15 @@ date: "November 13, 2016"
 output: html_document
 ---
 
+
 ggplot2 has become the standard of plotting in R for many users. To create a simple or difficult plot is something nearly everyone can do. But for new users there is a learning curve that may seem steep at first and for more experienced users keeping track of all the options (especially in the theme!) can become cumbersome. ggedit is a package that helps users fill the gap between making the plot and getting those pesky plot aesthetics just right, while keeping everything portable for further research and collaboration.
 
 ggedit is powered by a shiny widget where the user inputs a ggplot plot object or a list of ggplot objects. It can be run either from the console directly or if you are using RStudio you can also run it from the Addin menu.
+
+##Installation
+```r
+devtools::install_github("yonicd/ggedit",subdir="ggedit")
+```
 
 ##Layers
 The widget creates a popup window which is populated by the information found in each layer. Then the user can change any aesthetic value found in a layer and see the changes happen in real time.
