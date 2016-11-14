@@ -73,7 +73,7 @@
 #'
 #' 
 #' @seealso 
-#' \code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[GGPLOT2]{ggplot}}
+#' \code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[ggplot2]{ggplot}}
 #' @examples
 #' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
 #' p=p+geom_point(aes(colour=Species))+geom_line()

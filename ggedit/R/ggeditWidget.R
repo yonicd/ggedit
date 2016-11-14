@@ -18,7 +18,7 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
       )
       )
     )
-    #browser()
+
     server = function(input, output, session) {
         #Plots----
         
@@ -87,7 +87,6 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
           obj.elems=obj.Elems[[gIdx]]
 
           arg.value=function(item){
-
             item_class=obj.elems[[item]]$class[[1]]
             if(item_class=='data.frame'){
               if(item%in%c('colour','color','fill')){
@@ -112,7 +111,7 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
                   x$args$choices=c(NA,'Blues', 'BuGn', 'BuPu', 'GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd', 'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu', 'Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd')
                   x=list(x=x)
                 }else{
-
+                  stop("non colour aesthetics of numeric inputs are not currently supported in ggedit", call. = FALSE)
                 }
               }
               if(item_class%in%c('character','factor')){
@@ -152,7 +151,7 @@ ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
           bsModal(id = "updateElemPopup", title = "Update Plot Layer", trigger = "updateElem", size = "large",
 
                   fluidRow(
-                    lapply(names(obj.elems) ,FUN = function(item){
+                    lapply(names(obj.elems)[!names(obj.elems)%in%c('family')] ,FUN = function(item){
                       list(
                         column(width = 3,
                                lapply(arg.value(item),function(x) {

@@ -88,6 +88,6 @@ pnew=ggedit(p)
 pnew
 }
 \seealso{
-\code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[GGPLOT2]{ggplot}}
+\code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[ggplot2]{ggplot}}
 }
 
