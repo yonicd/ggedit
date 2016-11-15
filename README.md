@@ -14,7 +14,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ##Layers
 The gadget creates a popup window which is populated by the information found in each layer. Then the user can change any aesthetic value found in a layer and see the changes happen in real time.
 
-<a href="http://www.youtube.com/watch?v=OvMWCHpCmaI" target="_blank"><img src="http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg" alt="Using ggedit on plot layers" style="width:845px;height:480px;"></a>
+<a href="http://www.youtube.com/watch?v=OvMWCHpCmaI" target="_blank"><img src="http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg" alt="Using ggedit on plot layers" style="width:845px;height:480px;" align="middle"></a>
 
 <!---
 ([![Using ggedit on plot layers](http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg)](http://www.youtube.com/watch?v=OvMWCHpCmaI)
@@ -55,8 +55,6 @@ After you finish editing the plots the natural progression is to use them in the
 <!---
 [![Using ggedit with ggplot2 objects](http://img.youtube.com/vi/0QmJHwoWQWM/0.jpg)](http://www.youtube.com/watch?v=0QmJHwoWQWM)
 --->
-
-<iframe width="854" height="480" src="https://www.youtube.com/embed/0QmJHwoWQWM" frameborder="0" allowfullscreen></iframe>
 
 With this function you can 
 
