@@ -15,7 +15,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 The gadget creates a popup window which is populated by the information found in each layer. Then the user can change any aesthetic value found in a layer and see the changes happen in real time.
 
 
-([![Using ggedit on plot layers](http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg)](http://www.youtube.com/watch?v=OvMWCHpCmaI)
+[![Using ggedit on plot layers](http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg)](http://www.youtube.com/watch?v=OvMWCHpCmaI)
 
 
 To prevent any changes to the original plot the changed layers are cloned from the original plot object and are independent of it. They are also given in the output as objects so you can use them regardless of plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people. You can send over a plot the other people can edit the layers aesthetics and send back only the new layers where you can implement them and continue to work. 
