@@ -75,6 +75,6 @@ plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
 ```
 
 ##Addin Launch
-To launch the Shiny gadget from the addin menu highlight the code that creates the plot object or the plot name in the source pane of Rstudio. Then click on the ggedit addin from the Addins the dropdown menu.
+To launch the Shiny gadget from the addin menu highlight the code that creates the plot object or the plot name in the source pane of Rstudio, then click on the ggedit addin from the Addins the dropdown menu.
 
 [![Launching ggedit from the Addins menu](http://img.youtube.com/vi/693XhHt8fug/0.jpg)](http://www.youtube.com/watch?v=693XhHt8fug)
