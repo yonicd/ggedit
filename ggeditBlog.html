@@ -123,23 +123,23 @@ $(document).ready(function () {
 </div>
 
 
-<p>ggplot2 has become the standard of plotting in R for many users. To create a simple or difficult plot is something nearly everyone can do. But for new users there is a learning curve that may seem steep at first and for more experienced users keeping track of all the options (especially in the theme!) can become cumbersome.</p>
-<p>ggedit is a package that helps users fill the gap between making the plot and getting those pesky plot aesthetics just right, while keeping everything portable for further research and collaboration.</p>
-<p>ggedit is powered by a shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. It can be run either from the console directly or if you are using RStudio you can also run it from the Addin menu.</p>
+<p>ggplot2 has become the standard of plotting in R for many users. New users, however, may find the learning curve steep at first, and more experienced users may find it challenging to keep track of all the options (especially in the theme!) can become cumbersome.</p>
+<p>ggedit is a package that helps users bridge the gap between making a plot and getting all of those pesky plot aesthetics just right, all while keeping everything portable for further research and collaboration.</p>
+<p>ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console from the Addin menu within RStudio.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
 <pre class="r"><code>devtools::install_github(&quot;metrumresearchgroup/ggedit&quot;,subdir=&quot;ggedit&quot;)</code></pre>
 </div>
 <div id="layers" class="section level2">
 <h2>Layers</h2>
-<p>The gadget creates a popup window which is populated by the information found in each layer. Then the user can change any aesthetic value found in a layer and see the changes happen in real time.</p>
+<p>The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.</p>
 <iframe width="854" height="480" src="https://www.youtube.com/embed/OvMWCHpCmaI" frameborder="0" allowfullscreen>
 </iframe>
-<p>To prevent any changes to the original plot the changed layers are cloned from the original plot object and are independent of it. They are also given in the output as objects so you can use them regardless of plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people. You can send over a plot the other people can edit the layers aesthetics and send back only the new layers where you can implement them and continue to work.</p>
+<p>You can edit the aesthetic layers while still preserving the original plot, because the changed layers are cloned from the original plot object and are independent of it. The edited layers are provided in the output as objects, so you can use the layers independent of the plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people, where you can send a plot to team members to edit the layers aesthetics and they can send you back just the new layers for you to implement them.</p>
 </div>
 <div id="themes" class="section level2">
 <h2>Themes</h2>
-<p>ggedit also has a theme editor inside. The user can edit any element in the theme and see the changes happen in real time, making the trial and error process quick and easy. Once you like the theme you made and you have a list of plots you can transfer the theme to the other plots with one click or even make the theme the session theme regardless of the gadget. As with the layers the new theme object is also part of the output so you can collaborate easily.</p>
+<p>ggedit also has a theme editor inside. You can edit any element in the theme and see the changes in real time, making the trial and error process quick and easy. Once you are satisfied with the edited theme you can apply it to other plots in the plot list with one click or even make it the <em>session</em> theme regardless of the gadget. As with layers, the new theme object is part of the output, making collaboration easy.</p>
 <iframe width="854" height="480" src="https://www.youtube.com/embed/813QxbsrvLM" frameborder="0" allowfullscreen>
 </iframe>
 </div>
@@ -149,14 +149,14 @@ $(document).ready(function () {
 <ul>
 <li>updatedPlots
 <ul>
-<li>list containing updated ggplot objects</li>
+<li>List containing updated ggplot objects</li>
 </ul></li>
 <li>updatedLayers
 <ul>
 <li>For each plot a list of updated layers (ggproto) objects</li>
-<li>portable object</li>
+<li>Portable object</li>
 </ul></li>
-<li>UpdatedLayersElements
+<li>updatedLayersElements
 <ul>
 <li>For each plot a list elements and their values in each layer</li>
 <li>Can be used to update the new values in the original code</li>
@@ -164,7 +164,7 @@ $(document).ready(function () {
 <li>updatedThemes
 <ul>
 <li>For each plot a list of updated theme objects</li>
-<li>portable object</li>
+<li>Portable object</li>
 <li>If the user doesn’t edit the theme updatedThemes will not be returned</li>
 </ul></li>
 </ul>
@@ -175,15 +175,15 @@ $(document).ready(function () {
 <iframe width="854" height="480" src="https://www.youtube.com/embed/0QmJHwoWQWM" frameborder="0" allowfullscreen>
 </iframe>
 <p>With this function you can</p>
-<p>specify which layer you want to remove from a plot:</p>
+<p>Specify which layer you want to remove from a plot:</p>
 <p><code>ggObj%&gt;%rgg('line')</code></p>
-<p>if there are more than one of the same type of layer just specify the index of the one you want to remove</p>
+<p>Provide an index to a specific layer, in instances where there are more than one layer of the same type in the plot</p>
 <p><code>ggObj%&gt;%rgg('line',2)</code></p>
-<p>remove a layer from ggObj and replace it with a new one from the ggedit output p.out</p>
+<p>Remove a layer from ggObj and replace it with a new one from the ggedit output p.out</p>
 <p><code>ggObj%&gt;%rgg('line',newLayer = p.out$UpdatedLayers)</code></p>
-<p>remove a layer, replace it with a new one and the new theme</p>
+<p>Remove a layer and replace it with a new one and the new theme</p>
 <p><code>ggObj%&gt;%rgg('line',newLayer = p.out$UpdatedLayers)+p.out$UpdatedThemes</code></p>
-<p>There is also a plotting function for ggedit objects that creates a grid.view for you and finds the best grid size for the amount of plots you have in the list. And for the exotic layouts you can give specific positions and the rest will be done for you. If you didn’t use ggedit you can still add the class to any ggplot and use the ploting function just the same.</p>
+<p>There is also a plotting function for ggedit objects that creates a grid.view for you and finds the best grid size for the amount of plots you have in the list. And for the exotic layouts you can give specific positions and the rest will be done for you. If you didn’t use ggedit, you can still add the class to any ggplot and use the plotting function just the same.</p>
 <pre class="r"><code>plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
                                        list(rows=2,cols=2),
                                        list(rows=2,cols=1),
@@ -192,12 +192,12 @@ $(document).ready(function () {
 </div>
 <div id="addin-launch" class="section level2">
 <h2>Addin Launch</h2>
-<p>To launch the gadget on from the addin menu. Highlight the code that creates the plot object or the plot name in the source pane of Rstudio and the click on the ggedit addin from the Addins the dropdown menu.</p>
+<p>To launch the Shiny gadget from the addin menu highlight the code that creates the plot object or the plot name in the source pane of Rstudio. Then click on the ggedit addin from the Addins the dropdown menu.</p>
 <iframe width="854" height="480" src="https://www.youtube.com/embed/693XhHt8fug" frameborder="0" allowfullscreen>
 </iframe>
 <hr>
 <p><em> Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.</p>
-<p>To learn mode about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.</p>
+<p>To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.</p>
 <p>Contact: For questions and comments, feel free to email me at: <a href="mailto:yonis@metrumrg.com">yonis@metrumrg.com</a> or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>. </em></p>
 </div>
 
