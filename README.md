@@ -55,7 +55,7 @@ specify which layer you want to remove from a plot:
 
 `ggObj%>%rgg('line')`
 
-if there are more than one of the same type of layer just give in index to the one you want.
+if there are more than one of the same type of layer just specify the index of the one you want to remove
 
 `ggObj%>%rgg('line',2)`
 
