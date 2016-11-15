@@ -1,6 +1,6 @@
 Package: ggedit
 Type: Package
-Title: Interactive ggplot aesthetic editor
+Title: Interactive ggplot aesthetic and theme editor
 Version: 0.0.1
 Date: 2016-10-31
 Author: Jonathan Sidi [aut, cre]

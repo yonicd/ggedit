@@ -18,7 +18,7 @@ rgg(p, oldGeom, oldGeomIdx = 1, newLayer = NULL)
 \description{
 Removes specified layers from a ggplot object and gives 
 the option to replace them with a new layer. This layer can be either a geom object
-created from regular ggplot functions or an output from the ggedit widget. In the latter
+created from regular ggplot functions or an output from the ggedit gadget. In the latter
 case the layers are found in the updatedLayers object in the ggedit output.
 }
 \examples{

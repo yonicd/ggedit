@@ -1,4 +1,4 @@
-ggeditWidget <- function(viewer=paneViewer(minHeight = 1000),...) {
+ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
   obj <- get(".p", envir = ggedit:::.ggeditEnv)
   minHeight <- get(".minHeight", envir = ggedit:::.ggeditEnv)  
   

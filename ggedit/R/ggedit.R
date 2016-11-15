@@ -1,20 +1,20 @@
-#' @title Interactive shiny widget for editing ggplot layers and themes.
+#' @title Interactive shiny gadget for editing ggplot layers and themes.
 #' @export
 #' @description 
-#' Shiny widget that takes an input ggplots and populates a user interface 
+#' Shiny gadget that takes an input ggplots and populates a user interface 
 #' with objects that let the user update aesthetics of layers and theme elements. 
 #' 
 #' @param p.in ggplot plot object or list of objects
 #' @param viewer shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer
 #' @param \dots parameters that are passed to shiny viewer functions
 #' @details 
-#' An interactive shiny widget that inputs ggplot objects.
+#' An interactive shiny gadget that inputs ggplot objects.
 #' 
-#' The user can start the widget using the console \code{ggedit(plotobj)} or 
+#' The user can start the gadget using the console \code{ggedit(plotobj)} or 
 #' through the Addins menu in Rstudio. If you are using the the Addin option 
 #' highlight on the editor window the ggplot object and then click the addin.
 #' 
-#' Once the widget is running the list of plots are shown in a grid and a number of objects will appear above them.
+#' Once the gadget is running the list of plots are shown in a grid and a number of objects will appear above them.
 #' 
 #' \strong{Action buttons}
 #' 
@@ -59,7 +59,7 @@
 #' 
 #' Update Global Theme:
 #' 
-#' Copies the theme of the active plot to the session theme and all plots created outside of the widget will have this theme. 
+#' Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme. 
 #' 
 #' The ggplot objects returned (layers and themes) can be used on any ggplot object.
 #' @return 
@@ -98,5 +98,5 @@ ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),...) {
   
   assign('.minHeight',envir = ggedit:::.ggeditEnv,minHeight)
   assign('.p',envir = ggedit:::.ggeditEnv,p.in)
-  ggeditWidget()
+  ggeditGadget()
   }
