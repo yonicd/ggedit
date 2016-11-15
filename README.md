@@ -14,22 +14,17 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ##Layers
 The gadget creates a popup window which is populated by the information found in each layer. Then the user can change any aesthetic value found in a layer and see the changes happen in real time.
 
-<a href="http://www.youtube.com/watch?v=OvMWCHpCmaI" target="_blank"><img src="http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg" alt="Using ggedit on plot layers" style="width:845px;height:480px;" align="middle"></a>
 
-<!---
 ([![Using ggedit on plot layers](http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg)](http://www.youtube.com/watch?v=OvMWCHpCmaI)
--->
+
 
 To prevent any changes to the original plot the changed layers are cloned from the original plot object and are independent of it. They are also given in the output as objects so you can use them regardless of plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people. You can send over a plot the other people can edit the layers aesthetics and send back only the new layers where you can implement them and continue to work. 
 
 ##Themes
 ggedit also has a theme editor inside. The user can edit any element in the theme and see the changes happen in real time, making the trial and error process quick and easy. Once you like the theme you made and you have a list of plots you can transfer the theme to the other plots with one click or even make the theme the session theme regardless of the gadget. As with the layers the new theme object is also part of the output so you can collaborate easily.
 
-<a href="http://www.youtube.com/watch?v=813QxbsrvLM" target="_blank"><img src="http://img.youtube.com/vi/813QxbsrvLM/0.jpg" alt="Using ggedit on plot themes" style="width:845px;height:480px;"></a>
-
-<!---
 [![Using ggedit on plot themes](http://img.youtube.com/vi/813QxbsrvLM/0.jpg)](http://www.youtube.com/watch?v=813QxbsrvLM)
--->
+
 
 ##Outputs
 The gadget returns a list containing 4 elements
@@ -50,11 +45,9 @@ The gadget returns a list containing 4 elements
 ##rgg
 After you finish editing the plots the natural progression is to use them in the rest of the script. In ggedit there is the function rgg (remove and replace ggplot). Using this function you can chain into the original code changes to the plot without creating multiplying script needlessly.
 
-<a href="http://www.youtube.com/watch?v=0QmJHwoWQWM" target="_blank"><img src="http://img.youtube.com/vi/0QmJHwoWQWM/0.jpg" alt="Using ggedit with ggplot2 objects" style="width:845px;height:480px;"></a>
 
-<!---
 [![Using ggedit with ggplot2 objects](http://img.youtube.com/vi/0QmJHwoWQWM/0.jpg)](http://www.youtube.com/watch?v=0QmJHwoWQWM)
---->
+
 
 With this function you can 
 
