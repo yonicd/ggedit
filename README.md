@@ -74,12 +74,3 @@ plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
                                        list(rows=2,cols=3))
 )
 ```
-
-<hr>
-<em>
-Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
-
-To learn mode about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.
-
-Contact: For questions and comments, feel free to email me at: yonis@metrumrg.com or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>.
-</em>
