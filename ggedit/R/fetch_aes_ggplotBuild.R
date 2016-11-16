@@ -9,7 +9,6 @@ fetch_aes_ggplotBuild=function(p,geom_list){
   })
   
   mapping_class=lapply(train_map(p),function(m) class(p$data[,as.character(m)]))
-  
   p.Elems=lapply(p$layers,function(x) fetch_layer_aes(self=x$geom,params=x$aes_params))
   names(p.Elems)=geom_list
   gb=ggplot_build(p)
@@ -33,10 +32,10 @@ fetch_aes_ggplotBuild=function(p,geom_list){
                 if(any(cl.layer$aes==item)) {
                   aes.var.nm=cl.layer$var[cl.layer$aes==item]
                   aes.var=p$data[aes.var.nm]
-                  if(any(names(p$data)%in%names(gb$panel$layout))){
-                    order.nms=c('PANEL',names(gb$panel$layout)[which(names(gb$panel$layout)%in%names(p$data))])
+                  if(any(names(p$data)%in%names(gb$layout$panel_layout))){
+                    order.nms=c('PANEL',names(gb$layout$panel_layout)[which(names(gb$layout$panel_layout)%in%names(p$data))])
                     aes.var=p$data%>%
-                      left_join(gb$panel$layout%>%select_(.dots=c(order.nms)),
+                      left_join(gb$layout$panel_layout%>%select_(.dots=c(order.nms)),
                                 by=order.nms[-1])%>%arrange_(order.nms)
                   }
                   if(nrow(x$data)!=nrow(aes.var)){
