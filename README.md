@@ -17,7 +17,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
   - theme
-    - margin,debug,inherit.blank,arrow are not currently available to edit
+    - margin,arrow are not currently available to edit
 
 ##Layers
 The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.
