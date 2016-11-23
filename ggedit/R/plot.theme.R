@@ -7,7 +7,7 @@
 
 plot.theme=function(obj,fnt=11){
   objName=deparse(substitute(obj))
-  objList=themeFetch(obj)
+  objList=ggedit:::themeFetch(obj)
   
   objDF=rbind(objList[1:3]%>%ldply(.fun=function(x){
     out=x[-length(x)]%>%ldply(.id='element')
@@ -19,28 +19,29 @@ plot.theme=function(obj,fnt=11){
     out$call=x$call
     out
   },.id='subTheme'),.id='Theme'))%>%
-    mutate_each(funs(as.character))%>%mutate(subTheme=ifelse(is.na(subTheme),Theme,subTheme),
+    mutate_each(funs(as.character))%>%mutate(subTheme=ifelse(is.na(subTheme),"",subTheme),
                                              Theme=factor(Theme,levels=names(objList)),
                                              value=ifelse(value%in%c("",NA),".",value))%>%
     do(.,cbind(.,elem_num=1:nrow(.)))%>%
-    mutate(lbl=paste0(as.character(value),"^(",elem_num,")"))
-  
+    mutate(class=ifelse(call=='unit','unit',class),
+           lbl=paste0(as.character(value),"[",class,"]^(",elem_num,")"),
+           call=ifelse(call%in%c('character','unit',subTheme),'',call),
+           element=ifelse(element==subTheme,'',element)
+    )
   
   
   objDF%>%ggplot(aes(x=subTheme,y=element))+
-    geom_tile(aes(fill=call),colour='black',alpha=0.25)+
-    geom_text(aes(label=lbl),size=2,parse=T)+facet_wrap(~Theme,scales='free')+
-    labs(title='Periodic Chart of GGplot Theme Elements',subtitle=objName)+
+    geom_tile(aes(fill=Theme),colour='black',alpha=0.25)+
+    geom_text(aes(label=lbl),size=1,parse=T)+facet_wrap(Theme~call,scales='free')+
+    labs(title='Periodic Chart of GGplot Theme Elements',
+         subtitle=paste0("theme call: ",objName))+
     scale_fill_discrete(name="Element Class")+
-    theme(panel.background  = element_rect(fill='white',colour='black'),
+    theme(panel.background  = element_rect(fill='white'),
           text=element_text(size=fnt),
           axis.title = element_blank(),
           axis.ticks = element_blank(),
           axis.text.x = element_text(size=rel(0.7),angle=90),
           axis.text.y = element_text(size=rel(0.7)),
           strip.background = element_rect(fill='white',colour='black'),
-          legend.position = 'top')
-  
-  
-  
+          legend.position = 'none') 
 }
