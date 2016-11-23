@@ -2,19 +2,26 @@
 #' @export
 #' @param obj ggplot theme
 #' @param fnt numeric font size of text in plot
+#' @param themePart character vector that denotes the part of the theme to return NULL returns all. 
+#' The options to choose are (line,rect,text,axis,legend,panel,plot,strip)
 #' @examples
 #' plot(theme_bw(),fnt=10)
+#' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
 
-plot.theme=function(obj,fnt=11){
+plot.theme=function(obj,fnt=11,themePart=NULL){
   objName=deparse(substitute(obj))
-  objList=ggedit:::themeFetch(obj)
+  objList=themeFetch(obj)
   
-  objDF=rbind(objList[1:3]%>%ldply(.fun=function(x){
+  objListDepth=sapply(objList,themeListDepth)
+  
+  
+  
+  objDF=rbind(objList[objListDepth==1]%>%ldply(.fun=function(x){
     out=x[-length(x)]%>%ldply(.id='element')
     out$call=x$call
     out
   },.id='Theme')%>%mutate(subTheme=NA),
-  objList[-c(1:3)]%>%ldply(.fun=function(y) y%>%ldply(.fun=function(x){
+  objList[!objListDepth==1]%>%ldply(.fun=function(y) y%>%ldply(.fun=function(x){
     out=x[-length(x)]%>%ldply(.id='element')
     out$call=x$call
     out
@@ -29,10 +36,18 @@ plot.theme=function(obj,fnt=11){
            element=ifelse(element==subTheme,'',element)
     )
   
+  lblSz=1
+  xaxis.angle=90
+  
+  if(!is.null(themePart)) {
+    objDF=objDF%>%filter(Theme%in%themePart)
+    lblSz=3
+    xaxis.angle=0
+  }
   
   objDF%>%ggplot(aes(x=subTheme,y=element))+
     geom_tile(aes(fill=Theme),colour='black',alpha=0.25)+
-    geom_text(aes(label=lbl),size=1,parse=T)+facet_wrap(Theme~call,scales='free')+
+    geom_text(aes(label=lbl),size=lblSz,parse=T)+facet_wrap(Theme~call,scales='free')+
     labs(title='Periodic Chart of GGplot Theme Elements',
          subtitle=paste0("theme call: ",objName))+
     scale_fill_discrete(name="Element Class")+
@@ -40,8 +55,8 @@ plot.theme=function(obj,fnt=11){
           text=element_text(size=fnt),
           axis.title = element_blank(),
           axis.ticks = element_blank(),
-          axis.text.x = element_text(size=rel(0.7),angle=90),
+          axis.text.x = element_text(size=rel(0.7),angle=xaxis.angle),
           axis.text.y = element_text(size=rel(0.7)),
           strip.background = element_rect(fill='white',colour='black'),
-          legend.position = 'none') 
+          legend.position = 'none')
 }
