@@ -11,8 +11,7 @@
 
 \item{fnt}{numeric font size of text in plot}
 
-\item{themePart}{character vector that denotes the part of the theme to return NULL returns all. 
-The options to choose are (line,rect,text,axis,legend,panel,plot,strip)}
+\item{themePart}{character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)}
 }
 \examples{
 plot(theme_bw(),fnt=10)
