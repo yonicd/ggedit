@@ -15,8 +15,7 @@ class_layer=function(p){
       }
   }
   
-  
-  plot_aes$class=plot_cl
+  plot_aes$class=unlist(plot_cl)
   plot_aes$layer='plot'
   
   layer_aes=lapply(p$layers,function(x) data.frame(var=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F))
