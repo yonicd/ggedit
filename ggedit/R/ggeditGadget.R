@@ -1,6 +1,7 @@
 ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
   obj <- get(".p", envir = ggedit:::.ggeditEnv)
   minHeight <- get(".minHeight", envir = ggedit:::.ggeditEnv)  
+  verbose<- get(".verbose", envir = ggedit:::.ggeditEnv)  
   
     ui <-miniPage( 
       gadgetTitleBar("Edit ggplots themes and layer aesthetics"),
@@ -40,7 +41,7 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
           themeFetch(theme.now)
         })
 
-        #Layers----
+#Layers----
         output$layers=renderUI({
           obj.new<<-objList.new[[as.numeric(input$activePlot)]]
           radioButtons("geoms","Choose layer(s):",choices = geom_list(obj.new),selected = geom_list(obj.new)[1],inline = T)
@@ -166,7 +167,7 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
 
           )
         })
-        #Theme----
+#Theme----
         update.Theme=eventReactive(input$sendTheme,{
           obj.new<<-objList.new[[as.numeric(input$activePlot)]]
 
@@ -175,6 +176,7 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
           })
 
           strThemeCall=paste0("obj.new<<-obj.new+theme(",paste0(unlist(strThemeCallList),collapse = ","),")")
+          
           eval(parse(text=strThemeCall))
           objList.new[[as.numeric(input$activePlot)]]<<-obj.new
 
@@ -252,9 +254,33 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
         observeEvent(input$done, {
           UpdatedPlots=objList.new
           class(UpdatedPlots)=c("ggedit",class(UpdatedPlots))
-          ggeditOut=list(UpdatedPlots=UpdatedPlots,UpdatedLayers=layersListObj(obj = objList.new,lbl=names(obj)),UpdatedLayersElements=layersList(objList.new))
+          
+          ggeditOut=list(UpdatedPlots=UpdatedPlots,
+                         UpdatedLayers=layersListObj(obj = objList.new,lbl=names(objList.new)),
+                         UpdatedLayersElements=layersList(objList.new)
+                         )
+          
+          if(verbose) ggeditOut$UpdatedLayerCalls=lapply(objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+          
+          if(exists('themeUpdate',envir = .GlobalEnv)) {
+            ggeditOut$UpdatedThemes=themeUpdate
+            if(verbose){
+              ggeditOut$UpdatedThemeCalls=lapply(objList.new,function(p,input){
+                if(length(p$theme)>0){
+                x.theme=themeFetch(p$theme)
+                x=lapply(names(x.theme),function(item){themeNewVal(x.theme[item],p,input)})
+                paste0("theme(",paste0(unlist(x),collapse = ","),")")
+                }else{
+                c('list()')
+                }
+              },input)
+            } 
+            }
+          
+          
+          
           class(ggeditOut)=c("ggedit",class(ggeditOut))
-          if(exists('themeUpdate',envir = .GlobalEnv)) ggeditOut$UpdatedThemes=themeUpdate
+          
           rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate')],envir = .GlobalEnv)
           stopApp(ggeditOut)
         })

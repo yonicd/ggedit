@@ -80,7 +80,7 @@
 #' pnew=ggedit(p)
 #' pnew
 
-ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),...) {
+ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),verbose=F,...) {
 
   if(!Sys.getenv("RSTUDIO") == "1") viewer=browserViewer()
   
@@ -98,5 +98,6 @@ ggedit <- function(p.in,viewer=paneViewer(minHeight = 1000),...) {
   
   assign('.minHeight',envir = ggedit:::.ggeditEnv,minHeight)
   assign('.p',envir = ggedit:::.ggeditEnv,p.in)
+  assign('.verbose',envir = ggedit:::.ggeditEnv,verbose)
   ggeditGadget()
   }

@@ -16,7 +16,7 @@
 #' newLayer=cloneLayer(l=p$layers[[1]])
 #' all.equal(p$layers[[1]],newLayer)
 
-cloneLayer=function(l){
+cloneLayer=function(l,verbose=F){
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
                 'aes_params','geom_params','stat_params')
@@ -37,5 +37,27 @@ cloneLayer=function(l){
   x$params=append(x$params,x$aes_params)
   x$params=x$params[!duplicated(names(x$params))]
   x$geom_params<-x$aes_params<-x$stat_params<-NULL
-  do.call(layer,x)
+  
+  if(verbose){
+    nm=names(x)
+    nm=nm[!nm%in%c('geom','params','mapping')]
+    paste0(paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),'(',
+           paste0('mapping=aes(',paste0(lapply(names(x$mapping),function(item){paste(item,x$mapping[[item]],sep="=")}),collapse=","),')'),',',
+           paste0(lapply(names(unlist(x$params)),function(item) {
+             if(item=='formula'){
+               paste0('formula=as.formula("',paste0(as.character(x$params[[item]])[-1],collapse='~'),'")')
+             }else{
+               paste(item,x$params[[item]],sep="=") 
+             }
+             }),collapse=","),',',
+           paste0(lapply(nm,function(y){
+             if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
+             if(is.character(x[[y]])) out=paste(y,paste0('"',x[[y]],'"'),sep="=")
+             if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
+             return(out)
+           }),collapse=','),
+           ')')
+  }else{
+    do.call(layer,x) 
+  }
 }
