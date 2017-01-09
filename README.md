@@ -18,7 +18,7 @@ A new argument has been added to the ggedit call. If verbose is set to true on t
   - Theme output: In addition to the new theme object the user will also get the ggplot script that can be parsed/pasted in the console to create the same theme.
 
 ###plot.theme
-Function that will visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active. If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base. 
+Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active. If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base. 
 
 ##Limitations
   - layers
