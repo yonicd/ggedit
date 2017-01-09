@@ -4,7 +4,7 @@
 \alias{ggedit}
 \title{Interactive shiny gadget for editing ggplot layers and themes.}
 \usage{
-ggedit(p.in, viewer = paneViewer(minHeight = 1000), ...)
+ggedit(p.in, viewer = paneViewer(minHeight = 1000), verbose = F, ...)
 }
 \arguments{
 \item{p.in}{ggplot plot object or list of objects}

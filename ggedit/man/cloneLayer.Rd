@@ -2,15 +2,17 @@
 % Please edit documentation in R/cloneLayer.R
 \name{cloneLayer}
 \alias{cloneLayer}
-\title{Creates an independent copy of a ggplot object layer}
+\title{Creates an independent copy of a ggplot layer object}
 \usage{
-cloneLayer(l)
+cloneLayer(l, verbose = F)
 }
 \arguments{
 \item{l}{ggplot2 object layer}
+
+\item{verbose}{toggle to control if the output is ggproto object (verbose==FALSE,default) or string of layer call (verbose==TRUE)}
 }
 \value{
-ggproto object
+ggproto or string object (conditional on verbose)
 }
 \description{
 Creates copies of ggplot layers from within ggplot objects
@@ -20,7 +22,8 @@ Creates copies of ggplot layers from within ggplot objects
 ggplot objects are comprimsed of layer objects. Once compiled they 
 are part of the plot object environment and if they are changed internally regardless of 
 where they are in the (ie different environment) it will change the original plot. This function allows to 
-create replicates of the plot layers and edit them independent of the original plot.
+create replicates of the plot layers and edit them independent of the original plot. When setting verbose to TRUE
+function returns the ggplot2 call as a string to paste in regular ggplot script to generate the layer.
 }
 \examples{
 p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
@@ -28,5 +31,8 @@ p=p+geom_point(aes(colour=Species))+geom_line()
 p$layers[[1]]
 newLayer=cloneLayer(l=p$layers[[1]])
 all.equal(p$layers[[1]],newLayer)
+(v=cloneLayer(l=p$layers[[1]],verbose=T))
+eval(parse(text=v))
+all.equal(p$layers[[1]],eval(parse(text=v)))
 }
 

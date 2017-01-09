@@ -11,11 +11,22 @@ ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object o
 devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
 
+##Updates
+###Verbose outputs
+A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
+  - Layer output: In addition to the new ggproto object the user will also get the ggplot script that can be parsed/pasted in the console to create the same layer. 
+  - Theme output: In addition to the new theme object the user will also get the ggplot script that can be parsed/pasted in the console to create the same theme.
+
+###plot.theme
+Function that will visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active. If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base. 
+
 ##Limitations
   - layers
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
+    - variable must have literal names and not a function, e.g.:
+    `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=factor(Species)))+geom_point()`
   - theme
     - margin,arrow are not currently available to edit
 
@@ -43,11 +54,14 @@ The gadget returns a list containing 4 elements
   - updatedLayersElements
     - For each plot a list elements and their values in each layer
     - Can be used to update the new values in the original code
+  - UpdatedLayerCalls
+    - For each plot a list of scripts that can be run directly from the console to create a layer
   - updatedThemes
     - For each plot a list of updated theme objects
     - Portable object
     - If the user doesn't edit the theme updatedThemes will not be returned
-
+  - UpdatedThemeCalls
+    - For each plot a list of scripts that can be run directly from the console to create a theme
 ##rgg
 After you finish editing the plots the natural progression is to use them in the rest of the script. In ggedit there is the function rgg (remove and replace ggplot). Using this function you can chain into the original code changes to the plot without multiplying script needlessly.
 

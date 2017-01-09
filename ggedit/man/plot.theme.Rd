@@ -4,10 +4,12 @@
 \alias{plot.theme}
 \title{Plots theme elements in tile layout}
 \usage{
-\method{plot}{theme}(obj, fnt = 11, themePart = NULL)
+\method{plot}{theme}(obj, obj2 = NULL, fnt = 11, themePart = NULL)
 }
 \arguments{
 \item{obj}{ggplot theme}
+
+\item{obj2}{ggplot theme (optional as base to compare difference to obj)}
 
 \item{fnt}{numeric font size of text in plot}
 
@@ -16,5 +18,6 @@
 \examples{
 plot(theme_bw(),fnt=10)
 plot(theme_bw()\%+replace\%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
+plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
 }
 

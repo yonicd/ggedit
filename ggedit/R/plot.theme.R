@@ -1,41 +1,78 @@
 #' @title Plots theme elements in tile layout
 #' @export
 #' @param obj ggplot theme
+#' @param obj2 ggplot theme (optional as base to compare difference to obj)
 #' @param fnt numeric font size of text in plot
 #' @param themePart character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)
 #' @examples
 #' plot(theme_bw(),fnt=10)
 #' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
+#' plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
 
-plot.theme=function(obj,fnt=11,themePart=NULL){
-  objName=deparse(substitute(obj))
+plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
+  objName=paste0(deparse(substitute(obj))," Red is active element")
   objList=themeFetchFull(obj)
-  
   objListDepth=sapply(objList,themeListDepth)
   
-  objDF=rbind(objList[objListDepth==1]%>%ldply(.fun=function(x){
-    out=x[-length(x)]%>%ldply(.id='element')
-    out$call=x$call
-    out
-  },.id='Theme')%>%mutate(subTheme=NA),
-  objList[!objListDepth==1]%>%ldply(.fun=function(y) y%>%ldply(.fun=function(x){
-    out=x[-length(x)]%>%ldply(.id='element')
-    out$call=x$call
-    out
-  },.id='subTheme'),.id='Theme'))%>%
-    mutate_each(funs(as.character))%>%mutate(subTheme=ifelse(is.na(subTheme),"",subTheme),
-                                             Theme=factor(Theme,levels=names(objList)),
-                                             value=ifelse(value%in%c("",NA),".",value))%>%
-    do(.,cbind(.,elem_num=1:nrow(.)))%>%
-    mutate(class=ifelse(call=='unit','unit',class),
-           value=ifelse(grepl('#',value),gsub("#","'#'*",value),value),
-           value=ifelse(grepl('TRUE|FALSE',value),paste0("'",value,"'"),value),
-           lbl=paste0(as.character(value),"[",class,"]^(",elem_num,")"),
-           call=ifelse(call%in%c('character','unit',subTheme),'',call),
-           element=ifelse(element==subTheme,'',element),
-           colLbl=ifelse(value%in%c('.',''),'a','b')
-    )
+  objL=list(compare=obj)
   
+  if(!is.null(obj2)){
+    objName=paste0('compare:',deparse(substitute(obj)),' to ',
+                   'base:',deparse(substitute(obj2)),
+                    ' Blue updated element with new value, Red active element')
+    
+    objL=list(compare=obj,base=obj2)
+  } 
+      
+    objL=llply(objL,.fun = function(obj){
+      objList=themeFetchFull(obj)
+      objListDepth=sapply(objList,themeListDepth)      
+      return(list(obj=obj,objList=objList,objListDepth=objListDepth))
+    })
+    
+  
+  objDF=ldply(objL,.fun = function(obj){
+    dfOut=bind_rows(
+      obj$objList[obj$objListDepth==1]%>%ldply(.fun=function(x){
+        out=x[-length(x)]%>%ldply(.id='element')
+        out$call=x$call
+        out
+      },.id='Theme')%>%mutate(subTheme=NA)%>%mutate_each(funs(as.character)),
+      
+      obj$objList[!obj$objListDepth==1]%>%ldply(.fun=function(y) y%>%ldply(.fun=function(x){
+        out=x[-length(x)]%>%ldply(.id='element')
+        out$call=x$call
+        out
+      },.id='subTheme'),.id='Theme')%>%mutate_each(funs(as.character))
+    )
+    
+      dfOut%>%
+        mutate(subTheme=ifelse(is.na(subTheme),"",subTheme),
+               Theme=factor(Theme,levels=names(objList)),
+               value=ifelse(value%in%c("",NA),".",value)
+        )%>%
+        do(.,cbind(.,elem_num=1:nrow(.)))%>%
+        mutate(class=ifelse(call=='unit','unit',class),
+               value=ifelse(grepl('#',value),gsub("#","'#'*",value),value),
+               value=ifelse(grepl('TRUE|FALSE|[=]',value),paste0("'",value,"'"),value),
+               lbl=paste0(as.character(value),"[",class,"]^(",elem_num,")"),
+               call=ifelse(call%in%c('character','unit',subTheme),'',call),
+               element=ifelse(element==subTheme,'',element),
+               colLbl=ifelse(value%in%c('.',''),'a','b')
+        )
+    
+  },.id = 'idTheme')
+  
+  if(!is.null(obj2)){
+  diffIdx=objDF%>%select(idTheme:value,subTheme)%>%dcast(Theme+subTheme+element+name~idTheme,value.var='value')%>%filter(compare!=base)%>%left_join(objDF,by=c("Theme", "subTheme", "element", "name"))%>%
+    mutate(
+    lbl=paste0(as.character(base),"[",class,"]",as.character(compare),"[",class,"]^(",elem_num,")"),
+    colLbl='c'
+  )%>%filter(idTheme=='compare')%>%select(elem_num,colLbl,lbl)}
+    
+  objDF=objDF%>%filter(idTheme=='compare')
+  
+  if(!is.null(obj2)) objDF$colLbl[which(objDF$elem_num%in%diffIdx$elem_num)]=diffIdx$colLbl
   
   lblSz=1
   xaxis.angle=90
@@ -54,10 +91,13 @@ plot.theme=function(obj,fnt=11,themePart=NULL){
   objDF=objDF%>%mutate(ThemeCall=paste(Theme,call,sep="\n"))
   objDF$ThemeCall=factor(objDF$ThemeCall,levels=N$ThemeCall)
   
+  colVals=c("grey","red",'blue')[1:length(unique(objDF$colLbl))]
+
   p=objDF%>%ggplot(aes(x=subTheme,y=element))+
     geom_tile(aes(fill=colLbl),colour='black',alpha=0.25)+
-    geom_text(aes(label=lbl),size=fnt/5,parse=T)+facet_wrap(~ThemeCall,scales='free',shrink=T,dir = 'v')+
-    scale_fill_manual(values=c("grey","red"))+
+    geom_text(aes(label=lbl),size=fnt/5,parse=T)+
+    facet_wrap(~ThemeCall,scales='free',shrink=T,dir = 'v')+
+    scale_fill_manual(values=colVals)+
     theme(panel.background  = element_rect(fill='white'),
           text=element_text(size=fnt),
           axis.title = element_blank(),
