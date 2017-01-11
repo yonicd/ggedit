@@ -42,7 +42,7 @@ cloneLayer=function(l,verbose=F){
   x$params=append(x$params,x$aes_params)
   x$params=x$params[!duplicated(names(x$params))]
   x$geom_params<-x$aes_params<-x$stat_params<-NULL
-  
+
   if(verbose){
     nm=names(x)
     nm=nm[!nm%in%c('geom','params','mapping')]
