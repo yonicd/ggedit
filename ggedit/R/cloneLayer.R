@@ -46,22 +46,31 @@ cloneLayer=function(l,verbose=F){
   if(verbose){
     nm=names(x)
     nm=nm[!nm%in%c('geom','params','mapping')]
-    paste0(paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),'(',
-           paste0('mapping=aes(',paste0(lapply(names(x$mapping),function(item){paste(item,x$mapping[[item]],sep="=")}),collapse=","),')'),',',
+    strRet=paste0(paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),'(',
+           paste0('mapping=aes(',paste0(lapply(names(x$mapping),
+                                               function(item){
+                                                 paste(item,x$mapping[[item]],sep="=")
+                                                 }
+                                               ),
+                                        collapse=","),
+                  ')'),
+           ',',
            paste0(lapply(names(unlist(x$params)),function(item) {
-             if(item=='formula'){
-               paste0('formula=as.formula("',paste0(as.character(x$params[[item]])[-1],collapse='~'),'")')
-             }else{
-               paste(item,x$params[[item]],sep="=") 
-             }
+             cl=class(x$params[[item]])
+             out=paste(item,x$params[[item]],sep="=") 
+             if(cl=='character') out=paste(item,paste0('"',x$params[[item]],'"'),sep="=") 
+             if(cl=='formula') out=paste0('formula=as.formula("',paste0(as.character(x$params[[item]])[-1],collapse='~'),'")')
+             return(out)
              }),collapse=","),',',
            paste0(lapply(nm,function(y){
              if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
              if(is.character(x[[y]])) out=paste(y,paste0('"',x[[y]],'"'),sep="=")
              if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
+             if(is.data.frame(x[[y]])) out=paste(y,'"[InputDataFrame]"',sep="=")
              return(out)
            }),collapse=','),
            ')')
+    gsub('aes()','NULL',strRet,fixed = T) #failsafe for empty aes() call
   }else{
     do.call(layer,x) 
   }

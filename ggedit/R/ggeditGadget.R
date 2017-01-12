@@ -7,11 +7,16 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
       gadgetTitleBar("Edit ggplots themes and layer aesthetics"),
       miniContentPanel(
       fluidPage(
+        div(class='row',
         column(width=3,actionLink("updateElem","Update Plot Layer")),
         column(width=2,actionLink("updateTheme","Update Plot Theme")),
         column(width=2,actionLink("SetThemeGrid",'Update Grid Theme')),
         column(width=3,actionLink("SetThemeGlobal",'Update Global Theme')),
-        column(width=3,selectInput("activePlot","Choose Plot:",choices = split(1:length(obj),names(obj)), selected = 1)),
+        column(width=2,actionLink('viewVerbose','View Layer Code'))
+        ),
+        hr(),
+        conditionalPanel('input.viewVerbose',uiOutput("SimPrint")),
+        column(width=3,selectInput("activePlot","Choose Plot:",choices = split(1:length(obj),factor(names(obj),levels=names(obj),ordered=T)), selected = 1)),
         column(width=6,uiOutput('layers')),
         plotOutput(outputId = "Plot",height = "300px"),
         uiOutput('popElems'),
@@ -25,6 +30,8 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
         
         objList.new<<- obj 
 
+        baseLayerVerbose=lapply(obj,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T)))
+        
         plotIdx=reactive({
           if(is.null(input$activePlot)){
             1
@@ -290,8 +297,41 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
           stopApp(NULL)
         })
         
+        simTxt=reactive({
+          LayerVerbose<-lapply(objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+          if(is.null(input$activePlot)){
+            aP=1
+          }else{
+            aP=as.numeric(input$activePlot)
+          } 
+          
+          if(is.null(input$geoms)){
+            l=1
+          }else{
+            l=which(geom_list(obj.new)==input$geoms)
+          }
+          
+          a=input$updateElem
+          a1=input$updateElemPopup
+          
+          if(length(l)==0) l=1
+          strNew=strBase=''
+          if(length(LayerVerbose)>0) strNew=LayerVerbose[[aP]][[l]]
+          
+          if(length(baseLayerVerbose)>0) strBase=baseLayerVerbose[[aP]][[l]]
+          return(list(Original=strBase,Edited=strNew))
+        })
+        
+        output$SimPrint <- renderUI({
+          junk=''
+          if(length(simTxt())>0) junk=textConnection(capture.output(simTxt()))
+          toace=paste0(readLines(junk),collapse='\n')
+          if(input$viewVerbose%%2==1) aceEditor(outputId = "codeout",value=toace,mode = "r", theme = "chrome", height = "100px", fontSize = 12)
+        })
+        
+        
     }
-    
+
     runGadget(ui, server, stopOnCancel = FALSE, viewer = viewer)
   
 

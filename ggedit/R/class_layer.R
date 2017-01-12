@@ -21,11 +21,31 @@ class_layer=function(p){
   plot_aes$layer='plot'}
   
   layer_aes=lapply(p$layers,function(x) data.frame(var=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F))
-  names(layer_aes)=geom_list(p)
+  layer_data=lapply(p$layers,function(x) x$data)
+  names(layer_aes)=names(layer_data)=geom_list(p)
   layer_aes=ldply(layer_aes,.id = 'layer')
-  layer_aes$class=sapply(layer_aes$var,function(x) if(x%in%names(p$data)) class(p$data[,x]))
+
+  layer_aes=ddply(layer_aes,.(var,aes),.fun=function(df){
+    if(class(layer_data[[df$layer]])=='waiver'){
+        pData=p$data
+      }else{
+        pData=layer_data[df$layer][[1]]
+      }
+    if(df$var%in%names(pData)) df$class=class(pData[,df$var])
+    df
+  })
+
   layer_bind=rbind(plot_aes,layer_aes)
   
-  layer_bind$level.num=sapply(layer_bind$var,function(x) if(x%in%names(p$data)) length(unique(p$data[,x])))
+  layer_bind=ddply(layer_bind,.(var,aes),.fun=function(df){
+    if(class(layer_data[[df$layer]])%in%c('waiver','NULL')){
+      pData=p$data
+    }else{
+      pData=layer_data[df$layer][[1]]
+    }
+    if(df$var%in%names(pData)) df$level.num=length(unique(pData[,df$var]))
+    df
+  })
+  
   return(layer_bind)
 }
