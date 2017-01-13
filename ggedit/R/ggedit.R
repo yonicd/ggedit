@@ -61,6 +61,10 @@
 #' 
 #' Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme. 
 #' 
+#' View Layer Code:
+#' 
+#' Opens an ace editor to compare the active layer initial script call and the updated script call.
+#' 
 #' The ggplot objects returned (layers and themes) can be used on any ggplot object.
 #' @return 
 #' List of elements
@@ -68,7 +72,9 @@
 #' \item{updatedPlots}{list containing updated ggplot objects}
 #' \item{updatedLayers}{For each plot a list of updated layers (ggproto) objects}
 #' \item{UpdatedLayersElements}{For each plot a list elements and their values in each layer}
+#' \item{UpdatedLayerCalls}{For each plot a list of scripts that can be run directly from the console to create a layer}
 #' \item{updatedThemes}{For each plot a list of updated theme objects}
+#' \item{UpdatedThemeCalls}{For each plot a list of scripts that can be run directly from the console to create a theme}
 #' } 
 #'
 #' 
