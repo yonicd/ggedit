@@ -13,16 +13,18 @@ p0=list(
   )
 
 a=ggedit(p.in = p0,verbose = T)
+ldply(a,names)
 
 plot(a)
 
 comparePlots=c(p0,a$UpdatedPlots)
 names(comparePlots)[c(3:4)]=paste0(names(comparePlots)[c(3:4)],"Updated")
 
+#Initial Comparison Plot
 plot(as.ggedit(comparePlots))
 
 #Apply updated theme of first plot to second plot
-comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes[[1]]
+(comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes[[1]])
 
 plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
       plot.layout = list(list(rows=1,cols=1),list(rows=2,cols=1))
@@ -35,15 +37,20 @@ plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
 (comparePlots$ScatterMistake=p0$Scatter+a$UpdatedLayers$ScatterFacet[[1]])
 
 #Remove
-(comparePlots$ScatterNoLayer=p0$Scatter%>%rgg(oldGeom = 'point'))
+(comparePlots$ScatterNoLayer=p0$Scatter%>%
+  rgg(oldGeom = 'point'))
 
 #Replace Geom_Point layer on Scatter Plot
-(comparePlots$ScatterNewLayer=p0$Scatter%>%rgg(oldGeom = 'point',newLayer = a$UpdatedLayers$ScatterFacet[[1]]))
+(comparePlots$ScatterNewLayer=p0$Scatter%>%
+  rgg(oldGeom = 'point',newLayer = a$UpdatedLayers$ScatterFacet[[1]]))
 
 #Remove and Replace Geom_Point layer and add the new theme
-(comparePlots$ScatterNewLayerTheme=p0$Scatter%>%rgg(oldGeom = 'point',newLayer = a$UpdatedLayers$ScatterFacet[[1]])+a$UpdatedThemes$Scatter)
+(comparePlots$ScatterNewLayerTheme=p0$Scatter%>%
+  rgg(oldGeom = 'point',
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]])+
+  a$UpdatedThemes$Scatter)
 
-plot(as.ggedit(comparePlots))
+#plot(as.ggedit(comparePlots))
 
 #Cloning Layers
 ##A geom_point layer
@@ -71,9 +78,10 @@ plot(as.ggedit(comparePlots))
   a$UpdatedLayerCalls$ScatterFacet[[1]]
   
 #Visualize Themes
-plot(a$UpdatedThemes$Scatter)
-plot(a$UpdatedThemes$Scatter,themePart = c('plot','legend'),fnt = 18)
+pTheme=list()
+(pTheme$Base=plot(a$UpdatedThemes$Scatter))
+(pTheme$Select=plot(a$UpdatedThemes$Scatter,themePart = c('plot','legend'),fnt = 18))
 
 #Visually Compare Theme
-plot(obj=a$UpdatedThemes$Scatter,obj2 = ggplot2:::theme_get())
+(pTheme$Compare=plot(obj=a$UpdatedThemes$Scatter,obj2 = ggplot2:::theme_get()))
 
