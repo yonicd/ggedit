@@ -1,5 +1,9 @@
+#Metrum Research Group (@MetrumRG)
+##Jonathan Sidi (@yoniceedee)
+
 rm(list=ls())
 library(ggedit)
+#?ggedit
 
 p0=list(
   Scatter=iris%>%ggplot(aes(x =Sepal.Length,y=Sepal.Width))+

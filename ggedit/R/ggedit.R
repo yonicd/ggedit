@@ -6,6 +6,7 @@
 #' 
 #' @param p.in ggplot plot object or list of objects
 #' @param viewer shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer
+#' @param verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
 #' @param \dots parameters that are passed to shiny viewer functions
 #' @details 
 #' An interactive shiny gadget that inputs ggplot objects.
@@ -73,6 +74,8 @@
 #' \item{updatedLayers}{For each plot a list of updated layers (ggproto) objects}
 #' \item{UpdatedLayersElements}{For each plot a list elements and their values in each layer}
 #' \item{UpdatedLayerCalls}{For each plot a list of scripts that can be run directly from the console to create a layer}
+#' \item{updatedScales}{For each plot a list of updated scale objects}
+#' \item{UpdatedScalesCalls}{For each plot a list of scripts that can be run directly from the console to create a scale object}
 #' \item{updatedThemes}{For each plot a list of updated theme objects}
 #' \item{UpdatedThemeCalls}{For each plot a list of scripts that can be run directly from the console to create a theme}
 #' } 

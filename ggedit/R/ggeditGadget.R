@@ -29,7 +29,9 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
         #Plots----
         
         objList.new<<- obj 
-
+        nonLayers<<-vector('list',length(objList.new))
+        nonLayersTxt<<-vector('list',length(objList.new))
+        
         baseLayerVerbose=lapply(obj,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T)))
         
         plotIdx=reactive({
@@ -67,6 +69,9 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
             }else{
               if(obj.Elems[[layer.idx]][[item]][['class']][[1]]=='numeric'){
                 palItem=paste0("'",eval(parse(text=paste0("input$pop",toupper(item)))),"'")
+                nonLayersTxt[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-paste0("scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])")
+                suppressMessages({nL=eval(parse(text=paste0("scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])")))})
+                nonLayers[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-nL
                 suppressMessages(eval(parse(text=paste0("obj.new<<-obj.new+scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])"))))
               }else{
                 vals=unlist(lapply(names(input)[grepl(paste0('pop',toupper(item),'[1-9]'),names(input))],function(x) input[[x]]))
@@ -76,6 +81,9 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
                 }
 
                 vals=paste0(vals,collapse=',')
+                nonLayersTxt[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_manual")]]<<-paste0("scale_",item,"_manual(values=c(",vals,"))")
+                suppressMessages({nL=eval(parse(text=paste0("scale_",item,"_manual(values=c(",vals,"))")))})
+                nonLayers[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_manual")]]<<-nL
                 suppressMessages(eval(parse(text=paste0("obj.new<<-obj.new+scale_",item,"_manual(values=c(",vals,"))"))))
               }
             }
@@ -266,8 +274,14 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
                          UpdatedLayers=layersListObj(obj = objList.new,lbl=names(objList.new)),
                          UpdatedLayersElements=layersList(objList.new)
                          )
-          
+
           if(verbose) ggeditOut$UpdatedLayerCalls=lapply(objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+                    
+          names(nonLayers)<<-names(nonLayersTxt)<<-names(objList.new)
+          ggeditOut$updatedScales=nonLayers
+
+          if(verbose) ggeditOut$UpdatedScalesCalls=nonLayersTxt            
+          
           
           if(exists('themeUpdate',envir = .GlobalEnv)) {
             ggeditOut$UpdatedThemes=themeUpdate
@@ -284,16 +298,14 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
             } 
             }
           
-          
-          
           class(ggeditOut)=c("ggedit",class(ggeditOut))
           
-          rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate')],envir = .GlobalEnv)
+          rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate','nonLayers','nonLayersTxt')],envir = .GlobalEnv)
           stopApp(ggeditOut)
         })
         
         observeEvent(input$cancel,{
-          rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate')],envir = .GlobalEnv)
+          rm(list = ls(envir = .GlobalEnv)[ls(envir = .GlobalEnv)%in%c('obj.new','obj.theme','objList.new','obj.Elems','themeUpdate','nonLayers','nonLayersTxt')],envir = .GlobalEnv)
           stopApp(NULL)
         })
         
