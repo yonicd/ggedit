@@ -13,6 +13,9 @@ p0=list(
   )
 
 a=ggedit(p.in = p0,verbose = T)
+
+#load('RstudioExampleObj.rda') #pre-run example
+
 ldply(a,names)
 
 plot(a)
@@ -24,7 +27,7 @@ names(comparePlots)[c(3:4)]=paste0(names(comparePlots)[c(3:4)],"Updated")
 plot(as.ggedit(comparePlots))
 
 #Apply updated theme of first plot to second plot
-(comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes[[1]])
+comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes$Scatter
 
 plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
       plot.layout = list(list(rows=1,cols=1),list(rows=2,cols=1))
@@ -42,7 +45,9 @@ plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
 
 #Replace Geom_Point layer on Scatter Plot
 (comparePlots$ScatterNewLayer=p0$Scatter%>%
-  rgg(oldGeom = 'point',newLayer = a$UpdatedLayers$ScatterFacet[[1]]))
+  rgg(oldGeom = 'point',
+      oldGeomIdx = 1,
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]]))
 
 #Remove and Replace Geom_Point layer and add the new theme
 (comparePlots$ScatterNewLayerTheme=p0$Scatter%>%
@@ -73,9 +78,9 @@ plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
 
 #Back to our example
   #Original geom_point layer
-  cloneLayer(p0$ScatterFacet$layers[[1]],verbose = T)
+  parse(text=cloneLayer(p0$ScatterFacet$layers[[1]],verbose = T))
   #new Layer
-  a$UpdatedLayerCalls$ScatterFacet[[1]]
+  parse(text=a$UpdatedLayerCalls$ScatterFacet[[1]])
   
 #Visualize Themes
 pTheme=list()
