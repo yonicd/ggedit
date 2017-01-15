@@ -68,11 +68,23 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
               obj.new$layers[[layer.idx]]<<-newLayer
             }else{
               if(obj.Elems[[layer.idx]][[item]][['class']][[1]]=='numeric'){
-                palItem=paste0("'",eval(parse(text=paste0("input$pop",toupper(item)))),"'")
-                nonLayersTxt[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-paste0("scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])")
-                suppressMessages({nL=eval(parse(text=paste0("scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])")))})
-                nonLayers[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-nL
-                suppressMessages(eval(parse(text=paste0("obj.new<<-obj.new+scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])"))))
+                #browser()
+                if(input[[paste0('pop',toupper(item),'fixedPal')]]!='Manual'){
+                  palItem=paste0("'",input[[paste0('pop',toupper(item),'fixedPal')]],"'")
+                  palTxt=paste0("scale_",item,"_gradientn(colours=brewer_pal(palette=",palItem,",direction=-1)(9)[1:5])")
+                  nonLayersTxt[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradientn")]]<<-palTxt
+                  suppressMessages({nL=eval(parse(text=palTxt))})
+                  nonLayers[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradientn")]]<<-nL
+                  suppressMessages({eval(parse(text=paste0("obj.new<<-obj.new+",palTxt)))})
+                }else{
+                  LowCol=paste0("'",input[[paste0('pop',input$pop,toupper(item),'Low')]],"'")
+                  HighCol=paste0("'",input[[paste0('pop',input$pop,toupper(item),'High')]],"'")
+                  ColTxt=paste0("scale_",item,"_gradient(low=",LowCol,",high=",HighCol,")")                  
+                  nonLayersTxt[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-ColTxt
+                  suppressMessages({nL=eval(parse(text=ColTxt))})
+                  nonLayers[[as.numeric(input$activePlot)]][[paste0("scale_",item,"_gradient")]]<<-nL
+                  suppressMessages({eval(parse(text=paste0("obj.new<<-obj.new+",ColTxt)))})
+                  }
               }else{
                 vals=unlist(lapply(names(input)[grepl(paste0('pop',toupper(item),'[1-9]'),names(input))],function(x) input[[x]]))
                 if(!item%in%c('size','shape','linetype')) vals=paste0("'",vals,"'")
@@ -122,9 +134,12 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
             }else{
               if(item_class=='numeric'){
                 if(item%in%c('colour','color','fill')){
-                  x=aesSelect(item)
-                  x$args$selected='Blues'
-                  x$args$choices=c(NA,'Blues', 'BuGn', 'BuPu', 'GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd', 'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu', 'Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd')
+                  x=vector('list',2)
+                  names(x)=c('type','args')
+                  x[['type']]=aesColourCont
+                  x$args=list(type=item)
+                  # x$args$selected='Blues'
+                  # x$args$choices=c(NA,'Blues', 'BuGn', 'BuPu', 'GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd', 'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu', 'Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd')
                   x=list(x=x)
                 }else{
                   stop("non colour aesthetics of numeric inputs are not currently supported in ggedit", call. = FALSE)

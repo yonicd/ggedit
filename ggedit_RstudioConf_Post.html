@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Jonathan Sidi, Metrum Research Group" />
+
+<meta name="date" content="2017-01-13" />
+
+<title>ggedit RStudio::conf 2017 Presentation</title>
+
+<script src="ggedit_RstudioConf_Presentation_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="ggedit_RstudioConf_Presentation_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="ggedit_RstudioConf_Presentation_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="ggedit_RstudioConf_Presentation_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="ggedit_RstudioConf_Presentation_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="ggedit_RstudioConf_Presentation_files/highlight/default.css"
+      type="text/css" />
+<script src="ggedit_RstudioConf_Presentation_files/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="ggedit_RstudioConf_Presentation_files/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">ggedit RStudio::conf 2017 Presentation</h1>
+<h4 class="author"><em><a href="https://twitter.com/yoniceedee" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a></em></h4>
+<h4 class="date"><em>January 13, 2017</em></h4>
+
+</div>
+
+
+<p>Last week the updated version of <a href="https://github.com/metrumresearchgroup/ggedit" target="_blank">ggedit</a> was presented in <a href="https://www.rstudio.com/conference/" target="_blank">RStudio::conf</a>. First, a BIG thank you to the whole RStudio team for a great conference and being so awesome to answer the insane amount of questions I had (sorry!). For a quick intro to the package see the <a href="http://r-bloggers.com/" target="_blank">previous post</a>.</p>
+
+<p>To install the package:</p>
+<code>devtools::install_github(&quot;metrumresearchgroup/ggedit&quot;,subdir=&quot;ggedit&quot;)</code>
+
+<div id="highlights-of-the-updated-version." class="section level1">
+<h1>Highlights of the updated version.</h1>
+<ul>
+<li>verbose script handling during updating in the gagdet (see video below)</li>
+<li>verbose script output for updated layers and theme to parse and evaluate in console or editor</li>
+<li>colourpicker control for both single colours/fills and and palletes</li>
+<li>output for scale objects eg scale*grandient,scale*grandientn and scale*manual</li>
+<li>verbose script output for scales eg scale*grandient,scale*grandientn and scale*manual to parse and evaluate in console or editor</li>
+<li>input plot objects can have the data in the layer object and in the base object.
+<ul>
+<li><code>ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length,colour=Species))+geom_point()</code></li>
+<li><code>ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length))+geom_point(aes(colour=Species))</code></li>
+<li><code>ggplot()+geom_point(data=iris,aes(x=Sepal.Width,y=Sepal.Length,colour=Species))</code></li>
+</ul></li>
+<li>Visualizing theme objects in single output</li>
+<li>Visual Comparison of two themes objects in single output</li>
+</ul>
+<!---
+[![Verbose interactivity](http://img.youtube.com/vi/LN5OzswgUY4/0.jpg)](https://www.youtube.com/watch?v=LN5OzswgUY4)
+--->
+<iframe width="854" height="480" src="https://www.youtube.com/embed/LN5OzswgUY4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+<div id="presentation-from-the-conference" class="section level1">
+<h1>Presentation from the conference</h1>
+<pre class="r"><code>#devtools::install_github(&quot;metrumresearchgroup/ggedit&quot;,subdir=&quot;ggedit&quot;)
+rm(list=ls())
+library(ggedit)
+#?ggedit
+
+p0=list(
+  Scatter=iris%&gt;%ggplot(aes(x =Sepal.Length,y=Sepal.Width))+
+    geom_point(aes(colour=Species),size=6),
+  
+  ScatterFacet=iris%&gt;%ggplot(aes(x =Sepal.Length,y=Sepal.Width))+
+    geom_point(aes(colour=Species),size=6)+
+      geom_line(linetype=2)+
+    facet_wrap(~Species,scales=&#39;free&#39;)+
+    labs(title=&#39;Some Title&#39;)
+  )
+
+#a=ggedit(p.in = p0,verbose = T) #run ggedit
+dat_url &lt;- paste0(&quot;https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioExampleObj.rda&quot;)
+load(url(dat_url)) #pre-run example
+
+ldply(a,names)</code></pre>
+<pre><code>##                     .id      V1           V2
+## 1          UpdatedPlots Scatter ScatterFacet
+## 2         UpdatedLayers Scatter ScatterFacet
+## 3 UpdatedLayersElements Scatter ScatterFacet
+## 4     UpdatedLayerCalls Scatter ScatterFacet
+## 5         updatedScales Scatter ScatterFacet
+## 6    UpdatedScalesCalls Scatter ScatterFacet
+## 7         UpdatedThemes Scatter ScatterFacet
+## 8     UpdatedThemeCalls Scatter ScatterFacet</code></pre>
+<pre class="r"><code>plot(a)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-1-1.png" width="1152" /></p>
+<pre class="r"><code>comparePlots=c(p0,a$UpdatedPlots)
+names(comparePlots)[c(3:4)]=paste0(names(comparePlots)[c(3:4)],&quot;Updated&quot;)</code></pre>
+</div>
+<div id="initial-comparison-plot" class="section level1">
+<h1>Initial Comparison Plot</h1>
+<pre class="r"><code>plot(as.ggedit(comparePlots))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-2-1.png" width="1152" /></p>
+</div>
+<div id="apply-updated-theme-of-first-plot-to-second-plot" class="section level1">
+<h1>Apply updated theme of first plot to second plot</h1>
+<pre class="r"><code>comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes$Scatter
+
+plot(as.ggedit(comparePlots[c(&quot;ScatterFacet&quot;,&quot;ScatterFacetNewTheme&quot;)]),
+      plot.layout = list(list(rows=1,cols=1),list(rows=2,cols=1))
+     )</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-3-1.png" width="1152" /> #Using Remove and Replace Function ##Overlay two layers of same geom</p>
+<pre class="r"><code>(comparePlots$ScatterMistake=p0$Scatter+a$UpdatedLayers$ScatterFacet[[1]])</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-4-1.png" width="1152" /></p>
+<div id="remove" class="section level2">
+<h2>Remove</h2>
+<pre class="r"><code>(comparePlots$ScatterNoLayer=p0$Scatter%&gt;%
+  rgg(oldGeom = &#39;point&#39;))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-5-1.png" width="1152" /></p>
+</div>
+<div id="replace-geom_point-layer-on-scatter-plot" class="section level2">
+<h2>Replace Geom_Point layer on Scatter Plot</h2>
+<pre class="r"><code>(comparePlots$ScatterNewLayer=p0$Scatter%&gt;%
+  rgg(oldGeom = &#39;point&#39;,
+      oldGeomIdx = 1,
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]]))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-6-1.png" width="1152" /></p>
+</div>
+<div id="remove-and-replace-geom_point-layer-and-add-the-new-theme" class="section level2">
+<h2>Remove and Replace Geom_Point layer and add the new theme</h2>
+<pre class="r"><code>(comparePlots$ScatterNewLayerTheme=p0$Scatter%&gt;%
+  rgg(oldGeom = &#39;point&#39;,
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]])+
+  a$UpdatedThemes$Scatter)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-7-1.png" width="1152" /></p>
+</div>
+</div>
+<div id="cloning-layers" class="section level1">
+<h1>Cloning Layers</h1>
+<div id="a-geom_point-layer" class="section level2">
+<h2>A geom_point layer</h2>
+<pre class="r"><code>(l=p0$Scatter$layers[[1]])</code></pre>
+<pre><code>## mapping: colour = Species 
+## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+</div>
+<div id="clone-the-layer" class="section level2">
+<h2>Clone the layer</h2>
+<pre class="r"><code>(l1=cloneLayer(l))</code></pre>
+<pre><code>## mapping: colour = Species 
+## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+<div id="test-that-all-is-equal" class="section level3">
+<h3>Test that all is equal</h3>
+<pre class="r"><code>all.equal(l,l1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="verbose-copy-of-layer" class="section level2">
+<h2>Verbose copy of layer</h2>
+<pre class="r"><code>(l1.txt=cloneLayer(l,verbose = T))</code></pre>
+<pre><code>## [1] &quot;geom_point(mapping=aes(colour=Species),na.rm=FALSE,size=6,data=NULL,position=\&quot;identity\&quot;,stat=\&quot;identity\&quot;,show.legend=NA,inherit.aes=TRUE)&quot;</code></pre>
+<div id="parse-the-text" class="section level3">
+<h3>Parse the text</h3>
+<pre class="r"><code>(l2=eval(parse(text=l1.txt)))</code></pre>
+<pre><code>## mapping: colour = Species 
+## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+</div>
+<div id="test-that-all-is-equal-1" class="section level3">
+<h3>Test that all is equal</h3>
+<pre class="r"><code>all.equal(l,l2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+</div>
+<div id="back-to-our-example" class="section level1">
+<h1>Back to our example</h1>
+<pre class="r"><code>  #Original geom_point layer
+  parse(text=cloneLayer(p0$ScatterFacet$layers[[1]],verbose = T))</code></pre>
+<pre><code>## expression(geom_point(mapping = aes(colour = Species), na.rm = FALSE, 
+##     size = 6, data = NULL, position = &quot;identity&quot;, stat = &quot;identity&quot;, 
+##     show.legend = NA, inherit.aes = TRUE))</code></pre>
+<pre class="r"><code>  #new Layer
+  parse(text=a$UpdatedLayerCalls$ScatterFacet[[1]])</code></pre>
+<pre><code>## expression(geom_point(mapping = aes(colour = Species), na.rm = FALSE, 
+##     size = 3, shape = 22, fill = &quot;#BD2020&quot;, alpha = 1, stroke = 0.5, 
+##     data = NULL, position = &quot;identity&quot;, stat = &quot;identity&quot;, show.legend = NA, 
+##     inherit.aes = TRUE))</code></pre>
+</div>
+<div id="visualize-themes" class="section level1">
+<h1>Visualize Themes</h1>
+<pre class="r"><code>pTheme=list()
+(pTheme$Base=plot(a$UpdatedThemes$Scatter))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-15-1.png" width="1152" /></p>
+<div id="visualize-part-of-themes" class="section level2">
+<h2>Visualize Part of Themes</h2>
+<pre class="r"><code>(pTheme$Select=plot(a$UpdatedThemes$Scatter,themePart = c(&#39;plot&#39;,&#39;legend&#39;),fnt = 18))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-16-1.png" width="1152" /></p>
+</div>
+<div id="visually-compare-theme" class="section level2">
+<h2>Visually Compare Theme</h2>
+<pre class="r"><code>(pTheme$Compare=plot(obj=a$UpdatedThemes$Scatter,obj2 = ggplot2:::theme_get()))</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioConf/Figs/unnamed-chunk-17-1.png" width="1152" /></p>
+<hr>
+<p><em> Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.</p>
+<p>To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.</p>
+<p>Contact: For questions and comments, feel free to email me at: <a href="mailto:yonis@metrumrg.com">yonis@metrumrg.com</a> or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>. </em></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

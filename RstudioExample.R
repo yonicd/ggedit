@@ -1,5 +1,7 @@
 #Metrum Research Group (@MetrumRG)
 ##Jonathan Sidi (@yoniceedee)
+###https://github.com/metrumresearchgroup/ggedit
+###devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 
 rm(list=ls())
 library(ggedit)
