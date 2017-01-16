@@ -11,14 +11,33 @@ ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object o
 devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
 
-##Updates
-###Verbose outputs
+##version 0.0.2 Updates
+###Verbose outputs and UI integration
 A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
   - Layer output: In addition to the new ggproto object the user will also get the ggplot script that can be parsed/pasted in the console to create the same layer. 
   - Theme output: In addition to the new theme object the user will also get the ggplot script that can be parsed/pasted in the console to create the same theme.
+  - Scale output: In addition to the new scale object the user will also get the ggplot script that can be parsed/pasted in the console to create the same scale.
+  
+During the editing users are able to see in real time the updates to the verbose scripts of the layers in a shinyAce window above the plot. They can copy the script directly to their clipboard to use in further analysis.
+
+[![Verbose ggedit](http://img.youtube.com/vi/LN5OzswgUY4/0.jpg)](http://www.youtube.com/watch?v=LN5OzswgUY4)
+
+###User defined palletes
+If the colour/fill aestheteic is continous the user has two options to set the pallete
+
+  - choose from a list of predefined palletes that are used in `scale_*_grandientn()`
+  
+```r
+  c('Blues', 'BuGn', 'BuPu', 'GnBu', 'Greens', 'Greys', 'Oranges',
+  'OrRd', 'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu', 'Reds',
+  'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd')
+```
+  
+  - choose the manual option and a tandem of colourpicker widgets appear under the selectize list. The left one for the low colour and the right one for the high colour in a `scale_*_gradient()`. See here for an [example image](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/palleteExample.png).
+
 
 ###plot.theme
-Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/plotthemecompare.png). 
+Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemecompare.png). 
 
 ##Limitations
   - layers
