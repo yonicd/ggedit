@@ -1,0 +1,173 @@
+---
+title: "ggedit RStudio::conf 2017 Presentation"
+author: '<a href="https://twitter.com/yoniceedee" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a>'
+date: "January 13, 2017"
+output: 
+  html_document:
+    self_contained: false
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=7, fig.path='RstudioConf/Figs/', warning=FALSE, message=FALSE)
+```
+
+Yesterday the updated version of <a href="https://github.com/metrumresearchgroup/ggedit" target="_blank">ggedit</a>  was presented in <a href="https://www.rstudio.com/conference/" target="_blank">RStudio::conf</a>. 
+
+#Highlights of the updated version.
+
+  - verbose script handling during updating in the gagdet (see video below)
+  - verbose script output for updated layers and theme to parse and evaluate in console or editor
+  - output for scale objects eg scale\*grandientn and scale\*manual
+  - verbose script output for scales eg scale\*grandientn and scale\*manual to parse and evaluate in console or editor
+  - input plot objects can have the data in the layer object and in the base object. 
+    - `ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length,colour=Species))+geom_point()`
+    - `ggplot(data=iris,aes(x=Sepal.Width,y=Sepal.Length))+geom_point(aes(colour=Species))`
+    - `ggplot()+geom_point(data=iris,aes(x=Sepal.Width,y=Sepal.Length,colour=Species))`
+  - Visualizing theme objects in single output
+  - Visual Comparison of two themes objects in single output
+  
+<!---
+[![Verbose interactivity](http://img.youtube.com/vi/LN5OzswgUY4/0.jpg)](https://www.youtube.com/watch?v=LN5OzswgUY4)
+--->
+
+<iframe width="854" height="480" src="https://www.youtube.com/embed/LN5OzswgUY4" frameborder="0" allowfullscreen></iframe>
+
+#Presentation from the conference
+
+```{r}
+#devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
+rm(list=ls())
+library(ggedit)
+#?ggedit
+
+p0=list(
+  Scatter=iris%>%ggplot(aes(x =Sepal.Length,y=Sepal.Width))+
+    geom_point(aes(colour=Species),size=6),
+  
+  ScatterFacet=iris%>%ggplot(aes(x =Sepal.Length,y=Sepal.Width))+
+    geom_point(aes(colour=Species),size=6)+
+      geom_line(linetype=2)+
+    facet_wrap(~Species,scales='free')+
+    labs(title='Some Title')
+  )
+
+#a=ggedit(p.in = p0,verbose = T) #run ggedit
+dat_url <- paste0("https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/RstudioExampleObj.rda")
+load(url(dat_url)) #pre-run example
+
+ldply(a,names)
+
+plot(a)
+
+comparePlots=c(p0,a$UpdatedPlots)
+names(comparePlots)[c(3:4)]=paste0(names(comparePlots)[c(3:4)],"Updated")
+```
+
+#Initial Comparison Plot
+```{r}
+plot(as.ggedit(comparePlots))
+```
+
+#Apply updated theme of first plot to second plot
+```{r}
+comparePlots$ScatterFacetNewTheme=p0$ScatterFacet+a$UpdatedThemes$Scatter
+
+plot(as.ggedit(comparePlots[c("ScatterFacet","ScatterFacetNewTheme")]),
+      plot.layout = list(list(rows=1,cols=1),list(rows=2,cols=1))
+     )
+```
+#Using Remove and Replace Function
+##Overlay two layers of same geom
+```{r}
+(comparePlots$ScatterMistake=p0$Scatter+a$UpdatedLayers$ScatterFacet[[1]])
+```
+
+##Remove
+```{r}
+(comparePlots$ScatterNoLayer=p0$Scatter%>%
+  rgg(oldGeom = 'point'))
+```
+
+##Replace Geom_Point layer on Scatter Plot
+```{r}
+(comparePlots$ScatterNewLayer=p0$Scatter%>%
+  rgg(oldGeom = 'point',
+      oldGeomIdx = 1,
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]]))
+```
+
+##Remove and Replace Geom_Point layer and add the new theme
+```{r}
+(comparePlots$ScatterNewLayerTheme=p0$Scatter%>%
+  rgg(oldGeom = 'point',
+      newLayer = a$UpdatedLayers$ScatterFacet[[1]])+
+  a$UpdatedThemes$Scatter)
+```
+
+#Cloning Layers
+##A geom_point layer
+```{r}
+(l=p0$Scatter$layers[[1]])
+```
+
+##Clone the layer
+```{r}
+(l1=cloneLayer(l))
+```
+
+###Test that all is equal
+```{r}
+all.equal(l,l1)
+```
+
+##Verbose copy of layer
+```{r}
+(l1.txt=cloneLayer(l,verbose = T))
+```
+
+###Parse the text
+```{r}
+(l2=eval(parse(text=l1.txt)))
+```
+
+###Test that all is equal
+```{r}
+all.equal(l,l2)
+```
+
+#Back to our example
+```{r}
+  #Original geom_point layer
+  parse(text=cloneLayer(p0$ScatterFacet$layers[[1]],verbose = T))
+  #new Layer
+  parse(text=a$UpdatedLayerCalls$ScatterFacet[[1]])
+```
+
+#Data Driven Cheatsheets
+Cheatsheets are currently built and used exclusivley as a teaching tool. We want to try and change this and produce a cheat sheet that gives a roadmap to build a known product, but also is built as a function so user data can input data into it to make the cheatsheet more personalized. This gives a versalility of a consistent format that people can share with each other, but has the added value of conveying a message through data driven visual changes. 
+
+##Visualize Themes
+```{r}
+pTheme=list()
+(pTheme$Base=plot(plot(theme_bw())))
+```
+
+##Visualize Part of Themes
+The user can control a Theme Part to focus on and control the font of the plot
+```{r}
+(pTheme$Select=plot(theme_bw(),themePart = c('plot','legend'),fnt = 18))
+```
+
+##Visually Compare Theme
+```{r}
+(pTheme$Compare=plot(obj=a$UpdatedThemes$Scatter,obj2 = ggplot2:::theme_get()))
+```
+
+<hr>
+<em>
+Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
+
+To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.
+
+Contact: For questions and comments, feel free to email me at: yonis@metrumrg.com or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>.
+</em>

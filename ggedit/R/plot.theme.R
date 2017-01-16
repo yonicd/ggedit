@@ -4,15 +4,16 @@
 #' @param obj2 ggplot theme (optional as base to compare difference to obj)
 #' @param fnt numeric font size of text in plot
 #' @param themePart character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)
+#' @param plotFrame logical that nests the plot in a cheatsheet frame
 #' @examples
 #' plot(theme_bw(),fnt=10)
 #' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
 #' plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
 
-plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
+plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T){
   objName=paste0(deparse(substitute(obj))," Red is active element")
-  objList=themeFetchFull(obj)
-  objListDepth=sapply(objList,themeListDepth)
+  objList=ggedit:::themeFetchFull(obj)
+  objListDepth=sapply(objList,ggedit:::themeListDepth)
   
   objL=list(compare=obj)
   
@@ -25,8 +26,8 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
   } 
       
     objL=llply(objL,.fun = function(obj){
-      objList=themeFetchFull(obj)
-      objListDepth=sapply(objList,themeListDepth)      
+      objList=ggedit:::themeFetchFull(obj)
+      objListDepth=sapply(objList,ggedit:::themeListDepth)      
       return(list(obj=obj,objList=objList,objListDepth=objListDepth))
     })
     
@@ -45,7 +46,6 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
         out
       },.id='subTheme'),.id='Theme')%>%mutate_each(funs(as.character))
     )
-    
       dfOut%>%
         mutate(subTheme=ifelse(is.na(subTheme),"",subTheme),
                Theme=factor(Theme,levels=names(objList)),
@@ -90,9 +90,8 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
   
   objDF=objDF%>%mutate(ThemeCall=paste(Theme,call,sep="\n"))
   objDF$ThemeCall=factor(objDF$ThemeCall,levels=N$ThemeCall)
-  
   colVals=c("grey","red",'blue')[1:length(unique(objDF$colLbl))]
-
+  
   p=objDF%>%ggplot(aes(x=subTheme,y=element))+
     geom_tile(aes(fill=colLbl),colour='black',alpha=0.25)+
     geom_text(aes(label=lbl),size=fnt/5,parse=T)+
@@ -113,12 +112,12 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
   rc=tail(gsub('[a-z\\-]','',gt$layout$name[grepl('panel',gt$layout$name)]),1)
   r1=as.numeric(substr(rc,1,1))
   c1=as.numeric(substr(rc,2,2))
-  
+
   if(nrow(N)<r1*c1) newN=c(N$n,rep(0,r1*c1-nrow(N)))
   gtl=apply(matrix(newN,ncol=r1,nrow=c1),2,max)
   gtln=length(gtl)
   gt$widths[seq(4,4*gtln,4)]<-unit(gtl,'null')
-  
+
   pEx=data.frame(x=1,y=1,f='ThemeType\nElementClass')%>%
     ggplot(aes(x,y))+geom_tile(fill='white')+
     #geom_text(aes(label="value[class]^(index)"),parse=T)+
@@ -139,8 +138,9 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL){
           legend.position = 'none',
           plot.background = element_rect(colour='black')
     )
-  
+
   pout=pEx+annotation_custom(grob=gt)
-  
-  return(pout)
+ 
+  if(plotFrame) return(pout)
+  if(!plotFrame) return(p)
 }

@@ -4,7 +4,8 @@
 \alias{plot.theme}
 \title{Plots theme elements in tile layout}
 \usage{
-\method{plot}{theme}(obj, obj2 = NULL, fnt = 11, themePart = NULL)
+\method{plot}{theme}(obj, obj2 = NULL, fnt = 11, themePart = NULL,
+  plotFrame = T)
 }
 \arguments{
 \item{obj}{ggplot theme}
@@ -14,6 +15,8 @@
 \item{fnt}{numeric font size of text in plot}
 
 \item{themePart}{character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)}
+
+\item{plotFrame}{logical that nests the plot in a cheatsheet frame}
 }
 \examples{
 plot(theme_bw(),fnt=10)
