@@ -11,7 +11,7 @@ Cheatsheets are currently built and used exclusivley as a teaching tool. We want
 
 ##Example
 ###ggedit:::plot.theme()
-The ggplot2 theme object is an amazing object you can specify *nearly* any part of the plot that is not conditonal on the data. What sets the theme object apart is that its structure is consistent, but the values in it change. In addition to change a theme it is a single function that too has a consistent call. The reoccuring challenge for users is to remember all the options that can be used in the theme call (there are approximately 220 unique options to calibrate at last count) or bookmark the [help page](http://docs.ggplot2.org/current/theme.html) for the theme and remember how you deciphered it last time. 
+The ggplot2 theme object is an amazing object you can specify *nearly* any part of the plot that is not conditonal on the data. What sets the theme object apart is that its structure is consistent, but the values in it change. In addition to change a theme it is a single function that too has a consistent call. The reoccuring challenge for users is to remember all the options that can be used in the theme call (there are approximately 220 unique options to calibrate at last count) or bookmark the <a href='http://docs.ggplot2.org/current/theme.html' target='_blank'>help page</a> for the theme and remember how you deciphered it last time. 
 
 <p align='center'>
 ![](http://p.fod4.com/p/media/5c597eb60b/ZcfqBkqCSoeGmTSftrgo_Confused%20Joey%20Friends.gif)
@@ -19,7 +19,7 @@ The ggplot2 theme object is an amazing object you can specify *nearly* any part 
 
 This becomes a problem to pass all the information of the theme to someone who does not know what the values are set in your theme and attach instructions on it to let them recreate it without needing to open any web pages.
 
-In writing the library [ggedit](https://github.com/metrumresearchgroup/ggedit) we tried to make it easy to edit your theme so you don't have to know too much about ggplots to make a large number of changes at once, for a quick clip see [here](http://www.youtube.com/watch?v=813QxbsrvLM). We had to make it easy to track those changes for people who are not versed in R, and plot.theme() was the outcome.
+In writing the library <a href='https://github.com/metrumresearchgroup/ggedit' target="_blank">ggedit</a>   we tried to make it easy to edit your theme so you don't have to know too much about ggplots to make a large number of changes at once, for a quick clip see <a href="http://www.youtube.com/watch?v=813QxbsrvLM" target="_blank">here</a>. We had to make it easy to track those changes for people who are not versed in R, and plot.theme() was the outcome.
 
 In short think of the theme as a lot of small images that are combined to create a single portrait:
 
@@ -100,12 +100,19 @@ theme(legend.key=element_rect(fill='grey95',colour='white'),
 plot(theme_get(),plotFrame = F)
 ```
 
+Make this plot interactive by applying ggplotly from the <a href='https://github.com/ropensci/plotly' target="_blank">plotly package</a>
+
+```{r,fig.width=10,fig.height=12,fig.align='center'}
+plot(theme_get(),as.plotly = T)
+```
+
+
 ###Create the cheatsheet
 Toggling the `plotFrame` argument to the plot call will nest the plots into a generic cheatsheet layout that does a better job of finding the best width for each box and supplies instructions on the border of how to read the output with a caption on the bottom which theme was used. 
+
 ```{r,fig.width=12,fig.height=12,fig.align='center'}
 plot(theme_get(),plotFrame = T,fnt = 10)
 ```
-
 
 ###Compare themes
 Finally there is an option to compare themes. The same layout will be given but the color coding will change, where a blue color will indicate an update from the benchmark theme. 
