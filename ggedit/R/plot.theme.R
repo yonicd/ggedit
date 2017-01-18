@@ -5,12 +5,16 @@
 #' @param fnt numeric font size of text in plot
 #' @param themePart character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)
 #' @param plotFrame logical that nests the plot in a cheatsheet frame
+#' @param plotly logical that invokes ggplotly to make the output interactive
 #' @examples
 #' plot(theme_bw(),fnt=10)
 #' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
 #' plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
+#' plot(theme_bw(),theme_classic(),plotFrame=F)
+#' plot(theme_bw(),theme_classic(),plotly = T)
 
-plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T){
+plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T,as.plotly=F){
+
   objName=paste0(deparse(substitute(obj))," Red is active element")
   objList=ggedit:::themeFetchFull(obj)
   objListDepth=sapply(objList,ggedit:::themeListDepth)
@@ -92,9 +96,15 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T){
   objDF$ThemeCall=factor(objDF$ThemeCall,levels=N$ThemeCall)
   colVals=c("grey","red",'blue')[1:length(unique(objDF$colLbl))]
   
+  if(as.plotly){
+    lblVar='value'
+  }else{
+    lblVar='lbl'
+  }
+  
   p=objDF%>%ggplot(aes(x=subTheme,y=element))+
     geom_tile(aes(fill=colLbl),colour='black',alpha=0.25)+
-    geom_text(aes(label=lbl),size=fnt/5,parse=T)+
+    geom_text(aes_string(label=lblVar),size=fnt/5,parse=T)+
     facet_wrap(~ThemeCall,scales='free',shrink=T,dir = 'v')+
     scale_fill_manual(values=colVals)+
     theme(panel.background  = element_rect(fill='white'),
@@ -140,7 +150,8 @@ plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T){
     )
 
   pout=pEx+annotation_custom(grob=gt)
- 
-  if(plotFrame) return(pout)
-  if(!plotFrame) return(p)
+  
+  if(!plotFrame||as.plotly) pout=p
+  if(as.plotly) pout=ggplotly(pout)
+  return(pout)
 }

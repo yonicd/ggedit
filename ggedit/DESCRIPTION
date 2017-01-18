@@ -15,6 +15,7 @@ Depends:
     grid,
     gridExtra,
     scales,
+    plotly,
     ggplot2 (>= 2.2.0),
     plyr,
     colourpicker (>= 0.2),
