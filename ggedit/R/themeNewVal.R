@@ -1,3 +1,4 @@
+#' @export
 themeNewVal <- function(this,p.new,input){
   out=list()
   if(themeListDepth(this)==2){

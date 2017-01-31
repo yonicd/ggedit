@@ -1,3 +1,4 @@
+#' @export
 themeTips=list(
      element_rect=list(
                         fill='fill colour',

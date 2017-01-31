@@ -1,17 +1,19 @@
 #' @title Plots theme elements in tile layout
 #' @export
+#' @description S3 method to plot ggplot2 theme objects
 #' @param obj ggplot theme
 #' @param obj2 ggplot theme (optional as base to compare difference to obj)
 #' @param fnt numeric font size of text in plot
 #' @param themePart character vector that denotes the part of the theme to return NULL returns all. The options to choose are (line,rect,text,axis,legend,panel,plot,strip)
 #' @param plotFrame logical that nests the plot in a cheatsheet frame
-#' @param plotly logical that invokes ggplotly to make the output interactive
+#' @param as.plotly logical that invokes ggplotly to make the output interactive
 #' @examples
 #' plot(theme_bw(),fnt=10)
-#' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
+#' plot(theme_bw()%+replace%theme(axis.title = element_text(face='bold')),
+#' fnt=12,themePart = c('axis','plot'))
 #' plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
-#' plot(theme_bw(),theme_classic(),plotFrame=F)
-#' plot(theme_bw(),theme_classic(),plotly = T)
+#' plot(theme_bw(),theme_classic(),plotFrame=FALSE)
+#' plot(theme_bw(),theme_classic(),as.plotly = TRUE)
 
 plot.theme=function(obj,obj2=NULL,fnt=11,themePart=NULL,plotFrame=T,as.plotly=F){
 

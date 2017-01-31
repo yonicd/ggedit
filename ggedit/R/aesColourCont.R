@@ -1,3 +1,4 @@
+#' @export
 aesColourCont=function(type) {
   #column(width=2,
   div(

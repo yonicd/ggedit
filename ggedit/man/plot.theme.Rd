@@ -5,7 +5,7 @@
 \title{Plots theme elements in tile layout}
 \usage{
 \method{plot}{theme}(obj, obj2 = NULL, fnt = 11, themePart = NULL,
-  plotFrame = T, plotly = F)
+  plotFrame = T, as.plotly = F)
 }
 \arguments{
 \item{obj}{ggplot theme}
@@ -18,13 +18,17 @@
 
 \item{plotFrame}{logical that nests the plot in a cheatsheet frame}
 
-\item{plotly}{logical that invokes ggplotly to make the output interactive}
+\item{as.plotly}{logical that invokes ggplotly to make the output interactive}
+}
+\description{
+S3 method to plot ggplot2 theme objects
 }
 \examples{
 plot(theme_bw(),fnt=10)
-plot(theme_bw()\%+replace\%theme(axis.title = element_text(face='bold')),fnt=12,themePart = c('axis','plot'))
+plot(theme_bw()\%+replace\%theme(axis.title = element_text(face='bold')),
+fnt=12,themePart = c('axis','plot'))
 plot(theme_bw(),theme_classic(),fnt=10,themePart='strip')
-plot(theme_bw(),theme_classic(),plotFrame=F)
-plot(theme_bw(),theme_classic(),plotly = T)
+plot(theme_bw(),theme_classic(),plotFrame=FALSE)
+plot(theme_bw(),theme_classic(),as.plotly = TRUE)
 }
 

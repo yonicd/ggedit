@@ -1,3 +1,4 @@
+#' @export
 themePanel=function(obj.in,obj.name){
   lapply(names(obj.in) ,FUN = function(item){
     do.call(what = tabPanel,

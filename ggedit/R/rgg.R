@@ -14,9 +14,11 @@
 #' p=p+geom_point(aes(colour=Species))+geom_line()
 #' p
 #' p%>%rgg('point',1)
+#' \donttest{
 #' x=ggedit(p)
 #' pnew=p%>%rgg('point',1,x$updatedLayers[[1]])
 #' pnew
+#' }
 
 rgg=function(p,oldGeom,oldGeomIdx=1,newLayer=NULL){
   if (is.null(oldGeom)) return(p)

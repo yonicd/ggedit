@@ -1,1 +1,4 @@
-vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
+#' @export
+vplayout <- function(x, y){
+  viewport(layout.pos.row = x, layout.pos.col = y)
+} 

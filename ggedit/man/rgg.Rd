@@ -26,8 +26,10 @@ p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
 p=p+geom_point(aes(colour=Species))+geom_line()
 p
 p\%>\%rgg('point',1)
+\donttest{
 x=ggedit(p)
 pnew=p\%>\%rgg('point',1,x$updatedLayers[[1]])
 pnew
+}
 }
 

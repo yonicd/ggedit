@@ -1,3 +1,4 @@
+#' @export
 layersListFull=function(obj) {
   x=fetch_aes_ggplotBuild(obj,geom_list = geom_list(obj))
   y=lapply(x,function(x1) {lapply(x1,function(y) {

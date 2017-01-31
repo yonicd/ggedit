@@ -94,10 +94,12 @@ The ggplot objects returned (layers and themes) can be used on any ggplot object
 \examples{
 p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
 p=p+geom_point(aes(colour=Species))+geom_line()
+\donttest{
 pnew=ggedit(p)
 pnew
 }
+}
 \seealso{
-\code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[ggplot2]{ggplot}}
+\code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[ggplot2]{ggplot}},\code{\link[colourpicker]{colourPicker}}
 }
 

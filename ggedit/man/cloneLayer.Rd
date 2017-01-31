@@ -31,7 +31,7 @@ p=p+geom_point(aes(colour=Species))+geom_line()
 p$layers[[1]]
 newLayer=cloneLayer(l=p$layers[[1]])
 all.equal(p$layers[[1]],newLayer)
-(v=cloneLayer(l=p$layers[[1]],verbose=T))
+(v=cloneLayer(l=p$layers[[1]],verbose=TRUE))
 eval(parse(text=v))
 all.equal(p$layers[[1]],eval(parse(text=v)))
 }

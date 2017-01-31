@@ -1,3 +1,4 @@
+#' @export
 themeFetchFull=function(a=theme_get()){
   obj.names=names(a)[which(lapply(a,length)>0)]
   obj.names=obj.names[!grepl('margin|ticks.length|ontop|switch|key.size',obj.names)]

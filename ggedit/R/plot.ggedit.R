@@ -1,5 +1,5 @@
 #' @title Plots ggedit plot output objects
-#' @export
+#' @description S3 method to plot ggplot2 plots edited by ggedit with layout functionality 
 #' @param obj ggedit output of list of plots from the ggedit output
 #' @param plot.layout list which defines the location of each plot within
 #' the viewport layout. (see details)
@@ -7,6 +7,7 @@
 #' a grid.layout row.wise. Defining plot.layout as a nested list giving 
 #' the rows and the column indicies of each plot will produce a specific layout.
 #' @examples
+#' \donttest{
 #' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
 #' p=p+geom_point(aes(colour=Species))+geom_line()
 #' p
@@ -17,7 +18,9 @@
 #' x1=ggedit(p1)
 #' plot(x1)
 #' plot(x1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
-
+#' }
+#' @export
+#' 
 plot.ggedit=function(obj,plot.layout=NULL){
   if(!is.null(obj$UpdatedPlots)) obj=obj$UpdatedPlots
   if(is.null(plot.layout)){
