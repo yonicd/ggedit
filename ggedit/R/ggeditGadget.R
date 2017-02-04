@@ -353,7 +353,14 @@ ggeditGadget <- function(viewer=paneViewer(minHeight = 1000),...) {
           junk=''
           if(length(simTxt())>0) junk=textConnection(capture.output(simTxt()))
           toace=paste0(readLines(junk),collapse='\n')
-          if(input$viewVerbose%%2==1) aceEditor(outputId = "codeout",value=toace,mode = "r", theme = "chrome", height = "100px", fontSize = 12)
+          if(input$viewVerbose%%2==1){
+            if (Sys.info()[1] == "Windows"){
+              output$codeout<-renderText({toace})  
+              verbatimTextOutput('codeout')
+            }else{
+              aceEditor(outputId = "codeout",value=toace,mode = "r", theme = "chrome", height = "100px", fontSize = 12) 
+            }
+          }
         })
         
         
