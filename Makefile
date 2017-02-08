@@ -4,6 +4,7 @@ ggedit_NAME=$(shell grep -i ^[Pp]ackage: ggedit/DESCRIPTION | cut -d : -d \  -f 
 ggedit_R_FILES := $(wildcard ggedit/R/*.R)
 ggedit_DATA_FILES := $(wildcard ggedit/data/*.rda)
 ggedit_APPLICATION_FILES := $(wildcard ggedit/application/*.rda)
+ggedit_EXAMPLE_FILES := $(wildcard ggedit/examples/*)
 ggedit_ADDIN_FILES := $(wildcard ggedit/rstudio/*.dcf)
 
 
