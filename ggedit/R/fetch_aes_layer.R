@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 fetch_layer_aes=function (self, data=data.frame(x=1), params = list(),stats=list()){
   missing_aes <- setdiff(names(self$default_aes), names(data))
   if (ggplot2:::empty(data)) {

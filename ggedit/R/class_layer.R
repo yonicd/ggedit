@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 class_layer=function(p){
 
   plot_aes=layer_aes=NULL

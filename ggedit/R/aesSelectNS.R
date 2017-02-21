@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 aesSelectNS=function(type,session) {
   ns<-session$ns
   list(type=selectizeInput,

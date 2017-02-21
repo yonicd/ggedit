@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 ggEdit<- function(input, output, session,obj) {
   verbose=T
   TEMPLIST<-new.env()

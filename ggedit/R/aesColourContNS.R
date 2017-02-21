@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 aesColourContNS=function(type,session) {
   ns<-session$ns
   id=gsub("-a", "", ns("a"))

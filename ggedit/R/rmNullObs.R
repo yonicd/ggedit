@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 rmNullObs <- function(x) {
   if(!(is.function(x))) {
     x = x[!(sapply(x, is.NullOb))]

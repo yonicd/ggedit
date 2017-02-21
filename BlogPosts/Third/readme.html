@@ -184,14 +184,14 @@ server &lt;- function(input, output,session) {
   outp1&lt;-callModule(ggEdit,'pOut1',obj=reactive(list(p1=p1)))
   outp2&lt;-callModule(ggEdit,'pOut2',obj=reactive(p3))
 
-  output$lAce&lt;-renderUI({
+  output$x1&lt;-renderUI({
     layerTxt=outp1()$UpdatedLayerCalls$p1[[1]]
             aceEditor(outputId = 'layerAce',value=layerTxt,
                       mode = &quot;r&quot;, theme = &quot;chrome&quot;, 
                       height = &quot;100px&quot;, fontSize = 12,wordWrap = T)
          })  
   
-  output$tAce&lt;-renderUI({
+  output$x2&lt;-renderUI({
     themeTxt=outp1()$UpdatedThemeCalls$p1
             aceEditor(outputId = 'themeAce',value=themeTxt,
                       mode = &quot;r&quot;, theme = &quot;chrome&quot;, 
@@ -202,7 +202,7 @@ server &lt;- function(input, output,session) {
 
 ui &lt;-fluidPage(
   conditionalPanel(&quot;input.tbPanel=='tab2'&quot;,
-  sidebarPanel(uiOutput('lAce'),uiOutput('tAce'))),
+  sidebarPanel(uiOutput('x1'),uiOutput('x2'))),
   mainPanel(
     tabsetPanel(id = 'tbPanel',
       tabPanel('renderPlot/plotOutput',value = 'tab1',plotOutput('p')),

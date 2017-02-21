@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 aesSlideNS=function(type,session){
   ns<-session$ns
   list(type=sliderInput,

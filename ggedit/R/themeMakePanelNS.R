@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 themeMakePanelNS=function(x,y=NULL,session){
   if(any(names(x[[1]])=='call')){
     if(is.null(y)) y=names(x)

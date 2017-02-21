@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 fetch_aes_ggplotBuild=function(p,geom_list){
   train_map=function(p) {
     m=p$mapping

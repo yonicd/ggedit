@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 themePanelNS=function(obj.in,obj.name,session){
   ns<-session$ns
   lapply(names(obj.in) ,FUN = function(item){

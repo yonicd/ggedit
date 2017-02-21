@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 ggEditUI <-function(id){
   ns<-NS(id)
   tagList(

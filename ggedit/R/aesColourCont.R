@@ -1,4 +1,5 @@
 #' @export
+#' @keywords internal
 aesColourCont=function(type) {
   #column(width=2,
   div(
