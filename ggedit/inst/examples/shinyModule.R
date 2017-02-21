@@ -8,8 +8,7 @@ ui <-fluidPage(
     tabsetPanel(id = 'tbPanel',
     tabPanel('renderPlot/plotOutput',value = 'a',plotOutput('p')),
     tabPanel('ggEdit/ggEditUI',value = 'b',ggEditUI("pOut1")),
-    tabPanel('ggEdit/ggEditUI with lists of plots',value = 'c',ggEditUI("pOut2")),
-    tabPanel('ggEdit/ggEditUI with continuous',value = 'd',ggEditUI("pOut3"))
+    tabPanel('ggEdit/ggEditUI with lists of plots',value = 'c',ggEditUI("pOut2"))
   )
   )
   

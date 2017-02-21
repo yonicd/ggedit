@@ -27,6 +27,6 @@ wrapper of ggsave that saves ggplot or list of ggplot objects to image or pdf
 default output is to create one pdf regardless of size of list of plots inputted
 }
 \examples{
-\\donotrun{gglsave(pList)} 
+\dontrun{gglsave(pList)} 
 }
 

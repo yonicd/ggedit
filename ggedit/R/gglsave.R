@@ -9,7 +9,7 @@
 #' @param ... other arguments passed on to graphics device
 #' @details default output is to create one pdf regardless of size of list of plots inputted
 #' @examples 
-#' \donotrun{gglsave(pList)} 
+#' \dontrun{gglsave(pList)} 
 #' @return nothing
 #' @export
 gglsave <- function(filename="Rplot.pdf",plot=last_plot(),...){
