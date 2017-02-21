@@ -27,7 +27,8 @@ In addition to the output UI the user also gets a reactive output that has all t
 
 Below is a small example of a static ggplot using renderPlot/plotOutput and how to call the same plot and a list of plots using ggEdit/ggeditUI. We added a small text output so you can see the real time changes of the aesthetic editing being returned to the server.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen></iframe>
+[![ggEdit shiny module](http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg)](http://www.youtube.com/watch?v=pJ1kbd_OVwg)
+
 
 ```r
 library(ggedit)
