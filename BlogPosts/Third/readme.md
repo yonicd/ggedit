@@ -17,10 +17,12 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 This post will discuss a new method to use ggedit, [shiny modules](https://shiny.rstudio.com/articles/modules.html). A shiny module is a chunk of shiny code that can be reused many times in the same application, but generic enough so it can be applied in any shiny app (in simplest terms think of it as a shiny function). By making ggedit a shiny module we can now replace any [renderPlot()](https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html) call that inputs a ggplot and outputs in the UI [plotOutput()](https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html), with an interactive ggedit layout. The analogy between how to use the ggEdit module in comparison to a standard renderPlot call can be seen in the table below. 
 
 <center>
+
 | |standard Shiny|Shiny Module|
 |---|:---:|:---:|
 |Server|output$id=renderPlot(p)|reactiveOutput=callModule(ggEdit,id,reactive(p))|
 |UI|plotOutput(id)|ggEditUI(id)|
+
 </center>
 
 We can see that there are a few differences in the calls. To call a module you need to run a shiny function  [callModule](https://shiny.rstudio.com/reference/shiny/latest/callModule.html), in this case ggEdit. Next a character id for the elements the module will create in the shiny enviornment and finally the arguments that are expected by the module, in this case a reactive object that outputs a ggplot or list of ggplots. This is coupled with ggEditUI which together create a ggedit enviornment to edit the plots during a regular shiny app. 
