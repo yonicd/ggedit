@@ -1,11 +1,11 @@
 ---
-title: "ggedit 0.1.1: shiny module to interactvely edit ggplots within shiny applications"
+title: "ggedit 0.1.1: Shiny module to interactvely edit ggplots within Shiny applications"
 author: <a href="https://twitter.com/yoniceedee" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a>
-date: "February 18, 2017"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
-ggedit is a package that lets users interactively edit ggplot layer and themes aesthetics.  In previous [posts](https://www.r-bloggers.com/ggedit-interactive-ggplot-aesthetic-and-theme-editor/) we showed how you can use it in a collaborative workflow using standard R scripts. More importantly we [highlighted](https://www.r-bloggers.com/ggedit-0-0-2-a-gui-for-advanced-editing-of-ggplot2-objects/) that ggedit outputs to the user, after editing, updated: gg plots, layers, scales and themes as both self contained objects *and* script that you can paste directly in your code. 
+ggedit is a package that lets users interactively edit ggplot layer and theme aesthetics.  In a previous [post](https://www.r-bloggers.com/ggedit-interactive-ggplot-aesthetic-and-theme-editor/) we showed you how to use it in a collaborative workflow using standard R scripts. More importantly, we [highlighted](https://www.r-bloggers.com/ggedit-0-0-2-a-gui-for-advanced-editing-of-ggplot2-objects/) that ggedit outputs to the user, after editing, updated: gg plots, layers, scales and themes as both self-contained objects *and* script that you can paste directly in your code. 
 
 ###Installation
 ```r
@@ -14,26 +14,38 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 
 ### version 0.1.1 Updates
 
-  - **ggEdit shiny module**: use ggedit as part of any shiny application. 
+  - **ggEdit Shiny module**: use ggedit as part of any Shiny application. 
   - **gglsave**: generalization of ggsave to save multiple outputs of ggplot to single file and multiple files in a single call to various graphics devices. 
 
-### ggEdit shiny module
+### ggEdit Shiny module
 
-This post will discuss a new method to use ggedit, [shiny modules](https://shiny.rstudio.com/articles/modules.html). A shiny module is a chunk of shiny code that can be reused many times in the same application, but generic enough so it can be applied in any shiny app (in simplest terms think of it as a shiny function). By making ggedit a shiny module we can now replace any [renderPlot()](https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html) call that inputs a ggplot and outputs in the UI [plotOutput()](https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html), with an interactive ggedit layout. The analogy between how to use the ggEdit module in comparison to a standard renderPlot call can be seen in the table below. 
+This post will demonstrate a new method to use ggedit, [Shiny modules](https://shiny.rstudio.com/articles/modules.html). A Shiny module is a chunk of Shiny code that can be reused many times in the same application, but generic enough so it can be applied in any Shiny app (in simplest terms think of it as a Shiny function). By making ggedit a Shiny module we can now replace any [renderPlot()](https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html) call that inputs a ggplot and outputs in the UI [plotOutput()](https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html), with an interactive ggedit layout. The analogy between how to use the ggEdit module in comparison to a standard renderPlot call can be seen in the table below. 
+
+<center>
 
 | |standard Shiny|Shiny Module|
 |---|:---:|:---:|
 |Server|output$id=renderPlot(p)|reactiveOutput=callModule(ggEdit,id,reactive(p))|
 |UI|plotOutput(id)|ggEditUI(id)|
 
-We can see that there are a few differences in the calls. To call a module you need to run a shiny function  [callModule](https://shiny.rstudio.com/reference/shiny/latest/callModule.html), in this case ggEdit. Next a character id for the elements the module will create in the shiny enviornment and finally the arguments that are expected by the module, in this case a reactive object that outputs a ggplot or list of ggplots. This is coupled with ggEditUI which together create a ggedit enviornment to edit the plots during a regular shiny app. 
+</center>
 
-In addition to the output UI the user also gets a reactive output that has all the objects that are in the regular ggedit package (plots, layers, scales, themes) both in object and script forms. This has great advantages if you want to let users edit plots and keep track of what they are changing. A realistic example of this would be clients (be it industry or academia) that are shown a set of default plots with the appropriate data, and then are given the opportunity to customize to their needs and wants. Once they finish editing script is automatically saved to the server updating the clients portfolio with their prefered aesthetics. No more email chains on changing a point to a star!
+We can see that there are a few differences in the calls. To call a module you need to run a Shiny function  [callModule](https://shiny.rstudio.com/reference/shiny/latest/callModule.html), in this case ggEdit. Next, a character id for the elements the module will create in the Shiny environment and finally the arguments that are expected by the module, in this case a reactive object that outputs a ggplot or list of ggplots. This is coupled with ggEditUI, which together create a ggedit environment to edit the plots during a regular Shiny app. 
 
-Below is a small example of a static ggplot using renderPlot/plotOutput and how to call the same plot and a list of plots using ggEdit/ggeditUI. We added a small text output so you can see the real time changes of the aesthetic editing being returned to the server.
+In addition to the output UI the user also gets a reactive output that has all the objects that are in the regular ggedit package (plots, layers, scales, themes) both in object and script forms. This has great advantages if you want to let users edit plots while keeping track of what they are changing. A realistic example of this would be clients (be it industry or academia) that are shown a set of default plots, with the appropriate data, and then they are given the opportunity to customize according to their specifications. Once they finish editing, the script is automatically saved to the server, updating the clients portfolio with their preferred aesthetics. No more email chains on changing a blue point to an aqua star!
+
+Below is a small example of a static ggplot using renderPlot/plotOutput and how to call the same plot and a list of plots using ggEdit/ggeditUI. We added a small reactive text output so you can see the real-time changes of the aesthetic editing being returned to the server.
+
+<center>
+<!---
+<a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
+--->
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen></iframe>
 
+</center>
+
+### Source Code for example
 ```r
 library(ggedit)
 
@@ -46,14 +58,14 @@ server <- function(input, output,session) {
   outp1<-callModule(ggEdit,'pOut1',obj=reactive(list(p1=p1)))
   outp2<-callModule(ggEdit,'pOut2',obj=reactive(p3))
 
-  output$lAce<-renderUI({
+  output$x1<-renderUI({
     layerTxt=outp1()$UpdatedLayerCalls$p1[[1]]
             aceEditor(outputId = 'layerAce',value=layerTxt,
                       mode = "r", theme = "chrome", 
                       height = "100px", fontSize = 12,wordWrap = T)
          })  
   
-  output$tAce<-renderUI({
+  output$x2<-renderUI({
     themeTxt=outp1()$UpdatedThemeCalls$p1
             aceEditor(outputId = 'themeAce',value=themeTxt,
                       mode = "r", theme = "chrome", 
@@ -64,7 +76,7 @@ server <- function(input, output,session) {
 
 ui <-fluidPage(
   conditionalPanel("input.tbPanel=='tab2'",
-  sidebarPanel(uiOutput('lAce'),uiOutput('tAce'))),
+  sidebarPanel(uiOutput('x1'),uiOutput('x2'))),
   mainPanel(
     tabsetPanel(id = 'tbPanel',
       tabPanel('renderPlot/plotOutput',value = 'tab1',plotOutput('p')),
@@ -80,7 +92,7 @@ shinyApp(ui, server)
 ```
 <hr>
 <em>
-Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
+Jonathan Sidi joined Metrum Research Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
 
 To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.
 
