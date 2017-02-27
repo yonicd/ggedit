@@ -12,7 +12,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
 ## version 0.1.1 Updates
 ###ggEdit Shiny module
-use ggedit as part of any Shiny application ([full post](https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third))
+use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third" target="_blank">full post</a>
 <center>
 <a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
 </center>
