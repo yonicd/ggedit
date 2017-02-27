@@ -10,7 +10,12 @@ ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object o
 ```r
 devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
-
+## version 0.1.1 Updates
+###ggEdit Shiny module
+use ggedit as part of any Shiny application. 
+###gggsave
+generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
+  
 ##version 0.0.2 Updates
 ###Verbose outputs and UI integration
 A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
