@@ -35,7 +35,7 @@ gggsave <- function(filename="Rplot.pdf",plot=last_plot(),...){
   if(l$device=='pdf'){
     if(!'onefile'%in%names(l)) l$onefile=TRUE
   }else{
-    l$onefile=TRUE
+    if(length(l$plot)==1) l$onefile=TRUE else l$onefile=FALSE
   }
   
   if(!dir.exists(l$path)){
@@ -43,9 +43,8 @@ gggsave <- function(filename="Rplot.pdf",plot=last_plot(),...){
     dir.create(l$path)
   }
   
-  
   if(l$onefile) l$filename=paste(l$filename,l$device,sep='.') else l$filename=paste0(l$filename,"%03d.",l$device)
   if(l$device!='pdf') l$onefile<-NULL
-  
+
   do.call('ggsave',l)
 }

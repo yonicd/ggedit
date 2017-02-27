@@ -12,10 +12,25 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
 ## version 0.1.1 Updates
 ###ggEdit Shiny module
-use ggedit as part of any Shiny application. 
+use ggedit as part of any Shiny application ([full post](https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third))
+<center>
+<a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
+</center>
 ###gggsave
 generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
-  
+
+```
+library(ggedit)
+#single file output to pdf
+gggsave('Rplots.pdf',plot=pList,onefile=T)
+
+#multiple file output to pdf
+gggsave('Rplots.pdf',plot=pList,onefile=F)
+
+#multiple file output to png
+gggsave('Rplots.png',plot=pList)
+```
+
 ##version 0.0.2 Updates
 ###Verbose outputs and UI integration
 A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
