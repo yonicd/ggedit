@@ -22,7 +22,7 @@ generalized ggsave to save multiple outputs of ggplot to single file and multipl
 ```
 library(ggedit)
 #single file output to pdf
-gggsave('Rplots.pdf',plot=pList,onefile=T)
+gggsave('Rplots.pdf',plot=pList)
 
 #multiple file output to pdf
 gggsave('Rplots.pdf',plot=pList,onefile=F)
