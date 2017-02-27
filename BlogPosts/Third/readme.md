@@ -89,7 +89,7 @@ shinyApp(ui, server)
 
 ### gggsave
 
-<a href="http://docs.ggplot2.org/0.9.2.1/ggsave.html" target="_blank">ggsave</a> is the device writing function written for the ggplot2 package. A limitation of it is that only one figure could be written at a time. gggsave is a wrapper of ggsave that allows for list of ggplots to be called and then passes arguments to base graphics devices to create multiple outputs automatically, without the need of loops. 
+<a href="http://docs.ggplot2.org/0.9.2.1/ggsave.html" target="_blank">ggsave</a> is the device writing function written for the ggplot2 package. A limitation of it is that only one figure can be written at a time. gggsave is a wrapper of ggsave that allows for list of ggplots to be called and then passes arguments to base graphics devices to create multiple outputs automatically, without the need of loops. 
 
 ```
 library(ggedit)
