@@ -1,4 +1,4 @@
-#' @title gglsave
+#' @title gggsave
 #' @description wrapper of ggsave that saves ggplot or list of ggplot objects to image or pdf
 #' @param filename a character string giving the name of the file. 
 #' If it is of the form "|cmd", the output is piped to the command given by cmd. 
@@ -9,10 +9,10 @@
 #' @param ... other arguments passed on to graphics device
 #' @details default output is to create one pdf regardless of size of list of plots inputted
 #' @examples 
-#' \dontrun{gglsave(pList)} 
+#' \dontrun{ggglsave(pList)} 
 #' @return nothing
 #' @export
-gglsave <- function(filename="Rplot.pdf",plot=last_plot(),...){
+gggsave <- function(filename="Rplot.pdf",plot=last_plot(),...){
   cl=class(plot)
   if(any(c('gg','ggplot')%in%cl)) pList=list(plot)
   if('list'%in%cl) pList=plot

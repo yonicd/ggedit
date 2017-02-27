@@ -10,7 +10,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ### version 0.1.1 Updates
 
   - **ggEdit Shiny module**: use ggedit as part of any Shiny application. 
-  - **gglsave**: generalization of ggsave to save multiple outputs of ggplot to single file and multiple files in a single call to various graphics devices. 
+  - **gggsave**: generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
 
 ### ggEdit Shiny module
 
