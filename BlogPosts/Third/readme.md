@@ -86,6 +86,21 @@ ui <-fluidPage(
 shinyApp(ui, server)
 
 ```
+
+### gggsave
+
+```
+library(ggedit)
+#single file output to pdf
+gggsave('Rplots.pdf',plot=pList)
+
+#multiple file output to pdf
+gggsave('Rplots.pdf',plot=pList,onefile=F)
+
+#multiple file output to png
+gggsave('Rplots.png',plot=pList)
+```
+
 <hr>
 <em>
 Jonathan Sidi joined Metrum Research Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
