@@ -1,6 +1,7 @@
 #' @export
 #' @keywords internal
 fetch_aes_ggplotBuild=function(p,geom_list){
+
   train_map=function(p) {
     m=p$mapping
     m[names(m)[!names(m)%in%c('x','y')]]
@@ -10,12 +11,12 @@ fetch_aes_ggplotBuild=function(p,geom_list){
     train_map(x$mapping)
   })
   
-  if(class(p$data)!='waiver') mapping_class=lapply(train_map(p),function(m){
+  if(!'waiver'%in%class(p$data)) mapping_class=lapply(train_map(p),function(m){
     if(class(m)=='call'){
       TEMP=p$data%>%mutate_(.NEWVAR=m)
       class(TEMP[,'.NEWVAR'])
     }else{
-      class(p$data[,as.character(m)])  
+      class(p$data[,as.character(m)])
     }
   })
   

@@ -2,6 +2,8 @@
 #' @keywords internal
 class_layer=function(p){
 
+  if('tbl'%in%class(p$data)) p$data=data.frame(p$data)
+  
   plot_aes=layer_aes=NULL
   if(length(as.character(p$mapping))>0){
   plot_aes=as.character(p$mapping)
@@ -31,13 +33,17 @@ class_layer=function(p){
   plot_aes$layer='plot'}
   
   layer_aes=lapply(p$layers,function(x) data.frame(var=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F))
-  layer_data=lapply(p$layers,function(x) x$data)
+  layer_data=lapply(p$layers,function(x){
+   dOut=x$data
+   if('tbl'%in%class(dOut)) dOut=data.frame(dOut)
+   dOut
+  })
   names(layer_aes)=names(layer_data)=geom_list(p)
   layer_aes=ldply(layer_aes,.id = 'layer')
 
   layer_aes=ddply(layer_aes,.(var,aes),.fun=function(df){
     
-    if(class(layer_data[[df$layer]])=='waiver'){
+    if('waiver'%in%class(layer_data[[df$layer]])){
         pData=p$data
       }else{
         pData=layer_data[df$layer][[1]]
