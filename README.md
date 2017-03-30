@@ -6,9 +6,14 @@ ggedit is a package that helps users bridge the gap between making a plot and ge
 
 ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console from the Addin menu within RStudio.
 
-Short clip from [RStudioConf::2017](https://www.rstudio.com/conference/) (13:40-19:40)
+Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40-19:40)
 
+<!---
 [![](https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0){:height="400px" width="225px"}](https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph)
+--->
+
+<p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph"><img src="https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph">User Lightning Talks – RStudio</a></p>
+
 
 ## Installation
 ```r
