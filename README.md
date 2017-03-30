@@ -6,17 +6,21 @@ ggedit is a package that helps users bridge the gap between making a plot and ge
 
 ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console from the Addin menu within RStudio.
 
-##Installation
+Short clip from [RStudioConf::2017](https://www.rstudio.com/conference/) (13:40-19:40)
+
+[![](https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0){:height="400px" width="225px"}](https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph)
+
+## Installation
 ```r
 devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
 ## version 0.1.1 Updates
-###ggEdit Shiny module
+### ggEdit Shiny module
 use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third" target="_blank">full post</a>
 <center>
 <a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
 </center>
-###gggsave
+### gggsave
 generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
 
 ```
@@ -31,8 +35,8 @@ gggsave('Rplots.pdf',plot=pList,onefile=F)
 gggsave('Rplots.png',plot=pList)
 ```
 
-##version 0.0.2 Updates
-###Verbose outputs and UI integration
+## version 0.0.2 Updates
+### Verbose outputs and UI integration
 A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
   - Layer output: In addition to the new ggproto object the user will also get the ggplot script that can be parsed/pasted in the console to create the same layer. 
   - Theme output: In addition to the new theme object the user will also get the ggplot script that can be parsed/pasted in the console to create the same theme.
@@ -42,7 +46,7 @@ During the editing users are able to see in real time the updates to the verbose
 
 [![Verbose ggedit](http://img.youtube.com/vi/LN5OzswgUY4/0.jpg)](http://www.youtube.com/watch?v=LN5OzswgUY4)
 
-###User defined palletes
+### User defined palletes
 If the colour/fill aestheteic is continous the user has two options to set the pallete
 
   - choose from a list of predefined palletes that are used in `scale_*_grandientn()`
@@ -56,10 +60,10 @@ If the colour/fill aestheteic is continous the user has two options to set the p
   - choose the manual option and a tandem of colourpicker widgets appear under the selectize list. The left one for the low colour and the right one for the high colour in a `scale_*_gradient()`. See here for an [example image](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/palleteExample.png).
 
 
-###plot.theme
+### plot.theme
 Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemecompare.png). 
 
-##Limitations
+## Limitations
   - layers
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
@@ -69,20 +73,20 @@ Function that visualizes the contents of a ggplot theme object (using ggplot2 gr
   - theme
     - margin,arrow are not currently available to edit
 
-##Layers
+## Layers
 The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.
 
 [![Using ggedit on plot layers](http://img.youtube.com/vi/OvMWCHpCmaI/0.jpg)](http://www.youtube.com/watch?v=OvMWCHpCmaI)
 
 You can edit the aesthetic layers while still preserving the original plot, because the changed layers are cloned from the original plot object and are independent of it. The edited layers are provided in the output as objects, so you can use the layers independent of the plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people, where you can send a plot to team members to edit the layers aesthetics and they can send you back just the new layers for you to implement them. 
 
-##Themes
+## Themes
 ggedit also has a theme editor inside. You can edit any element in the theme and see the changes in real time, making the trial and error process quick and easy. Once you are satisfied with the edited theme you can apply it to other plots in the plot list with one click or even make it the <em>session</em> theme regardless of the gadget. As with layers, the new theme object is part of the output, making collaboration easy.
 
 [![Using ggedit on plot themes](http://img.youtube.com/vi/813QxbsrvLM/0.jpg)](http://www.youtube.com/watch?v=813QxbsrvLM)
 
 
-##Outputs
+## Outputs
 The gadget returns a list containing 4 elements
 
   - updatedPlots
@@ -135,7 +139,7 @@ plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
 )
 ```
 
-##Addin Launch
+## Addin Launch
 To launch the Shiny gadget from the addin menu highlight the code that creates the plot object or the plot name in the source pane of Rstudio, then click on the ggedit addin from the Addins the dropdown menu.
 
 [![Launching ggedit from the Addins menu](http://img.youtube.com/vi/693XhHt8fug/0.jpg)](http://www.youtube.com/watch?v=693XhHt8fug)
