@@ -19,6 +19,16 @@ Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40
 ```r
 devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 ```
+
+## Limitations
+  - layers
+    - non colour aesthetics of numeric inputs are not currently supported, e.g.:
+      `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
+    - geom_text: family is not currently open to change
+  - theme
+    - margin,arrow are not currently available to edit
+
+
 ## version 0.1.1 Updates
 ### ggEdit Shiny module
 use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third" target="_blank">full post</a>
@@ -67,16 +77,6 @@ If the colour/fill aestheteic is continous the user has two options to set the p
 
 ### plot.theme
 Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemecompare.png). 
-
-## Limitations
-  - layers
-    - non colour aesthetics of numeric inputs are not currently supported, e.g.:
-      `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
-    - geom_text: family is not currently open to change
-    - variable must have literal names and not a function, e.g.:
-    `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=factor(Species)))+geom_point()`
-  - theme
-    - margin,arrow are not currently available to edit
 
 ## Layers
 The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.
