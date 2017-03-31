@@ -73,7 +73,7 @@ If the colour/fill aestheteic is continous the user has two options to set the p
 
 ### plot.theme
 
-#### Removed from package in [Miscellaneous/Utilities](https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/Utilities)
+#### Removed from package in [Miscellaneous/Utilities/ThemePlot](https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/Utilities/ThemePlot)
 
 [plot.theme()](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/Utilities/plot.theme.R): S3 Method that plots the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/Utilities/ThemePlot/plotthemebw1.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/Utilities/ThemePlot/plotthemecompare.png). 
 
