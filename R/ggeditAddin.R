@@ -1,4 +1,4 @@
-ggeditAddin <- function() {
+ggeditAddin <- function(envOut=.GlobalEnv) {
   require(ggedit)
   # Get the document context.
   context <- rstudioapi::getActiveDocumentContext()
@@ -9,9 +9,9 @@ ggeditAddin <- function() {
   if (nchar(text) == 0) {
     stop('Please highlight a ggplot2 plot before selecting this addin.')
   }
-  
+
   p.in=eval(parse(text=text))
   
-  addin.out=ggedit(p.in = p.in)
-  assign('p.out',envir = .GlobalEnv,value = addin.out)
+  addin.out=ggedit(p.in = p.in,verbose = T)
+  assign('p.out',envir = envOut,value = addin.out)
 }

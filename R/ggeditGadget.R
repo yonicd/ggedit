@@ -1,5 +1,6 @@
 #' @import shiny
 #' @import shinyBS
+#' @importFrom graphics plot
 ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
   TEMPLIST<-new.env()
   TEMPLIST$obj<-get(".p", envir = .ggeditEnv)
