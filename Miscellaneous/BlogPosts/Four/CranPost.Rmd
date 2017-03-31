@@ -1,10 +1,12 @@
-#ggedit 0.2.0 is now on CRAN
+# ggedit 0.2.0 is now on CRAN
 
 <a href="https://github.com/yonicd/" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a>
 
-<img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" width="300" height="225" style="width: 300px; height: 175px;">
+<!---
+<img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Four/introPic.png" width="400" height="225" style="width: 400px; height: 225px;">
+--->
 
-I’m pleased to announce the release of my ggedit (0.2.0) package on [CRAN](https://cran.r-project.org/web/packages/ggedit/index.html). 
+We are pleased to announce the release of the ggedit package on [CRAN](https://cran.r-project.org/web/packages/ggedit/index.html). 
 
 To install the package you can call the standard R command
 
@@ -27,11 +29,16 @@ ggedit is run from an R console or as a reactive object in any Shiny application
 
 Why does it matter? ggedit promotes efficient collaboration. You can share your plots with team members to make formatting changes, and they can then send any objects they’ve edited back to you for implementation. No more email chains to change a circle to a triangle!
 
-### Deploying ggedit
+### Updates in ggedit 0.2.0:
+
+  - The layer modal (popups) elements have been reorganized for less clutter and easier navigation.
+  - The S3 method written to plot and compare themes has been removed from the package, but can still be found on the repo, see [plot.theme](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/Utilities/plot.theme.R).
+
+### Deploying
 
     - call from the console: `ggedit(p)`
     - call from the addin toolbar: highlight script of a plot object on the source editor window of RStudio and run from toolbar.
-    - call as part of shiny: use the shiny module syntax to call the ggEdit UI elements.
+    - call as part of Shiny: use the Shiny module syntax to call the ggEdit UI elements.
         - server: `callModule(ggEdit,'pUI',obj=reactive(p))`
         - ui: `ggEditUI('pUI')`
     - if you have installed the package you can see an example of a Shiny app by executing `runApp(system.file('examples/shinyModule.R',package = 'ggedit'))`
@@ -66,12 +73,6 @@ ggedit returns a list containing 8 elements either to the global enviroment or a
 ### Short Clip to use ggedit in Shiny
 
 <p><a href="https://www.youtube.com/embed/pJ1kbd_OVwg"><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p>
-
-
-### Updates in this release:
-
-  - The layer modal (popups) elements have been reorganized for less clutter and easier navigation.
-  - The S3 method written to plot and compare themes has been removed from the package, but can still be found on the repo, see [plot.theme](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/Utilities/plot.theme.R).
 
 <hr>
 <em>
