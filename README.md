@@ -16,6 +16,13 @@ Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40
 
 
 ## Installation
+
+### CRAN
+```r
+install.packages('ggedit')
+```
+
+### DEV
 ```r
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
