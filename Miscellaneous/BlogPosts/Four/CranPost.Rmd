@@ -3,7 +3,7 @@
 <a href="https://github.com/yonicd/" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a>
 
 <!---
-<img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Four/introPic.png" width="400" height="225" style="width: 400px; height: 225px;">
+<img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Four/introPic1.png" width="400" height="225" style="width: 400px; height: 225px;">
 --->
 
 We are pleased to announce the release of the ggedit package on [CRAN](https://cran.r-project.org/web/packages/ggedit/index.html). 
