@@ -26,11 +26,19 @@ devtools::install_github("metrumresearchgroup/ggedit")
 
 
 ## version 0.1.1 Updates
+
 ### ggEdit Shiny module
 use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/BlogPosts/Third" target="_blank">full post</a>
 <center>
 <a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
 </center>
+
+If you have ggedit installed then you can run an example of the module in an app:
+
+```
+runApp(system.file('examples/shinyModule.R',package = 'ggedit'))
+```
+
 ### gggsave
 generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
 

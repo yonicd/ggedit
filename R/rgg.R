@@ -26,6 +26,6 @@ rgg=function(p,oldGeom,oldGeomIdx=1,newLayer=NULL){
   if (is.null(oldGeom)) return(p)
   p <- plot_clone(p)
   p<-remove_geom(p = p,geom = oldGeom,idx = oldGeomIdx)+newLayer
-  ggplot2:::set_last_plot(p)
+  set_last_plot(p)
   p
 }
