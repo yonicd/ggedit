@@ -8,16 +8,12 @@ ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object o
 
 Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40-19:40)
 
-<!---
-[![](https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0){:height="400px" width="225px"}](https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph)
---->
-
 <p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph"><img src="https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph">User Lightning Talks – RStudio</a></p>
 
 
 ## Installation
 ```r
-devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
+devtools::install_github("metrumresearchgroup/ggedit")
 ```
 
 ## Limitations
@@ -31,7 +27,7 @@ devtools::install_github("metrumresearchgroup/ggedit",subdir="ggedit")
 
 ## version 0.1.1 Updates
 ### ggEdit Shiny module
-use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/BlogPosts/Third" target="_blank">full post</a>
+use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/BlogPosts/Third" target="_blank">full post</a>
 <center>
 <a href="http://www.youtube.com/watch?v=pJ1kbd_OVwg" target="_blank" ><img src="http://img.youtube.com/vi/pJ1kbd_OVwg/0.jpg" alt="ggEdit Shiny module"></a>
 </center>
@@ -76,7 +72,10 @@ If the colour/fill aestheteic is continous the user has two options to set the p
 
 
 ### plot.theme
-Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/ThemePlot/plotthemecompare.png). 
+
+#### Removed from package in Miscellaneous/Utilities 
+
+Function that visualizes the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/ThemePlot/plotthemecompare.png). 
 
 ## Layers
 The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.

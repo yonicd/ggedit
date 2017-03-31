@@ -1,0 +1,134 @@
+---
+title: "Data Driven Cheatsheets"
+author: "Jonathan Sidi"
+date: "January 24, 2017"
+output: 
+  html_document:
+    self_contained: false
+---
+
+Cheatsheets are currently built and used exclusivley as a teaching tool. We want to try and change this and produce a cheat sheet that gives a roadmap to build a known product, but also is built as a function so users can input data into it to make the cheatsheet more personalized. This gives a versalility of a consistent format that people can share with each other, but has the added value of conveying a message through data driven visual changes. 
+
+##Example
+###ggplot2 themes
+The ggplot2 theme object is an amazing object you can specify *nearly* any part of the plot that is not conditonal on the data. What sets the theme object apart is that its structure is consistent, but the values in it change. In addition to change a theme it is a single function that too has a consistent call. The reoccuring challenge for users is to remember all the options that can be used in the theme call (there are approximately 220 unique options to calibrate at last count) or bookmark the <a href='http://docs.ggplot2.org/current/theme.html' target='_blank'>help page</a> for the theme and remember how you deciphered it last time. 
+
+<p align='center'>
+![](http://p.fod4.com/p/media/5c597eb60b/ZcfqBkqCSoeGmTSftrgo_Confused%20Joey%20Friends.gif)
+</p>
+
+This becomes a problem to pass all the information of the theme to someone who does not know what the values are set in your theme and attach instructions on it to let them recreate it without needing to open any web pages.
+
+In writing the library <a href='https://github.com/metrumresearchgroup/ggedit' target="_blank">ggedit</a>   we tried to make it easy to edit your theme so you don't have to know too much about ggplots to make a large number of changes at once, for a quick clip see <a href="http://www.youtube.com/watch?v=813QxbsrvLM" target="_blank">here</a>. We had to make it easy to track those changes for people who are not versed in R, and plot.theme() was the outcome.
+
+In short think of the theme as a lot of small images that are combined to create a single portrait:
+
+<p align='center'>
+<br/><iframe src="http://mosaically.com/embed/da1df7c7-7c9e-4c95-875b-294192cdeed9" scrolling="no" width="40%" height="200" frameborder="0" allowfullscreen></iframe><!--REMOVING THE FOLLOWING CREDIT IS A VIOLATION OF YOUR TERMS OF USE--><br/><small>Photo mosaic by: <a href="http://mosaically.com/yoniceedee">yoniceedee</a> @ <a href="http://mosaically.com">Mosaically</a></small>
+</p>
+
+
+###Converting a theme call to a single image
+
+```r
+theme(themeType.element=elementClass(elementClassArgument=value))
+```
+
+  - **theme()**: ggplot2 theme function
+  - **themeType**: general part of the theme
+    - line,rect, text, axis,legend, panel, strip, plot
+  - **element**: element if a **themeType**
+    - ie **themeType**=axis and **element**=ticks is written as axis.ticks
+  - **elementClass**: each element is classified to an element_class() which is function that controls characteristics for the class
+    - eg element_line(size,linetype,lineend,colour,arrow)
+  - **elementClassArgument**: characteristic of an element which are arguments of an element_class function
+  - **value**: the value given to an **elementClassArgument**
+  
+There are themeType.elements that are not classified in a specific class thus are given values directly, like legend.
+
+```r
+theme(themeType.element=value)
+```  
+
+To tie this all together we can create this single template that can be replicated for any element in the theme object. To add more information to the ouput the class of the value given to an elementClassArgument (or a themeType.element) and the index to uniquely identify the element.
+
+```{r,warning=FALSE,message=FALSE}
+library(ggedit)
+```
+
+
+```{r,echo=FALSE,fig.width=5,fig.height=5,fig.align='center'}
+    ggplot(data.frame(x=1,y=1,f='themeType\nelementClass'),aes(x,y))+geom_tile(fill='white')+
+    geom_text(aes(label="value[class]^(index)"),parse=T,size=10)+
+    facet_wrap(~f)+
+    labs(x="x axis: element",
+         y='y axis: elementClassArgument'
+    )+
+    theme(panel.background  = element_rect(fill='white',colour='black'),
+          text=element_text(size=18),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title.y = element_text(vjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5),
+          plot.title = element_text(hjust = 0.5),
+          strip.background = element_rect(fill='white',colour='black'),
+          legend.position = 'none',
+          plot.background = element_rect(colour='white')
+    )
+```
+
+###Grouping templates
+
+```{r,fig.width=5,fig.height=8,fig.align='center'}
+plot(theme_get(),themePart = 'legend',fnt=17,plotFrame = F)
+```
+
+We add some colour to distinguish which elements are set to NULL (grey) and which ones have values (red).
+
+As an example this is how to read the output
+```r
+theme(legend.key=element_rect(fill='grey95',colour='white'),
+      legend.text=element_text(size=rel(0.8)),
+      legend.title=element_text(hjust=0),
+      legend.box.spacing=unit(0.4,'cm'),
+      legend.justification='center',
+      legend.position='right',
+      legend.spacing=unit(0.4,'cm'))
+```
+###Visualize the whole theme
+```{r,fig.width=12,fig.height=12,fig.align='center'}
+plot(theme_get(),plotFrame = F)
+```
+
+Make this plot interactive by applying ggplotly from the <a href='https://github.com/ropensci/plotly' target="_blank">plotly package</a>. 
+
+```{r,fig.width=10,fig.height=12,fig.align='center'}
+#plot(theme_get(),as.plotly = T)
+```
+
+<iframe src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/plotlyOutput.html" width="100%" height="200" frameborder="0"></iframe>
+
+###Create the cheatsheet
+Toggling the `plotFrame` argument to the plot call will nest the plots into a generic cheatsheet layout that does a better job of finding the best width for each box and supplies instructions on the border of how to read the output with a caption on the bottom which theme was used. 
+
+```{r,fig.width=12,fig.height=12,fig.align='center'}
+plot(theme_get(),plotFrame = T,fnt = 10)
+```
+
+###Compare themes
+Finally there is an option to compare themes. The same layout will be given but the color coding will change, where a blue color will indicate an update from the benchmark theme. 
+```{r,fig.width=12,fig.height=12,fig.align='center',warning=FALSE}
+library(ggthemes)
+plot(obj=theme_economist(),obj2 = theme_bw(),fnt = 10)
+```
+
+When collaborating with many people and large changes are made to the theme this lets you have a single language everyone can understand for quick referencing and hopefully problem solving. 
+
+<hr>
+<em>
+Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.
+
+To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.
+
+Contact: For questions and comments, feel free to email me at: yonis@metrumrg.com or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>.
+</em>
