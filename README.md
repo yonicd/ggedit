@@ -68,7 +68,7 @@ If the colour/fill aestheteic is continous the user has two options to set the p
   'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd')
 ```
   
-  - choose the manual option and a tandem of colourpicker widgets appear under the selectize list. The left one for the low colour and the right one for the high colour in a `scale_*_gradient()`. See here for an [example image](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/palleteExample.png).
+  - choose the manual option and a tandem of colourpicker widgets appear under the selectize list. The left one for the low colour and the right one for the high colour in a `scale_*_gradient()`. See here for an [example image](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/Multimedia/palleteExample.png).
 
 
 ### plot.theme
