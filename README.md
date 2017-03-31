@@ -75,7 +75,7 @@ If the colour/fill aestheteic is continous the user has two options to set the p
 
 #### Removed from package in [Miscellaneous/Utilities](https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/Utilities)
 
-[plot.theme()](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/Utilities/plot.theme.R): S3 Method that plots the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/ThemePlot/plotthemecompare.png). 
+[plot.theme()](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/Utilities/plot.theme.R): S3 Method that plots the contents of a ggplot theme object (using ggplot2 graphics). The output highlights what theme elements are currently active [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/Utilities/ThemePlot/plotthemebw.png). If the user gives two themes (compare and base) it will return a comparison of the two showing what has changed from the theme defined as base [example output](https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/Utilities/ThemePlot/plotthemecompare.png). 
 
 ## Layers
 The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.
