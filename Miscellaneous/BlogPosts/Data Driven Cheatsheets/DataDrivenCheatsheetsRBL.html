@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Jonathan Sidi, Metrum Research Group" />
+
+<meta name="date" content="2017-01-25" />
+
+<title>Data Driven Cheatsheets</title>
+
+<script src="DataDrivenCheatsheetsRBL_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="DataDrivenCheatsheetsRBL_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="DataDrivenCheatsheetsRBL_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="DataDrivenCheatsheetsRBL_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="DataDrivenCheatsheetsRBL_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="DataDrivenCheatsheetsRBL_files/highlight/default.css"
+      type="text/css" />
+<script src="DataDrivenCheatsheetsRBL_files/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="DataDrivenCheatsheetsRBL_files/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Driven Cheatsheets</h1>
+<h4 class="author"><em>Jonathan Sidi</em></h4>
+<h4 class="date"><em>January 24, 2017</em></h4>
+
+</div>
+
+
+<p>Cheatsheets are currently built and used exclusively as a teaching tool. But what if we could produce a cheatsheet that gives a roadmap to build a previously defined product? We could also build it as a function so users can input data into it to customize the cheatsheet. This provides a consistent format that people can share with each other, and it has the added value of conveying a message through data driven visual changes.</p>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<div id="ggplot2-themes" class="section level3">
+<h3>ggplot2 themes</h3>
+<p>The ggplot2 theme object allows users to specify <em>nearly</em> any part of the plot that is not conditional on the data. What sets the theme object apart is that its structure is consistent, while the values in it change. In addition to changing a theme, it is a single function that has a consistent call. The reoccurring challenge for users is to remember all of the options that can be used in the theme call (there are approximately 220 unique options to calibrate at last count). Users may want to bookmark the <a href='http://docs.ggplot2.org/current/theme.html' target='_blank'>help page</a> for the theme and remember how you deciphered it last time.</p>
+<p align="center">
+<img src="http://p.fod4.com/p/media/5c597eb60b/ZcfqBkqCSoeGmTSftrgo_Confused%20Joey%20Friends.gif" alt="" />
+</p>
+<p>It is incredibly challenging to pass all of the information of the theme to someone who does not know what values are set in your theme and to provide instructions to allow them to easily recreate it.</p>
+<p>In writing the library <a href='https://github.com/metrumresearchgroup/ggedit' target="_blank">ggedit</a> we tried to make it easy to edit your theme so you don’t have to know too much about ggplots to make many changes at once. For a quick tutorial see <a href="http://www.youtube.com/watch?v=813QxbsrvLM" target="_blank">here</a>. We wanted to make it easy to track those changes for people who are not versed in R, and plot.theme() was the outcome. In short, think of the theme as a lot of small images that are combined to create a single portrait:
+<!---
+<a href='http://mosaically.com/embed/da1df7c7-7c9e-4c95-875b-294192cdeed9' target='_blank'>singel portrait</a>.
+--->
+</p>
+<p align="center">
+<br/><iframe src="http://mosaically.com/embed/da1df7c7-7c9e-4c95-875b-294192cdeed9" scrolling="no" width="40%" height="200" frameborder="0" allowfullscreen></iframe><br/><small>Photo mosaic by: <a href="http://mosaically.com/yoniceedee">yoniceedee</a> @ <a href="http://mosaically.com">Mosaically</a></small>
+</p>
+</div>
+<div id="converting-a-theme-call-to-a-single-image" class="section level3">
+<h3>Converting a theme call to a single image</h3>
+<pre class="r"><code>theme(themeType.element=elementClass(elementClassArgument=value))</code></pre>
+<ul>
+<li><strong>theme()</strong>: ggplot2 theme function</li>
+<li><strong>themeType</strong>: general part of the theme
+<ul>
+<li>line,rect, text, axis,legend, panel, strip, plot</li>
+</ul></li>
+<li><strong>element</strong>: element if a <strong>themeType</strong>
+<ul>
+<li>ie <strong>themeType</strong>=axis and <strong>element</strong>=ticks is written as axis.ticks</li>
+</ul></li>
+<li><strong>elementClass</strong>: each element is classified to an element_class() which is function that controls characteristics for the class
+<ul>
+<li>eg element_line(size,linetype,lineend,colour,arrow)</li>
+</ul></li>
+<li><strong>elementClassArgument</strong>: characteristic of an element which are arguments of an element_class function</li>
+<li><strong>value</strong>: the value given to an <strong>elementClassArgument</strong></li>
+</ul>
+<p>There are themeType.elements that are not classified in a specific class thus are given values directly, like legend.</p>
+<pre class="r"><code>theme(themeType.element=value)</code></pre>
+<p>To tie this all together we can create this single template that can be replicated for any element in the theme object. To add more information to the output the class of the value given to an elementClassArgument (or a themeType.element) and the index to uniquely identify the element.</p>
+<pre class="r"><code>library(ggedit)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grouping-templates" class="section level3">
+<h3>Grouping templates</h3>
+<pre class="r"><code>plot(theme_get(),themePart = &#39;legend&#39;,fnt=17,plotFrame = F)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>We add some colour to distinguish which elements are set to NULL (grey) and which ones have values (red).</p>
+<p>As an example this is how to read the output</p>
+<pre class="r"><code>theme(legend.key=element_rect(fill=&#39;grey95&#39;,colour=&#39;white&#39;),
+      legend.text=element_text(size=rel(0.8)),
+      legend.title=element_text(hjust=0),
+      legend.box.spacing=unit(0.4,&#39;cm&#39;),
+      legend.justification=&#39;center&#39;,
+      legend.position=&#39;right&#39;,
+      legend.spacing=unit(0.4,&#39;cm&#39;))</code></pre>
+</div>
+<div id="visualize-the-whole-theme" class="section level3">
+<h3>Visualize the whole theme</h3>
+<pre class="r"><code>plot(theme_get(),plotFrame = F)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>Make this plot interactive by applying ggplotly from the <a href='https://github.com/ropensci/plotly' target="_blank">plotly package</a>.</p>
+<pre class="r"><code>plot(theme_get(),as.plotly = T)</code></pre>
+<iframe src="https://cdn.rawgit.com/metrumresearchgroup/ggedit/be20b77a/BlogPosts/Data%20Driven%20Cheatsheets/plotlyOutput.html" scrolling="yes" width="100%" height="1000" frameborder="0">
+</iframe>
+</div>
+<div id="create-the-cheatsheet" class="section level3">
+<h3>Create the cheatsheet</h3>
+<p>Toggling the <code>plotFrame</code> argument to the plot call will nest the plots into a generic cheatsheet layout that does a better job of finding the best width for each box and supplies instructions on the border of how to read the output with a caption on the bottom which theme was used.</p>
+<pre class="r"><code>plot(theme_get(),plotFrame = T,fnt = 10)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+<div id="compare-themes" class="section level3">
+<h3>Compare themes</h3>
+<p>Finally there is an option to compare themes. The same layout will be given but the color coding will change, where a blue color will indicate an update from the benchmark theme.</p>
+<pre class="r"><code>library(ggthemes)
+plot(obj=theme_economist(),obj2 = theme_bw(),fnt = 10)</code></pre>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>When collaborating with many people and large changes are made to the theme this lets you have a single language everyone can understand for quick referencing and hopefully problem solving.</p>
+<hr>
+<p><em> Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.</p>
+<p>To learn more about additional open-source software packages developed by Metrum Research Group please visit the Metrum <a href="http://metrumrg.com/opensourcetools.html" target="_blank">website</a>.</p>
+<p>Contact: For questions and comments, feel free to email me at: <a href="mailto:yonis@metrumrg.com">yonis@metrumrg.com</a> or open an issue in <a href="https://github.com/metrumresearchgroup/ggedit/issues" target="_blank">github</a>. </em></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
