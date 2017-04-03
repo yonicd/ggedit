@@ -4,9 +4,11 @@
 ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
   TEMPLIST<-new.env()
   TEMPLIST$obj<-get(".p", envir = .ggeditEnv)
-  minHeight <- get(".minHeight", envir = .ggeditEnv)  
+
   verbose<- get(".verbose", envir = .ggeditEnv)  
   showDefaults<- get(".showDefaults", envir = .ggeditEnv)  
+  plotWidth<- get(".plotWidth", envir = .ggeditEnv)  
+  plotHeight<- get(".plotHeight", envir = .ggeditEnv)  
   
     ui <-miniUI::miniPage( 
       miniUI::gadgetTitleBar("Edit ggplots themes and layer aesthetics"),
@@ -207,7 +209,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
 #Render Plot----
         output$Plot=shiny::renderPlot({
           plot(as.ggedit(TEMPLIST$objList.new))
-        },height=minHeight*.6)
+        },width=plotWidth,height=plotHeight)
 
         shiny::observeEvent(input$updateElem,{
           output$Plot=shiny::renderPlot({
@@ -217,7 +219,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
               pList.out=update.Layer()
               plot(as.ggedit(pList.out))
             }
-          },height=minHeight*.6)
+          },width=plotWidth,height=plotHeight)
         })
 
         shiny::observeEvent(input$updateTheme,{
@@ -228,12 +230,12 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
               pList.out=update.Theme()
               plot(as.ggedit(pList.out))
             }
-          },height=minHeight*.6)
+          },width=plotWidth,height=plotHeight)
         })
 
         shiny::observeEvent(input$SetThemeGrid,{
           pList.out=update.ThemeGrid()
-          output$Plot=shiny::renderPlot({plot(as.ggedit(pList.out))},height=minHeight*.6)
+          output$Plot=shiny::renderPlot({plot(as.ggedit(pList.out))},width=plotWidth,height=plotHeight)
         })
 
         shiny::observeEvent(input$done, {

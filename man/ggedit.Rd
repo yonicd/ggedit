@@ -4,19 +4,12 @@
 \alias{ggedit}
 \title{Interactive shiny gadget for editing ggplot layers and themes.}
 \usage{
-ggedit(p.in, viewer = shiny::paneViewer(minHeight = 1000), verbose = F,
-  showDefaults = F, ...)
+ggedit(p.in, ...)
 }
 \arguments{
 \item{p.in}{ggplot plot object or list of objects}
 
-\item{viewer}{shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer}
-
-\item{verbose}{logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)}
-
-\item{showDefaults}{toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)}
-
-\item{\dots}{parameters that are passed to shiny viewer functions}
+\item{\dots}{options that are passed to ggedit}
 }
 \value{
 List of elements
@@ -37,11 +30,19 @@ interface with objects that let the user update aesthetics of layers
 and theme elements.
 }
 \details{
-An interactive shiny gadget that inputs ggplot objects.
+The user can start the gadget using the console \code{ggedit(plotobj)} or through the Addins menu in Rstudio. 
 
-The user can start the gadget using the console \code{ggedit(plotobj)} or 
-through the Addins menu in Rstudio. If you are using the the Addin option 
-highlight on the editor window the ggplot object and then click the addin.
+If you are using the the Addin option highlight on the editor window the ggplot object and then click the addin.
+
+\strong{Options to pass to ggedit}
+
+\strong{viewer} shiny viewer options. It can be either paneViewer (default with minHeight=1000), dialogViewer, browserViewer
+
+\strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
+
+\strong{showDefaults} toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
+
+\strong{width,height} dimensions of the renderPlot where the active plot is displayed
 
 Once the gadget is running the list of plots are shown in a grid and a number of objects will appear above them.
 

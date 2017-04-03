@@ -7,11 +7,14 @@
 #' @param obj ggplot as reactive shiny object
 #' @param verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
 #' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
 #' @export
 #' @keywords internal
 #' @import shiny
 #' @import shinyBS
-ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F) {
+ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F,width='auto',height='auto') {
   TEMPLIST<-new.env()
 
   shiny::observe({
@@ -234,7 +237,7 @@ ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F) {
   #Render Plot----
   output$Plot=shiny::renderPlot({
     plot(as.ggedit(TEMPLIST$objList.new))
-  })
+  },width=width,height=height)
   
   shiny::observeEvent(input$updateElem,{
     output$Plot=shiny::renderPlot({
@@ -244,7 +247,7 @@ ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F) {
         pList.out=update.Layer()
         plot(as.ggedit(pList.out))
       }
-    })
+    },width=width,height=height)
   })
   
   shiny::observeEvent(input$updateTheme,{
@@ -255,12 +258,12 @@ ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F) {
         pList.out=update.Theme()
         plot(as.ggedit(pList.out))
       }
-    })
+    },width=width,height=height)
   })
   
   shiny::observeEvent(input$SetThemeGrid,{
     pList.out=update.ThemeGrid()
-    output$Plot=shiny::renderPlot({plot(as.ggedit(pList.out))})
+    output$Plot=shiny::renderPlot({plot(as.ggedit(pList.out))},width=width,height=height)
   })
   
   simTxt=shiny::reactive({

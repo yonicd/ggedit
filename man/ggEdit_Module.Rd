@@ -5,7 +5,8 @@
 \alias{ggEdit}
 \title{ggEdit}
 \usage{
-ggEdit(input, output, session, obj, verbose = T, showDefaults = F)
+ggEdit(input, output, session, obj, verbose = T, showDefaults = F,
+  width = "auto", height = "auto")
 }
 \arguments{
 \item{input}{shinyapp input argument}
@@ -19,6 +20,10 @@ ggEdit(input, output, session, obj, verbose = T, showDefaults = F)
 \item{verbose}{logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)}
 
 \item{showDefaults}{toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)}
+
+\item{width, height}{Must be a valid CSS unit (like \code{'100\%'},
+\code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+string and have \code{'px'} appended.}
 }
 \description{
 The ggedit module.

@@ -4,16 +4,21 @@
 #' interface with objects that let the user update aesthetics of layers 
 #' and theme elements.
 #' @param p.in ggplot plot object or list of objects
-#' @param viewer shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer
-#' @param verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
-#' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
-#' @param \dots parameters that are passed to shiny viewer functions
-#' @details 
-#' An interactive shiny gadget that inputs ggplot objects.
+#' @param \dots options that are passed to ggedit
+#' @details
+#' The user can start the gadget using the console \code{ggedit(plotobj)} or through the Addins menu in Rstudio. 
 #' 
-#' The user can start the gadget using the console \code{ggedit(plotobj)} or 
-#' through the Addins menu in Rstudio. If you are using the the Addin option 
-#' highlight on the editor window the ggplot object and then click the addin.
+#' If you are using the the Addin option highlight on the editor window the ggplot object and then click the addin.
+#' 
+#' \strong{Options to pass to ggedit}
+#' 
+#' \strong{viewer} shiny viewer options. It can be either paneViewer (default with minHeight=1000), dialogViewer, browserViewer
+#' 
+#' \strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
+#' 
+#' \strong{showDefaults} toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
+#' 
+#' \strong{width,height} dimensions of the renderPlot where the active plot is displayed
 #' 
 #' Once the gadget is running the list of plots are shown in a grid and a number of objects will appear above them.
 #' 
@@ -91,9 +96,17 @@
 #' pnew
 #' }
 #' @import shiny
-ggedit <- function(p.in,viewer=shiny::paneViewer(minHeight = 1000),verbose=F,showDefaults=F,...) {
+ggedit <- function(p.in,...) {
 
-  if(!Sys.getenv("RSTUDIO") == "1") viewer=shiny::browserViewer()
+  opts<-list(...)
+
+  if(is.null(opts$viewer)) opts$viewer=shiny::paneViewer(minHeight = 1000)
+  if(is.null(opts$verbose)) opts$verbose=F
+  if(is.null(opts$showDefaults)) opts$showDefaults=F
+  if(is.null(opts$width)) opts$width='auto'
+  if(is.null(opts$height)) opts$height=600
+
+  if(!Sys.getenv("RSTUDIO") == "1") opts$viewer=shiny::browserViewer()
   
   if(is.ggplot(p.in)) p.in=list(p.in)
   
@@ -102,14 +115,12 @@ ggedit <- function(p.in,viewer=shiny::paneViewer(minHeight = 1000),verbose=F,sho
   p.names=split(1:length(p.in),names(p.in))
   
   if(!all(unlist(lapply(p.in,is.ggplot)))) stop("'object' is not a valid ggplot object")
-  
-  if(!exists('minHeight')) minHeight=1000
-  
-  if(deparse(substitute(viewer))=='paneViewer()') viewer=shiny::paneViewer(minHeight)
-  
-  assign('.minHeight',envir = .ggeditEnv,minHeight)
+
   assign('.p',envir = .ggeditEnv,p.in)
-  assign('.verbose',envir = .ggeditEnv,verbose)
-  assign('.showDefaults',envir = .ggeditEnv,showDefaults)
-  ggeditGadget()
+  assign('.verbose',envir = .ggeditEnv,opts$verbose)
+  assign('.showDefaults',envir = .ggeditEnv,opts$showDefaults)
+  assign('.plotWidth',envir = .ggeditEnv,opts$width)
+  assign('.plotHeight',envir = .ggeditEnv,opts$height)
+
+  ggeditGadget(viewer=opts$viewer)
   }
