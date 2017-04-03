@@ -8,7 +8,7 @@ ggplot2 has become the standard of plotting in R for many users. New users, howe
 
 ggedit is a package that helps users bridge the gap between making a plot and getting all of those pesky plot aesthetics just right, all while keeping everything portable for further research and collaboration.
 
-ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console from the Addin menu within RStudio.
+ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console or from the Addin menu within RStudio.
 
 Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40-19:40)
 
@@ -21,6 +21,18 @@ Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40
 ```r
 install.packages('ggedit')
 ```
+
+For a quick example, run the following:
+
+```r
+library('ggedit')
+library(ggplot2)
+p <- ggplot(mtcars, aes(x = hp, y = wt)) + geom_point() + geom_smooth()
+p2 <- ggedit(p)
+p2
+```
+
+
 
 ### DEV
 ```r
@@ -46,7 +58,7 @@ use ggedit as part of any Shiny application <a href="https://github.com/metrumre
 
 If you have ggedit installed then you can run an example of the module in an app:
 
-```
+```r
 library(shiny)
 library(ggedit)
 runApp(system.file('examples/shinyModule.R',package = 'ggedit'))
