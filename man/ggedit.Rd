@@ -4,7 +4,8 @@
 \alias{ggedit}
 \title{Interactive shiny gadget for editing ggplot layers and themes.}
 \usage{
-ggedit(p.in, viewer = shiny::paneViewer(minHeight = 1000), verbose = F, ...)
+ggedit(p.in, viewer = shiny::paneViewer(minHeight = 1000), verbose = F,
+  showDefaults = F, ...)
 }
 \arguments{
 \item{p.in}{ggplot plot object or list of objects}
@@ -12,6 +13,8 @@ ggedit(p.in, viewer = shiny::paneViewer(minHeight = 1000), verbose = F, ...)
 \item{viewer}{shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer}
 
 \item{verbose}{logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)}
+
+\item{showDefaults}{toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)}
 
 \item{\dots}{parameters that are passed to shiny viewer functions}
 }

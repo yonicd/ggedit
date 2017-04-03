@@ -6,6 +6,7 @@
 #' @param p.in ggplot plot object or list of objects
 #' @param viewer shiny viewer options. It can be either paneViewer, dialogViewer, browserViewer
 #' @param verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
+#' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' @param \dots parameters that are passed to shiny viewer functions
 #' @details 
 #' An interactive shiny gadget that inputs ggplot objects.
@@ -90,7 +91,7 @@
 #' pnew
 #' }
 #' @import shiny
-ggedit <- function(p.in,viewer=shiny::paneViewer(minHeight = 1000),verbose=F,...) {
+ggedit <- function(p.in,viewer=shiny::paneViewer(minHeight = 1000),verbose=F,showDefaults=F,...) {
 
   if(!Sys.getenv("RSTUDIO") == "1") viewer=shiny::browserViewer()
   
@@ -109,5 +110,6 @@ ggedit <- function(p.in,viewer=shiny::paneViewer(minHeight = 1000),verbose=F,...
   assign('.minHeight',envir = .ggeditEnv,minHeight)
   assign('.p',envir = .ggeditEnv,p.in)
   assign('.verbose',envir = .ggeditEnv,verbose)
+  assign('.showDefaults',envir = .ggeditEnv,showDefaults)
   ggeditGadget()
   }

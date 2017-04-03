@@ -4,12 +4,14 @@
 \alias{cloneLayer}
 \title{Creates an independent copy of a ggplot layer object}
 \usage{
-cloneLayer(l, verbose = F)
+cloneLayer(l, verbose = F, showDefaults = T)
 }
 \arguments{
 \item{l}{ggplot2 object layer}
 
 \item{verbose}{toggle to control if the output is ggproto object (verbose==FALSE,default) or string of layer call (verbose==TRUE)}
+
+\item{showDefaults}{toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)}
 }
 \value{
 ggproto or string object (conditional on verbose)

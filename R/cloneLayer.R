@@ -11,6 +11,7 @@
 #' to generate the layer.
 #' @param l ggplot2 object layer
 #' @param verbose toggle to control if the output is ggproto object (verbose==FALSE,default) or string of layer call (verbose==TRUE)
+#' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' @return ggproto or string object (conditional on verbose)
 #' @examples
 #' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
@@ -22,7 +23,7 @@
 #' eval(parse(text=v))
 #' all.equal(p$layers[[1]],eval(parse(text=v)))
 
-cloneLayer=function(l,verbose=F){
+cloneLayer=function(l,verbose=F,showDefaults=T){
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
                 'aes_params','geom_params','stat_params')
@@ -47,30 +48,46 @@ cloneLayer=function(l,verbose=F){
   if(verbose){
     nm=names(x)
     nm=nm[!nm%in%c('geom','params','mapping')]
-    strRet=paste0(paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),'(',
-           paste0('mapping=aes(',paste0(lapply(names(x$mapping),
+    
+    part1<-paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])))
+    
+    part2<-paste0('mapping=aes(',paste0(lapply(names(x$mapping),
                                                function(item){
                                                  paste(item,x$mapping[[item]],sep="=")
-                                                 }
-                                               ),
-                                        collapse=","),
-                  ')'),
-           ',',
-           paste0(lapply(names(unlist(x$params)),function(item) {
-             cl=class(x$params[[item]])
-             out=paste(item,x$params[[item]],sep="=") 
-             if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
-             if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
-             return(out)
-             }),collapse=","),',',
-           paste0(lapply(nm,function(y){
-             if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
-             if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
-             if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
-             if(is.data.frame(x[[y]])) out=paste(y,"'[InputDataFrame]'",sep="=")
-             return(out)
-           }),collapse=','),
-           ')')
+                                               }
+    ),
+    collapse=","),
+    ')')
+    
+    part3<-paste0(lapply(rev(names(unlist(x$params))),function(item) {
+      cl=class(x$params[[item]])
+      out=paste(item,x$params[[item]],sep="=") 
+      if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
+      if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
+      return(out)
+    }),collapse=",")
+    
+    part4<-paste0(lapply(nm,function(y){
+      if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
+      if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
+      if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
+      if(is.data.frame(x[[y]])) out=paste(y,"'[InputDataFrame]'",sep="=")
+      return(out)
+    }),collapse=',')
+    
+    strRet=paste0(part1,'(',part2,',',part3,',',part4,')')
+    
+    if(!showDefaults){
+      strDef<-cloneProto(eval(parse(text=paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])),'()'))))
+
+      h1<-paste0(strsplit(part3,'[,()]')[[1]][!strsplit(part3,'[,()]')[[1]]%in%strsplit(strDef,'[,()]')[[1]]],collapse=",")
+      strRet=ifelse(part2=='mapping=aes()',
+                    paste0(part1,'(',h1,')'),
+                    ifelse(h1=='',paste0(part1,'(',part2,')'),paste0(part1,'(',paste(part2,h1,sep=','),')'))
+                    )
+      
+      
+    }
     gsub('aes()','NULL',strRet,fixed = T) #failsafe for empty aes() call
   }else{
     do.call(layer,x) 

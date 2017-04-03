@@ -6,6 +6,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
   TEMPLIST$obj<-get(".p", envir = .ggeditEnv)
   minHeight <- get(".minHeight", envir = .ggeditEnv)  
   verbose<- get(".verbose", envir = .ggeditEnv)  
+  showDefaults<- get(".showDefaults", envir = .ggeditEnv)  
   
     ui <-miniUI::miniPage( 
       miniUI::gadgetTitleBar("Edit ggplots themes and layer aesthetics"),
@@ -35,7 +36,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         TEMPLIST$nonLayers<-vector('list',length(TEMPLIST$objList.new))
         TEMPLIST$nonLayersTxt<-vector('list',length(TEMPLIST$objList.new))
         
-        baseLayerVerbose=lapply(TEMPLIST$obj,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T)))
+        baseLayerVerbose=lapply(TEMPLIST$obj,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T,showDefaults = showDefaults)))
         
         plotIdx=shiny::reactive({
           if(is.null(input$activePlot)){
@@ -244,7 +245,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
                          UpdatedLayersElements=layersList(TEMPLIST$objList.new)
                          )
 
-          if(verbose) ggeditOut$UpdatedLayerCalls=lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+          if(verbose) ggeditOut$UpdatedLayerCalls=lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T,showDefaults = showDefaults)))
                     
           names(TEMPLIST$nonLayers)<<-names(TEMPLIST$nonLayersTxt)<<-names(TEMPLIST$objList.new)
           ggeditOut$updatedScales=TEMPLIST$nonLayers
@@ -279,7 +280,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         })
         
         simTxt=shiny::reactive({
-          LayerVerbose<-lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+          LayerVerbose<-lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T,showDefaults = showDefaults)))
           if(is.null(input$activePlot)){
             aP=1
           }else{

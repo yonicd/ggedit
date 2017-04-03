@@ -5,12 +5,13 @@
 #' @param output shinyapp output argument
 #' @param session shinyapp session argument
 #' @param obj ggplot as reactive shiny object
+#' @param verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
+#' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' @export
 #' @keywords internal
 #' @import shiny
 #' @import shinyBS
-ggEdit<- function(input, output, session,obj) {
-  verbose=T
+ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F) {
   TEMPLIST<-new.env()
 
   shiny::observe({
@@ -44,7 +45,7 @@ ggEdit<- function(input, output, session,obj) {
     
     if(is.null(names(p.in))) names(p.in)=as.character(1:length(p.in))
     
-    lapply(p.in,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T)))
+    lapply(p.in,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T,showDefaults = showDefaults)))
   })
   
   plotIdx=shiny::eventReactive(input$activePlot,{
@@ -263,7 +264,7 @@ ggEdit<- function(input, output, session,obj) {
   })
   
   simTxt=shiny::reactive({
-    LayerVerbose<-lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+    LayerVerbose<-lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T,showDefaults = showDefaults)))
     if(is.null(input$activePlot)){
       aP=1
     }else{
@@ -317,7 +318,7 @@ ggEdit<- function(input, output, session,obj) {
   ggeditOut$UpdatedLayersElements=layersList(TEMPLIST$objList.new)
   
 
-  if(verbose) ggeditOut$UpdatedLayerCalls=lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T)))
+  if(verbose) ggeditOut$UpdatedLayerCalls=lapply(TEMPLIST$objList.new,function(p) lapply(p$layer,function(item) cloneLayer(l = item,verbose = T,showDefaults = showDefaults)))
 
   names(TEMPLIST$nonLayers)<-names(TEMPLIST$nonLayersTxt)<-names(TEMPLIST$objList.new)
   ggeditOut$updatedScales=TEMPLIST$nonLayers

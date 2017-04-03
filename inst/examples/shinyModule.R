@@ -21,7 +21,7 @@ server <- function(input, output,session) {
   p4=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Petal.Length))+geom_point()
   output$p<-renderPlot({p1})
   outp1<-callModule(ggEdit,'pOut1',obj=reactive(list(p1=p1)))
-  outp2<-callModule(ggEdit,'pOut2',obj=reactive(p3))
+  outp2<-callModule(ggEdit,'pOut2',obj=reactive(p3),showDefaults=T)
   outp3<-callModule(ggEdit,'pOut3',obj=reactive(p4))
 
   output$x1<-renderUI({
