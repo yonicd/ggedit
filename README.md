@@ -47,6 +47,8 @@ use ggedit as part of any Shiny application <a href="https://github.com/metrumre
 If you have ggedit installed then you can run an example of the module in an app:
 
 ```
+library(shiny)
+library(ggedit)
 runApp(system.file('examples/shinyModule.R',package = 'ggedit'))
 ```
 
