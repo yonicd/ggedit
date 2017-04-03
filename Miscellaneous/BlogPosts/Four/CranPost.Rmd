@@ -1,5 +1,6 @@
 # ggedit 0.2.0 is now on CRAN
 
+
 <a href="https://github.com/yonicd/" target="_blank">Jonathan Sidi</a>, <a href="http://metrumrg.com/opensourcetools.html" target="_blank">Metrum Research Group</a>
 
 <!---

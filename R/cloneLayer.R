@@ -59,15 +59,15 @@ cloneLayer=function(l,verbose=F){
            paste0(lapply(names(unlist(x$params)),function(item) {
              cl=class(x$params[[item]])
              out=paste(item,x$params[[item]],sep="=") 
-             if(cl=='character') out=paste(item,paste0('"',x$params[[item]],'"'),sep="=") 
-             if(cl=='formula') out=paste0('formula=as.formula("',paste0(as.character(x$params[[item]])[-1],collapse='~'),'")')
+             if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
+             if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
              return(out)
              }),collapse=","),',',
            paste0(lapply(nm,function(y){
              if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
-             if(is.character(x[[y]])) out=paste(y,paste0('"',x[[y]],'"'),sep="=")
+             if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
              if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
-             if(is.data.frame(x[[y]])) out=paste(y,'"[InputDataFrame]"',sep="=")
+             if(is.data.frame(x[[y]])) out=paste(y,"'[InputDataFrame]'",sep="=")
              return(out)
            }),collapse=','),
            ')')
