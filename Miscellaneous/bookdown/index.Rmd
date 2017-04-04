@@ -1,0 +1,48 @@
+--- 
+title: "Using the ggedit package"
+author: "Metrum Research Group"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    keep_md: false
+  
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "ggedit user book"
+cover-image: images/logo.jpg
+---
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8,echo=FALSE, warning=FALSE, message=FALSE)
+
+suppressMessages({
+  library('ggedit',warn.conflicts = F,quietly = T)
+  library('slickR',warn.conflicts = F,quietly = T)
+  })
+
+  hlp.dir="_main_files/help"
+  if(!dir.exists(hlp.dir)) dir.create(hlp.dir,recursive = T)
+
+fn.src=function(fn,pkg,hlp.dir){
+  pkgpaths <- find.package(pkg)
+  fn.rd <- utils:::index.search(fn, pkgpaths, TRUE)
+  fn.hlp=file.path(hlp.dir,paste0(fn,'Help.html'))
+  
+  tools::Rd2HTML(Rd = utils:::.getHelpFile(fn.rd),out = fn.hlp)
+  #fn.hlp=paste0(capture.output({tools::Rd2HTML(Rd = utils:::.getHelpFile(fn.rd))}),collapse='\n')
+  writeLines(paste0('<iframe width="100%" height="400" src="',fn.hlp,'" allowfullscreen></iframe>'))
+}
+```
+# Preface {-}
+
+ggedit is an R package that is used to facilitate ggplot formatting. With ggedit, R users of all experience levels can easily move from creating ggplots to refining aesthetic details, all while maintaining portability for further reproducible research and collaboration. 
+
+ggedit is run from an R console or as a reactive object in any Shiny application. The user inputs a ggplot object or a list of objects. The application populates Bootstrap modals with all of the elements found in each layer, scale, and theme of the ggplot objects. The user can then edit these elements and interact with the plot as changes occur. During editing, a comparison of the script is logged, which can be directly copied and shared. The application output is a nested list containing the edited layers, scales, and themes in both object and script form, so you can apply the edited objects independent of the original plot using regular ggplot2 grammar. 
+
+Why does it matter? ggedit promotes efficient collaboration. You can share your plots with team members to make formatting changes, and they can then send any objects they’ve edited back to you for implementation. No more email chains to change a circle to a triangle!
+
+Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40-19:40)
+
+<p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph"><img src="https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph">User Lightning Talks – RStudio</a></p>

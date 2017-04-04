@@ -1,0 +1,48 @@
+# Current Development 
+
+  - Download current dev source file
+    - [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
+
+  - **print.ggedit**
+    - S3 method to print directly from the output object to the console the script to reproduce  changes on the original plot object
+
+```r
+print(obj)
+
+point
+geom_point(mapping=aes(colour=Species),alpha=0.5,size=3)+
+  scale_colour_manual(values=c('#9E4A3F','#008B45','#6495ED'))
+
+pointWrap
+geom_point(mapping=aes(colour=Species),size=6)+
+  theme(panel.background=element_rect(fill='white'))
+
+boxplotWrap
+geom_boxplot()
+
+pointLine
+geom_point(mapping=aes(shape=Species,colour=Petal.Width),size=6)+geom_line(linetype=2)
+```
+
+  - **compare**
+    - compare two theme objects and return script or new theme object with only the differences between the two
+
+```r
+compare(theme_bw(),theme_get())
+
+theme(legend.key=element_rect(fill='white'),
+      panel.background=element_rect(fill='white'),
+      panel.grid.major=element_line(colour='grey92'),
+      panel.grid.minor=element_line(colour='grey92'),
+      strip.background=element_rect(colour='grey20')
+)
+```
+
+  - **ggedit(p.in,...)**, where the following arguments can be passed in to the  ellipses
+    - **viewer** shiny viewer options. It can be either paneViewer (default with `minHeight=1000`), dialogViewer, browserViewer
+
+    - **verbose** logical to control if the output includes script for layers and themes calls for parsing to create objects (default, `verbose=TRUE`)
+
+    - **showDefaults** toggle to control if the verbose output shows all the input arguments passed to the proto object (if `verbose==FALSE` then ignored)
+
+    - **width,height** dimensions of the renderPlot where the active plot is displayed

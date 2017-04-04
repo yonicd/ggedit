@@ -1,0 +1,16 @@
+bookdown::gitbook:
+  dev: svglite
+  css: css/style.css
+  split_by: section
+  config:
+    toc:
+      collapse: none
+      before: |
+        <li><a href="./">Using the ggedit package</a></li>
+      after: |
+        <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+    download: [pdf, epub, mobi]
+    edit: https://github.com/rstudio/bookdown/edit/master/inst/examples/%s
+    sharing:
+      github: yes
+      facebook: yes

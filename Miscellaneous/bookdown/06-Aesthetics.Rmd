@@ -1,0 +1,13 @@
+# Updating Aesthetics
+
+## Layers
+The gadget creates a popup window which is populated by the information found in each layer. You can edit the aesthetic values found in a layer and see the changes happen in real time.
+
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/OvMWCHpCmaI" frameborder="0" allowfullscreen></iframe>
+
+You can edit the aesthetic layers while still preserving the original plot, because the changed layers are cloned from the original plot object and are independent of it. The edited layers are provided in the output as objects, so you can use the layers independent of the plot using regular ggplot2 grammar. This is a great advantage when collaborating with other people, where you can send a plot to team members to edit the layers aesthetics and they can send you back just the new layers for you to implement them. 
+
+## Themes
+ggedit also has a theme editor inside. You can edit any element in the theme and see the changes in real time, making the trial and error process quick and easy. Once you are satisfied with the edited theme you can apply it to other plots in the plot list with one click or even make it the <em>session</em> theme regardless of the gadget. As with layers, the new theme object is part of the output, making collaboration easy.
+
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/813QxbsrvLM" frameborder="0" allowfullscreen></iframe>

@@ -1,0 +1,14 @@
+#Utility Functions
+## gggsave
+generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
+
+```{r,results='markup',eval=FALSE,echo=TRUE}
+#single file output to pdf
+gggsave('Rplots.pdf',plot=pList)
+
+#multiple file output to pdf
+gggsave('Rplots.pdf',plot=pList,onefile=F)
+
+#multiple file output to png
+gggsave('Rplots.png',plot=pList)
+```

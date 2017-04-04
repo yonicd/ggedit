@@ -1,0 +1,23 @@
+# Deploying
+
+  - from the console: `ggedit(p)`
+    
+  - from the addin toolbar: highlight script of a plot object on the source editor window of RStudio and run from toolbar.
+    
+  - Shiny: use the Shiny module syntax to call the ggEdit UI elements.
+    - server: `callModule(ggEdit,'pUI',obj=reactive(p))`
+    - ui: `ggEditUI('pUI')`
+    
+## Console
+```{r results='asis',echo=FALSE}
+fn.src('ggedit','ggedit',hlp.dir)
+```
+
+## Addin
+
+## Shiny
+```{r results='asis',echo=FALSE}
+fn.src('ggEdit','ggedit',hlp.dir)
+```
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen></iframe>

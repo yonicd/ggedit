@@ -1,0 +1,26 @@
+# Installation
+
+## CRAN
+
+```r
+install.packages('ggedit')
+```
+
+For a quick example, run the following:
+
+```r
+library('ggedit')
+library(ggplot2)
+p <- ggplot(mtcars, aes(x = hp, y = wt)) + geom_point() + geom_smooth()
+p2 <- ggedit(p)
+names(p2) # will show you which objects are available.
+plot(p2) # shows the updated plot (it is available in the first element of p2)
+```
+
+## DEV
+
+The package is currently under continuous development for the most up to date version run the script below.
+
+```r
+devtools::install_github("metrumresearchgroup/ggedit")
+```

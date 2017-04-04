@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="installation.html">
+<link rel="prev" href="dev.html">
+<link rel="next" href="limitations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -146,23 +146,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Using the ggedit package</h1>
-<h4 class="author"><em>Metrum Research Group</em></h4>
-<h4 class="date"><em>2017-04-04</em></h4>
-</div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>ggedit is an R package that is used to facilitate ggplot formatting. With ggedit, R users of all experience levels can easily move from creating ggplots to refining aesthetic details, all while maintaining portability for further reproducible research and collaboration.</p>
-<p>ggedit is run from an R console or as a reactive object in any Shiny application. The user inputs a ggplot object or a list of objects. The application populates Bootstrap modals with all of the elements found in each layer, scale, and theme of the ggplot objects. The user can then edit these elements and interact with the plot as changes occur. During editing, a comparison of the script is logged, which can be directly copied and shared. The application output is a nested list containing the edited layers, scales, and themes in both object and script form, so you can apply the edited objects independent of the original plot using regular ggplot2 grammar.</p>
-<p>Why does it matter? ggedit promotes efficient collaboration. You can share your plots with team members to make formatting changes, and they can then send any objects they’ve edited back to you for implementation. No more email chains to change a circle to a triangle!</p>
-<p>Short clip from <a href="https://www.rstudio.com/conference/">rstudio::conf 2017</a> (13:40-19:40)</p>
-<p>
-<a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph"><img src="https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a>
-</p>
-<p>
-<a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph">User Lightning Talks – RStudio</a>
-</p>
+<div id="current-development" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Current Development</h1>
+<ul>
+<li>Download current dev source file
+<ul>
+<li><a href="https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz">ggedit_0.2.1</a></li>
+</ul></li>
+<li><strong>print.ggedit</strong>
+<ul>
+<li>S3 method to print directly from the output object to the console the script to reproduce changes on the original plot object</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(obj)
+
+point
+<span class="kw">geom_point</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">colour=</span>Species),<span class="dt">alpha=</span><span class="fl">0.5</span>,<span class="dt">size=</span><span class="dv">3</span>)+
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&#39;#9E4A3F&#39;</span>,<span class="st">&#39;#008B45&#39;</span>,<span class="st">&#39;#6495ED&#39;</span>))
+
+pointWrap
+<span class="kw">geom_point</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">colour=</span>Species),<span class="dt">size=</span><span class="dv">6</span>)+
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background=</span><span class="kw">element_rect</span>(<span class="dt">fill=</span><span class="st">&#39;white&#39;</span>))
+
+boxplotWrap
+<span class="kw">geom_boxplot</span>()
+
+pointLine
+<span class="kw">geom_point</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">shape=</span>Species,<span class="dt">colour=</span>Petal.Width),<span class="dt">size=</span><span class="dv">6</span>)+<span class="kw">geom_line</span>(<span class="dt">linetype=</span><span class="dv">2</span>)</code></pre></div>
+<ul>
+<li><strong>compare</strong>
+<ul>
+<li>compare two theme objects and return script or new theme object with only the differences between the two</li>
+</ul></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">compare</span>(<span class="kw">theme_bw</span>(),<span class="kw">theme_get</span>())
+
+<span class="kw">theme</span>(<span class="dt">legend.key=</span><span class="kw">element_rect</span>(<span class="dt">fill=</span><span class="st">&#39;white&#39;</span>),
+      <span class="dt">panel.background=</span><span class="kw">element_rect</span>(<span class="dt">fill=</span><span class="st">&#39;white&#39;</span>),
+      <span class="dt">panel.grid.major=</span><span class="kw">element_line</span>(<span class="dt">colour=</span><span class="st">&#39;grey92&#39;</span>),
+      <span class="dt">panel.grid.minor=</span><span class="kw">element_line</span>(<span class="dt">colour=</span><span class="st">&#39;grey92&#39;</span>),
+      <span class="dt">strip.background=</span><span class="kw">element_rect</span>(<span class="dt">colour=</span><span class="st">&#39;grey20&#39;</span>)
+)</code></pre></div>
+<ul>
+<li><strong>ggedit(p.in,…)</strong>, where the following arguments can be passed in to the ellipses
+<ul>
+<li><p><strong>viewer</strong> shiny viewer options. It can be either paneViewer (default with <code>minHeight=1000</code>), dialogViewer, browserViewer</p></li>
+<li><p><strong>verbose</strong> logical to control if the output includes script for layers and themes calls for parsing to create objects (default, <code>verbose=TRUE</code>)</p></li>
+<li><p><strong>showDefaults</strong> toggle to control if the verbose output shows all the input arguments passed to the proto object (if <code>verbose==FALSE</code> then ignored)</p></li>
+<li><p><strong>width,height</strong> dimensions of the renderPlot where the active plot is displayed</p></li>
+</ul></li>
+</ul>
 
 </div>
             </section>
@@ -170,8 +203,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dev.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limitations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -200,7 +233,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown/edit/master/inst/examples/index.Rmd",
+"link": "https://github.com/rstudio/bookdown/edit/master/inst/examples/02-currentDev.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],

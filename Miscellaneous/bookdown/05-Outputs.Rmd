@@ -1,0 +1,32 @@
+# Outputs
+
+ggedit returns a list containing 8 elements either to the global enviroment or as a reactive output in Shiny.
+
+  - **updatedPlots**
+    - List containing updated ggplot objects
+    
+  - **updatedLayers**
+    - For each plot a list of updated layers (ggproto) objects
+    - Portable object
+    
+  - **updatedLayersElements**
+    - For each plot a list elements and their values in each layer
+    - Can be used to update the new values in the original code
+    
+  - **updatedLayerCalls**
+    - For each plot a list of scripts that can be run directly from the console to create a layer
+    
+  - **updatedThemes**
+    - For each plot a list of updated theme objects
+    - Portable object
+    - If the user doesn't edit the theme updatedThemes will not be returned
+    
+  - **updatedThemeCalls**
+    - For each plot a list of scripts that can be run directly from the console to create a theme
+    
+  - **updatedScales**
+    - For each plot a list of updated scales (ggproto) objects
+    - Portable object
+    
+  - **updatedScaleCalls**
+      - For each plot a list of scripts that can be run directly from the console to create a scale
