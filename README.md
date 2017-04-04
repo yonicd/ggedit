@@ -67,7 +67,12 @@ devtools::install_github("metrumresearchgroup/ggedit")
 ```r
     compare(theme_bw(),theme_get())
     
-    theme(legend.key=element_rect(fill='white'),panel.background=element_rect(fill='white'),panel.grid.major=element_line(colour='grey92'),panel.grid.minor=element_line(colour='grey92'),strip.background=element_rect(colour='grey20'))
+    theme(legend.key=element_rect(fill='white'),
+          panel.background=element_rect(fill='white'),
+          panel.grid.major=element_line(colour='grey92'),
+          panel.grid.minor=element_line(colour='grey92'),
+          strip.background=element_rect(colour='grey20')
+          )
 ```
   
   - call to ggedit is now ggedit(p.in,...), where the following arguments can be passed in to the  ellipses
