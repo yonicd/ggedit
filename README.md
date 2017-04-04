@@ -40,6 +40,45 @@ plot(p2) # shows the updated plot (it is available in the first element of p2)
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
 
+#### DEV updates (ggedit_0.2.1)[https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz]
+
+  - print.ggedit method
+  
+```r
+    print(obj)
+    
+    point
+    geom_point(mapping=aes(colour=Species),alpha=0.5,size=3)+
+    scale_colour_manual(values=c('#9E4A3F','#008B45','#6495ED'))
+    
+    pointWrap
+    geom_point(mapping=aes(colour=Species),size=6)+
+    theme(panel.background=element_rect(fill='white'))
+    
+    boxplotWrap
+    geom_boxplot()
+    
+    pointLine
+    geom_point(mapping=aes(shape=Species,colour=Petal.Width),size=6)+geom_line(linetype=2)
+```
+
+  - compare: compare two theme objects
+  
+```r
+    compare(theme_bw(),theme_get())
+    compare(theme_bw(),theme_get(),verbose=FALSE)
+```
+  
+  - call to ggedit is now ggedit(p.in,...), where the the following can be passed in to the  ellipses
+    - viewer shiny viewer options. It can be either paneViewer (default with `minHeight=1000`), dialogViewer, browserViewer
+
+    - verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, `verbose=TRUE`)
+
+    - showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if `verbose==FALSE` then ignored)
+
+    - width,height dimensions of the renderPlot where the active plot is displayed
+    
+
 ## Limitations
   - layers
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
@@ -48,8 +87,6 @@ devtools::install_github("metrumresearchgroup/ggedit")
   - theme
     - margin,arrow are not currently available to edit
 
-
-## version 0.1.1 Updates
 
 ### ggEdit Shiny module
 use ggedit as part of any Shiny application <a href="https://github.com/metrumresearchgroup/ggedit/tree/master/Miscellaneous/BlogPosts/Third" target="_blank">full post</a>
@@ -80,7 +117,6 @@ gggsave('Rplots.pdf',plot=pList,onefile=F)
 gggsave('Rplots.png',plot=pList)
 ```
 
-## version 0.0.2 Updates
 ### Verbose outputs and UI integration
 A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
   - Layer output: In addition to the new ggproto object the user will also get the ggplot script that can be parsed/pasted in the console to create the same layer. 
