@@ -17,7 +17,7 @@ fn.src('ggedit','ggedit',hlp.dir)
 
 ## Shiny
 ```{r results='asis',echo=FALSE}
-fn.src('ggEdit','ggedit',hlp.dir)
+fn.src('ggEdit_Module','ggedit',hlp.dir)
 ```
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen></iframe>
