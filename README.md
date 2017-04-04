@@ -40,7 +40,7 @@ plot(p2) # shows the updated plot (it is available in the first element of p2)
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
 
-#### DEV updates (ggedit_0.2.1)[https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz]
+#### DEV updates [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
 
   - print.ggedit method
   
