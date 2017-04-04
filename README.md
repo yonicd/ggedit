@@ -42,7 +42,7 @@ devtools::install_github("metrumresearchgroup/ggedit")
 
 #### DEV updates [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
 
-  - print.ggedit method
+  - print.ggedit: S3 method to print directly from the output object to the console the script to reproduce  changes on the original plot object
   
 ```r
     print(obj)
