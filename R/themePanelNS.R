@@ -4,7 +4,6 @@
 #' @param obj.name name of theme object
 #' @param session shiny session object
 #' @return UI
-#' @export
 #' @import shiny
 #' @keywords internal
 themePanelNS=function(obj.in,obj.name,session){

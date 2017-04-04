@@ -4,7 +4,7 @@
 \alias{cloneLayer}
 \title{Creates an independent copy of a ggplot layer object}
 \usage{
-cloneLayer(l, verbose = F, showDefaults = T)
+cloneLayer(l, verbose = FALSE, showDefaults = TRUE)
 }
 \arguments{
 \item{l}{ggplot2 object layer}

@@ -51,7 +51,10 @@ cloneProto=function(l){
       return(out)
     }),collapse=',')
     
-    part5<-paste0(apply(cbind(names(g$geom$default_aes),paste(g$geom$default_aes)),1,function(x) paste0(x,collapse='=')),collapse=',')
+    nDF<-cbind(names(g$geom$default_aes),paste(g$geom$default_aes))
+    nDF[nDF[,1]%in%c('colour','fill','color'),2]=paste0("'",scales::col2hcl(nDF[nDF[,1]%in%c('colour','fill','color'),2],alpha = NULL),"'")
+
+    part5<-paste0(apply(nDF,1,function(x) paste0(x,collapse='=')),collapse=',')
     
     paste0(part1,'(',part2,',',part3,',',part4,',',part5,')')
     

@@ -14,7 +14,7 @@
 #' @keywords internal
 #' @import shiny
 #' @import shinyBS
-ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F,width='auto',height='auto') {
+ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,width='auto',height='auto') {
   TEMPLIST<-new.env()
 
   shiny::observe({
@@ -204,8 +204,11 @@ ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F,width='aut
   update.ThemeGrid=shiny::eventReactive(input$SetThemeGrid,{
     p.now<-TEMPLIST$objList.new[[as.numeric(input$activePlot)]]
     if(length(p.now$theme)>0) theme.now=theme.now+p.now$theme
-    
-    for(i in 1:length(TEMPLIST$objList.new)) TEMPLIST$objList.new[[i]]<- TEMPLIST$objList.new[[i]]+theme.now
+
+    for(i in 1:length(TEMPLIST$objList.new)){
+      TEMPLIST$objList.new[[i]]<- TEMPLIST$objList.new[[i]]+theme.now
+      TEMPLIST$themeUpdate[[i]]<- TEMPLIST$objList.new[[i]]$theme
+    }
     
     return(TEMPLIST$objList.new)
   })
@@ -333,15 +336,23 @@ ggEdit<- function(input, output, session,obj,verbose=T,showDefaults=F,width='aut
     
     ggeditOut$UpdatedThemes=TEMPLIST$themeUpdate
     if(verbose){
-      ggeditOut$UpdatedThemeCalls=lapply(TEMPLIST$objList.new,function(p,input){
+      ggeditOut$UpdatedThemeCalls=lapply(names(TEMPLIST$objList.new),function(lp,input){
+        p=TEMPLIST$objList.new[[lp]]
         if(length(p$theme)>0){
-          x.theme=themeFetch(p$theme)
-          x=lapply(names(x.theme),function(item){themeNewVal(x.theme[item],p,input)})
-          paste0("theme(",paste0(unlist(x),collapse = ","),")")
+          if(!showDefaults){
+            themeBase=ggplot2::theme_get()
+            if(length(TEMPLIST$obj[[lp]]$theme)>0) themeBase=themeBase+TEMPLIST$obj[[lp]]$theme
+            compare(p$theme,themeBase,verbose=T)
+          }else{
+            x.theme=themeFetch(p$theme)
+            x=lapply(names(x.theme),function(item){themeNewVal(x.theme[item],p,input)})
+            paste0("theme(",paste0(unlist(x),collapse = ","),")")
+          }
         }else{
           c('list()')
         }
       },input)
+      names(ggeditOut$UpdatedThemeCalls)=names(TEMPLIST$objList.new)
     }
   }
 

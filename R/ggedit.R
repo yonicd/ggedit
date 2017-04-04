@@ -14,7 +14,7 @@
 #' 
 #' \strong{viewer} shiny viewer options. It can be either paneViewer (default with minHeight=1000), dialogViewer, browserViewer
 #' 
-#' \strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=F)
+#' \strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=FALSE)
 #' 
 #' \strong{showDefaults} toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' 

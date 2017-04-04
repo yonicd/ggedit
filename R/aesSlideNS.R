@@ -3,7 +3,6 @@
 #' @param type character of label and inputId of element
 #' @param session shiny session object
 #' @return UI object
-#' @export
 #' @import shiny
 #' @keywords internal
 aesSlideNS=function(type,session){

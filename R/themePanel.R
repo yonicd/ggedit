@@ -3,7 +3,6 @@
 #' @param obj.in theme object in list form
 #' @param obj.name name of theme object
 #' @return UI
-#' @export
 #' @import shiny
 #' @keywords internal
 themePanel=function(obj.in,obj.name){

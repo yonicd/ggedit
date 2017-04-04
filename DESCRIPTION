@@ -1,7 +1,7 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.2.0
+Version: 0.2.1
 Date: 2017-03-31
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
@@ -14,16 +14,14 @@ Depends:
     dplyr (>= 0.5)
 Imports:
     plyr,
-    magrittr (>= 1.0.1),
+    reshape2,
     rstudioapi,
     utils,
     colourpicker (>= 0.2),
     scales,
     graphics,
     shinyAce,
-    reshape2,
     grid,
-    gridExtra,
     miniUI
 License: GPL-2 | GPL-3
 URL: https://github.com/metrumresearchgroup/ggedit

@@ -23,7 +23,7 @@
 #' eval(parse(text=v))
 #' all.equal(p$layers[[1]],eval(parse(text=v)))
 
-cloneLayer=function(l,verbose=F,showDefaults=T){
+cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
                 'aes_params','geom_params','stat_params')

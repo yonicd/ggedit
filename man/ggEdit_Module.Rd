@@ -5,7 +5,7 @@
 \alias{ggEdit}
 \title{ggEdit}
 \usage{
-ggEdit(input, output, session, obj, verbose = T, showDefaults = F,
+ggEdit(input, output, session, obj, verbose = TRUE, showDefaults = FALSE,
   width = "auto", height = "auto")
 }
 \arguments{

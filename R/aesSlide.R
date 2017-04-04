@@ -2,7 +2,6 @@
 #' @description sliderInput UI production for continuous variables
 #' @param type character of label and inputId of element
 #' @return UI object
-#' @export
 #' @import shiny
 #' @keywords internal
 aesSlide=function(type){
