@@ -62,14 +62,15 @@ devtools::install_github("metrumresearchgroup/ggedit")
     geom_point(mapping=aes(shape=Species,colour=Petal.Width),size=6)+geom_line(linetype=2)
 ```
 
-  - compare: compare two theme objects
+  - compare: compare two theme objects and return script or new theme object with only the differences between the two
   
 ```r
     compare(theme_bw(),theme_get())
-    compare(theme_bw(),theme_get(),verbose=FALSE)
+    
+    theme(legend.key=element_rect(fill='white'),panel.background=element_rect(fill='white'),panel.grid.major=element_line(colour='grey92'),panel.grid.minor=element_line(colour='grey92'),strip.background=element_rect(colour='grey20'))
 ```
   
-  - call to ggedit is now ggedit(p.in,...), where the the following can be passed in to the  ellipses
+  - call to ggedit is now ggedit(p.in,...), where the following arguments can be passed in to the  ellipses
     - viewer shiny viewer options. It can be either paneViewer (default with `minHeight=1000`), dialogViewer, browserViewer
 
     - verbose logical to control if the output includes script for layers and themes calls for parsing to create objects (default, `verbose=TRUE`)
