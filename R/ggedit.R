@@ -14,7 +14,7 @@
 #' 
 #' \strong{viewer} shiny viewer options. It can be either paneViewer (default with minHeight=1000), dialogViewer, browserViewer
 #' 
-#' \strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=FALSE)
+#' \strong{verbose} logical to control if the output includes script for layers and themes calls for parsing to create objects (default, verbose=TRUE)
 #' 
 #' \strong{showDefaults} toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' 
@@ -101,8 +101,8 @@ ggedit <- function(p.in,...) {
   opts<-list(...)
 
   if(is.null(opts$viewer)) opts$viewer=shiny::paneViewer(minHeight = 1000)
-  if(is.null(opts$verbose)) opts$verbose=F
-  if(is.null(opts$showDefaults)) opts$showDefaults=F
+  if(is.null(opts$verbose)) opts$verbose=TRUE
+  if(is.null(opts$showDefaults)) opts$showDefaults=FALSE
   if(is.null(opts$width)) opts$width='auto'
   if(is.null(opts$height)) opts$height=600
 
