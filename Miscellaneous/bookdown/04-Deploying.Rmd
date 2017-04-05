@@ -9,9 +9,21 @@
     - ui: `ggEditUI('pUI')`
     
 ## Console
-```{r results='asis',echo=FALSE}
-fn.src('ggedit','ggedit',hlp.dir)
+To run ggedit all you need is a compiled ggplot plot object
+
+```{r,echo=TRUE,eval=FALSE}
+ggedit(p,...)
 ```
+
+the following arguments can be passed in to the  ellipses
+    
+  - **verbose** logical to control if the output includes script for layers and themes calls for parsing to create objects (default, `verbose=TRUE`)
+
+  - **showDefaults** toggle to control if the verbose output shows all the input arguments passed to the proto object (if `verbose==FALSE` then ignored)
+
+  - **width,height** dimensions of the renderPlot where the active plot is displayed
+
+  - **viewer** shiny viewer options. It can be either paneViewer (default with `minHeight=1000`), dialogViewer, browserViewer
 
 ## Addin
 
@@ -20,8 +32,61 @@ To launch the Shiny gadget from the addin menu highlight the code that creates t
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/693XhHt8fug" frameborder="0" allowfullscreen></iframe>
 
 ## Shiny
-```{r results='asis',echo=FALSE}
-fn.src('ggEdit_Module','ggedit',hlp.dir)
-```
+
+Using ggedit as a Shiny module creates a self contained user interface layout that contains a ggedit interface for rendered plots created in a Shiny application. This means that you can launch as many ggedit environments as you need, replacing the static renderPlot with an interactive editable ggplot. 
+
+To call the Shiny module you need a UI and server call:
+
+  - server: `callModule(ggEdit,'pUI',obj=reactive(p))`
+  - ui: `ggEditUI('pUI')`
+  
+Video of Shiny app example
 
 <iframe width="100%" height="400" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen></iframe>
+
+Script to reproduce the video app:
+
+```{r echo=T,eval=FALSE}
+library(ggedit)
+library(shinyAce)
+ui <-fluidPage(
+  conditionalPanel("input.tbPanel=='b'",
+               sidebarPanel(uiOutput('x1'),uiOutput('x2'))
+               ),
+  mainPanel(
+    tabsetPanel(id = 'tbPanel',
+    tabPanel('renderPlot/plotOutput',value = 'a',plotOutput('p')),
+    tabPanel('ggEdit/ggEditUI',value = 'b',ggEditUI("pOut1")),
+    tabPanel('ggEdit/ggEditUI with lists of plots',value = 'c',ggEditUI("pOut2"))
+  )
+  )
+  
+)
+
+server <- function(input, output,session) {
+  p1=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Species))+geom_point()
+  p2=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Species))+geom_line()+geom_point()
+  p3=list(p1=p1,p2=p2)
+
+  output$p<-renderPlot({p1})
+  outp1<-callModule(ggEdit,'pOut1',obj=reactive(list(p1=p1)))
+  outp2<-callModule(ggEdit,'pOut2',obj=reactive(p3),showDefaults=T,height=300)
+
+  output$x1<-renderUI({
+    layerTxt=outp1()$UpdatedLayerCalls$p1[[1]]
+            aceEditor(outputId = 'layerAce',value=layerTxt,
+                      mode = "r", theme = "chrome", 
+                      height = "100px", fontSize = 12,wordWrap = T)
+         })  
+  
+  output$x2<-renderUI({
+    themeTxt=outp1()$UpdatedThemeCalls$p1
+    aceEditor(outputId = 'themeAce',value=themeTxt,
+              mode = "r", theme = "chrome", 
+              height = "100px", fontSize = 12,wordWrap = T)
+  })  
+
+}
+
+shinyApp(ui, server)
+```

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="addin.html">
-<link rel="next" href="outputs.html">
+<link rel="prev" href="package-functions.html">
+<link rel="next" href="ggedit-1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -155,70 +155,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="shiny" class="section level2">
-<h2><span class="header-section-number">4.3</span> Shiny</h2>
-<p>Using ggedit as a Shiny module creates a self contained user interface layout that contains a ggedit interface for rendered plots created in a Shiny application. This means that you can launch as many ggedit environments as you need, replacing the static renderPlot with an interactive editable ggplot.</p>
-<p>To call the Shiny module you need a UI and server call:</p>
-<ul>
-<li>server: <code>callModule(ggEdit,'pUI',obj=reactive(p))</code></li>
-<li>ui: <code>ggEditUI('pUI')</code></li>
-</ul>
-<p>Video of Shiny app example</p>
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/pJ1kbd_OVwg" frameborder="0" allowfullscreen>
+<div id="ggedit" class="section level2">
+<h2><span class="header-section-number">8.1</span> ggedit</h2>
+<iframe width="100%" height="400" src="_main_files/help/ggeditHelp.html" allowfullscreen>
 </iframe>
-<p>Script to reproduce the video app:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggedit)
-<span class="kw">library</span>(shinyAce)
-ui &lt;-<span class="kw">fluidPage</span>(
-  <span class="kw">conditionalPanel</span>(<span class="st">&quot;input.tbPanel==&#39;b&#39;&quot;</span>,
-               <span class="kw">sidebarPanel</span>(<span class="kw">uiOutput</span>(<span class="st">&#39;x1&#39;</span>),<span class="kw">uiOutput</span>(<span class="st">&#39;x2&#39;</span>))
-               ),
-  <span class="kw">mainPanel</span>(
-    <span class="kw">tabsetPanel</span>(<span class="dt">id =</span> <span class="st">&#39;tbPanel&#39;</span>,
-    <span class="kw">tabPanel</span>(<span class="st">&#39;renderPlot/plotOutput&#39;</span>,<span class="dt">value =</span> <span class="st">&#39;a&#39;</span>,<span class="kw">plotOutput</span>(<span class="st">&#39;p&#39;</span>)),
-    <span class="kw">tabPanel</span>(<span class="st">&#39;ggEdit/ggEditUI&#39;</span>,<span class="dt">value =</span> <span class="st">&#39;b&#39;</span>,<span class="kw">ggEditUI</span>(<span class="st">&quot;pOut1&quot;</span>)),
-    <span class="kw">tabPanel</span>(<span class="st">&#39;ggEdit/ggEditUI with lists of plots&#39;</span>,<span class="dt">value =</span> <span class="st">&#39;c&#39;</span>,<span class="kw">ggEditUI</span>(<span class="st">&quot;pOut2&quot;</span>))
-  )
-  )
-  
-)
-
-server &lt;-<span class="st"> </span>function(input, output,session) {
-  p1=iris%&gt;%<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length,<span class="dt">y=</span>Sepal.Width,<span class="dt">colour=</span>Species))+<span class="kw">geom_point</span>()
-  p2=iris%&gt;%<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length,<span class="dt">y=</span>Sepal.Width,<span class="dt">colour=</span>Species))+<span class="kw">geom_line</span>()+<span class="kw">geom_point</span>()
-  p3=<span class="kw">list</span>(<span class="dt">p1=</span>p1,<span class="dt">p2=</span>p2)
-
-  output$p&lt;-<span class="kw">renderPlot</span>({p1})
-  outp1&lt;-<span class="kw">callModule</span>(ggEdit,<span class="st">&#39;pOut1&#39;</span>,<span class="dt">obj=</span><span class="kw">reactive</span>(<span class="kw">list</span>(<span class="dt">p1=</span>p1)))
-  outp2&lt;-<span class="kw">callModule</span>(ggEdit,<span class="st">&#39;pOut2&#39;</span>,<span class="dt">obj=</span><span class="kw">reactive</span>(p3),<span class="dt">showDefaults=</span>T,<span class="dt">height=</span><span class="dv">300</span>)
-
-  output$x1&lt;-<span class="kw">renderUI</span>({
-    layerTxt=<span class="kw">outp1</span>()$UpdatedLayerCalls$p1[[<span class="dv">1</span>]]
-            <span class="kw">aceEditor</span>(<span class="dt">outputId =</span> <span class="st">&#39;layerAce&#39;</span>,<span class="dt">value=</span>layerTxt,
-                      <span class="dt">mode =</span> <span class="st">&quot;r&quot;</span>, <span class="dt">theme =</span> <span class="st">&quot;chrome&quot;</span>, 
-                      <span class="dt">height =</span> <span class="st">&quot;100px&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>,<span class="dt">wordWrap =</span> T)
-         })  
-  
-  output$x2&lt;-<span class="kw">renderUI</span>({
-    themeTxt=<span class="kw">outp1</span>()$UpdatedThemeCalls$p1
-    <span class="kw">aceEditor</span>(<span class="dt">outputId =</span> <span class="st">&#39;themeAce&#39;</span>,<span class="dt">value=</span>themeTxt,
-              <span class="dt">mode =</span> <span class="st">&quot;r&quot;</span>, <span class="dt">theme =</span> <span class="st">&quot;chrome&quot;</span>, 
-              <span class="dt">height =</span> <span class="st">&quot;100px&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>,<span class="dt">wordWrap =</span> T)
-  })  
-
-}
-
-<span class="kw">shinyApp</span>(ui, server)</code></pre></div>
-
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="addin.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="outputs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="package-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggedit-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -247,7 +195,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/04-Deploying.Rmd",
+"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/10-utility.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],

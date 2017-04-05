@@ -1,5 +1,15 @@
 #Package Functions
 
+## ggedit
+```{r results='asis',echo=FALSE}
+fn.src('ggedit','ggedit',hlp.dir)
+```
+
+## ggEdit
+```{r results='asis',echo=FALSE}
+fn.src('ggEdit_Module','ggedit',hlp.dir)
+```
+
 ## rgg
 
 ```{r results='asis',echo=FALSE}
