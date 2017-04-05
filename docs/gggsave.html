@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="utility-functions.html">
-
+<link rel="prev" href="remove-geom.html">
+<link rel="next" href="compare.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -123,8 +123,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.1" data-path="layers-1.html"><a href="layers-1.html"><i class="fa fa-check"></i><b>6.1</b> Layers</a></li>
 <li class="chapter" data-level="6.2" data-path="themes-1.html"><a href="themes-1.html"><i class="fa fa-check"></i><b>6.2</b> Themes</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="utility-functions.html"><a href="utility-functions.html"><i class="fa fa-check"></i><b>7</b> Utility Functions</a><ul>
-<li class="chapter" data-level="7.1" data-path="gggsave.html"><a href="gggsave.html"><i class="fa fa-check"></i><b>7.1</b> gggsave</a></li>
+<li class="chapter" data-level="7" data-path="verbose-outputs.html"><a href="verbose-outputs.html"><i class="fa fa-check"></i><b>7</b> Verbose Outputs</a></li>
+<li class="chapter" data-level="8" data-path="package-functions.html"><a href="package-functions.html"><i class="fa fa-check"></i><b>8</b> Package Functions</a><ul>
+<li class="chapter" data-level="8.1" data-path="rgg.html"><a href="rgg.html"><i class="fa fa-check"></i><b>8.1</b> rgg</a></li>
+<li class="chapter" data-level="8.2" data-path="remove-geom.html"><a href="remove-geom.html"><i class="fa fa-check"></i><b>8.2</b> remove_geom</a></li>
+<li class="chapter" data-level="8.3" data-path="gggsave.html"><a href="gggsave.html"><i class="fa fa-check"></i><b>8.3</b> gggsave</a></li>
+<li class="chapter" data-level="8.4" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>8.4</b> compare</a></li>
+<li class="chapter" data-level="8.5" data-path="clonelayer.html"><a href="clonelayer.html"><i class="fa fa-check"></i><b>8.5</b> cloneLayer</a></li>
+<li class="chapter" data-level="8.6" data-path="print-ggedit.html"><a href="print-ggedit.html"><i class="fa fa-check"></i><b>8.6</b> print.ggedit</a></li>
+<li class="chapter" data-level="8.7" data-path="plot-ggedit.html"><a href="plot-ggedit.html"><i class="fa fa-check"></i><b>8.7</b> plot.ggedit</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -147,8 +154,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="gggsave" class="section level2">
-<h2><span class="header-section-number">7.1</span> gggsave</h2>
+<h2><span class="header-section-number">8.3</span> gggsave</h2>
 <p>generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices.</p>
+<iframe width="100%" height="400" src="_main_files/help/gggsaveHelp.html" allowfullscreen>
+</iframe>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#single file output to pdf</span>
 <span class="kw">gggsave</span>(<span class="st">&#39;Rplots.pdf&#39;</span>,<span class="dt">plot=</span>pList)
 
@@ -157,16 +166,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="co">#multiple file output to png</span>
 <span class="kw">gggsave</span>(<span class="st">&#39;Rplots.png&#39;</span>,<span class="dt">plot=</span>pList)</code></pre></div>
-
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="utility-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="remove-geom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

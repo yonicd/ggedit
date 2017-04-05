@@ -1,6 +1,43 @@
-#Utility Functions
+#Package Functions
+
+## rgg
+
+```{r results='asis',echo=FALSE}
+fn.src('rgg','ggedit',hlp.dir)
+```
+
+After you finish editing the plots the natural progression is to use them in the rest of the script. In ggedit there is the function rgg (remove and replace ggplot). Using this function you can chain into the original code changes to the plot without multiplying script needlessly.
+
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/0QmJHwoWQWM" frameborder="0" allowfullscreen></iframe>
+
+
+  - Specify which layer you want to remove from a plot:
+
+`ggObj%>%rgg('line')`
+
+  - Provide an index to a specific layer, in instances where there are more than one layer of the same type in the plot
+
+`ggObj%>%rgg('line',2)`
+
+  - Remove a layer from ggObj and replace it with a new one from the ggedit output p.out
+
+`ggObj%>%rgg('line',newLayer = p.out$UpdatedLayers)`
+
+  - Remove a layer and replace it with a new one and the new theme 
+
+`ggObj%>%rgg('line',newLayer = p.out$UpdatedLayers)+p.out$UpdatedThemes`
+
+## remove_geom
+```{r results='asis',echo=FALSE}
+fn.src('remove_geom','ggedit',hlp.dir)
+```
+
 ## gggsave
 generalized ggsave to save multiple outputs of ggplot to single file and multiple files from a single call. Plots can be saved to various graphic devices. 
+
+```{r results='asis',echo=FALSE}
+fn.src('gggsave','ggedit',hlp.dir)
+```
 
 ```{r,results='markup',eval=FALSE,echo=TRUE}
 #single file output to pdf
@@ -11,4 +48,34 @@ gggsave('Rplots.pdf',plot=pList,onefile=F)
 
 #multiple file output to png
 gggsave('Rplots.png',plot=pList)
+```
+
+## compare
+```{r results='asis',echo=FALSE}
+fn.src('compare','ggedit',hlp.dir)
+```
+
+## cloneLayer
+```{r results='asis',echo=FALSE}
+fn.src('cloneLayer','ggedit',hlp.dir)
+```
+
+## print.ggedit
+```{r results='asis',echo=FALSE}
+fn.src('print.ggedit','ggedit',hlp.dir)
+```
+
+## plot.ggedit
+```{r results='asis',echo=FALSE}
+fn.src('plot.ggedit','ggedit',hlp.dir)
+```
+
+There is also a plotting function for ggedit objects that creates a grid.view for you and finds the best grid size for the amount of plots you have in the list. And for the exotic layouts you can give specific positions and the rest will be done for you. If you didn't use ggedit, you can still add the class to any ggplot and use the plotting function just the same.
+
+```r
+plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
+                                       list(rows=2,cols=2),
+                                       list(rows=2,cols=1),
+                                       list(rows=2,cols=3))
+)
 ```

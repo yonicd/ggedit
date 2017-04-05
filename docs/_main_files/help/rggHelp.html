@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Remove and replace ggplot2 layers.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for rgg"><tr><td>rgg</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Remove and replace ggplot2 layers.</h2>
+
+<h3>Description</h3>
+
+<p>Removes specified layers from a ggplot object and gives 
+the option to replace them with a new layer. This layer can be either 
+a geom object created from regular ggplot functions or an output from 
+the ggedit gadget. 
+In the latter case the layers are found in the updatedLayers object in 
+the ggedit output.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+rgg(p, oldGeom, oldGeomIdx = 1, newLayer = NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>ggplot2 plot object</p>
+</td></tr>
+<tr valign="top"><td><code>oldGeom</code></td>
+<td>
+<p>character string of the name of the layer to remove</p>
+</td></tr>
+<tr valign="top"><td><code>oldGeomIdx</code></td>
+<td>
+<p>numeric of which index of OldGeom to remove (default is 1)</p>
+</td></tr>
+<tr valign="top"><td><code>newLayer</code></td>
+<td>
+<p>ggplot layer or list of layers</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
+p=p+geom_point(aes(colour=Species))+geom_line()
+p
+p%&gt;%rgg('point',1)
+
+x=ggedit(p)
+pnew=p%&gt;%rgg('point',1,x$updatedLayers[[1]])
+pnew
+
+</pre>
+
+
+</body></html>

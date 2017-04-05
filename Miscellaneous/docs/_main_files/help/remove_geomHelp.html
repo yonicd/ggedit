@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Remove a layer from a compiled ggplot2 object.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for remove_geom"><tr><td>remove_geom</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Remove a layer from a compiled ggplot2 object.</h2>
+
+<h3>Description</h3>
+
+<p>Removes specified layers from a ggplot object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+remove_geom(p, geom, idx)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>p</code></td>
+<td>
+<p>ggplot2 plot object</p>
+</td></tr>
+<tr valign="top"><td><code>geom</code></td>
+<td>
+<p>character string of the name of the layer to remove</p>
+</td></tr>
+<tr valign="top"><td><code>idx</code></td>
+<td>
+<p>numeric of which index of geom to remove</p>
+</td></tr>
+</table>
+
+
+<h3>Examples</h3>
+
+<pre>
+p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
+p=p+geom_point(aes(colour=Species))+geom_line()
+p
+pnew=p%&gt;%remove_geom('point',1)
+pnew
+</pre>
+
+
+</body></html>

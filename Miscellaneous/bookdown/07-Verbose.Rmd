@@ -1,0 +1,12 @@
+# Verbose Outputs
+A new argument has been added to the ggedit call. If verbose is set to true on the ggedit call then for the:
+
+  - Layer output: In addition to the new ggproto object the user will also get the ggplot script that can be parsed/pasted in the console to create the same layer. 
+  
+  - Theme output: In addition to the new theme object the user will also get the ggplot script that can be parsed/pasted in the console to create the same theme.
+  
+  - Scale output: In addition to the new scale object the user will also get the ggplot script that can be parsed/pasted in the console to create the same scale.
+  
+During the editing users are able to see in real time the updates to the verbose scripts of the layers in a shinyAce window above the plot. They can copy the script directly to their clipboard to use in further analysis.
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/LN5OzswgUY4" frameborder="0" allowfullscreen></iframe>

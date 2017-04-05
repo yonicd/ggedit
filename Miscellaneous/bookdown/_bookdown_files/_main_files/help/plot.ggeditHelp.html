@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Plots ggedit plot output objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for plot.ggedit"><tr><td>plot.ggedit</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Plots ggedit plot output objects</h2>
+
+<h3>Description</h3>
+
+<p>Plots ggplot2 plots edited by ggedit with 
+layout functionality.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'ggedit'
+plot(x, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+<p>ggedit output of list of plots from the ggedit output</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>list which defines the location of each plot within
+the viewport layout. (see details)</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>If ... is NULL then a default layout is used filling in
+a grid.layout row.wise. Defining plot.layout as a nested list giving 
+the rows and the column indicies of each plot will produce a specific layout.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
+p=p+geom_point(aes(colour=Species))+geom_line()
+p
+x=ggedit(p)
+plot(x)
+plot(x$UpdatedPlots)
+p1=pList[c(1:2)]
+x1=ggedit(p1)
+plot(x1)
+plot(x1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
+
+</pre>
+
+
+</body></html>

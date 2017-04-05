@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: gggsave</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body>
+
+<table width="100%" summary="page for gggsave"><tr><td>gggsave</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>gggsave</h2>
+
+<h3>Description</h3>
+
+<p>Wrapper of ggsave that saves ggplot or list of ggplot 
+objects to image or pdf.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+gggsave(filename = "Rplot.pdf", plot = last_plot(), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>filename</code></td>
+<td>
+<p>a character string giving the name of the file. 
+If it is of the form &quot;|cmd&quot;, the output is piped to the command given by cmd. 
+If it is NULL, then no external file is created (effectively, no drawing occurs),
+but the device may still be queried (e.g., for size of text). For use with onefile = FALSE 
+give a C integer format such as &quot;Rplot%03d.pdf&quot; (the default in that case)</p>
+</td></tr>
+<tr valign="top"><td><code>plot</code></td>
+<td>
+<p>ggplot or list of ggplots to save, defaults to last plot displayed</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>other arguments passed on to graphics device</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>default output is to create one pdf regardless of size of list of plots inputted
+</p>
+
+
+<h3>Value</h3>
+
+<p>nothing
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: ggglsave(pList) 
+</pre>
+
+
+</body></html>
