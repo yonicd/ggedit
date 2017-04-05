@@ -32,13 +32,16 @@ p2 <- ggedit(p)
 names(p2) # will show you which objects are available.
 plot(p2) # shows the updated plot (it is available in the first element of p2)
 ```
-
-
-
 ### DEV
 ```r
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
+
+### User Manual Gitbook
+
+A gitbook is maintained as the user manual for the package, you can access it here:
+
+https://metrumresearchgroup.github.io/ggedit/
 
 #### DEV updates [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
 
