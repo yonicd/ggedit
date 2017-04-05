@@ -13,6 +13,12 @@ if(!inherits(x,'ggedit')) stop('Not ggedit object')
                 })
               })
 
+ if(is.null(dim(calls))){
+   nm<-names(calls)
+   calls=matrix(calls,nrow=1)
+   rownames(calls)<-unique(gsub("^[^.]*.","",nm))
+ }
+  
  out=apply(calls,1,function(obj){
    paste(obj[!obj%in%c('list()','')],collapse='+\n') 
  })
