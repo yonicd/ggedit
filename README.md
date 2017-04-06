@@ -10,6 +10,13 @@ ggedit is a package that helps users bridge the gap between making a plot and ge
 
 ggedit is powered by a Shiny gadget where the user inputs a ggplot plot object or a list of ggplot objects. You can run ggedit directly from the console or from the Addin menu within RStudio.
 
+### Online User Manual Gitbook
+
+A gitbook is maintained as the user manual for the package, you can access it here:
+
+https://metrumresearchgroup.github.io/ggedit/
+
+
 Short clip from [rstudio::conf 2017](https://www.rstudio.com/conference/) (13:40-19:40)
 
 <p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph"><img src="https://embedwistia-a.akamaihd.net/deliveries/14bd323d229d35c90ca8af815b0f49dde8f73ad2.jpg?image_play_button_size=2x&amp;image_crop_resized=960x540&amp;image_play_button=1&amp;image_play_button_color=71aadbe0" width="400" height="225" style="width: 400px; height: 225px;"></a></p><p><a href="https://www.rstudio.com/resources/videos/user-lightning-talks/?wvideo=64h36ke5ph">User Lightning Talks – RStudio</a></p>
@@ -36,12 +43,6 @@ plot(p2) # shows the updated plot (it is available in the first element of p2)
 ```r
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
-
-### User Manual Gitbook
-
-A gitbook is maintained as the user manual for the package, you can access it here:
-
-https://metrumresearchgroup.github.io/ggedit/
 
 #### DEV updates [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
 

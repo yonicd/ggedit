@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="themes.html">
-<link rel="next" href="console.html">
+<link rel="prev" href="verbose-outputs.html">
+<link rel="next" href="package-functions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -167,25 +167,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="deploying" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Deploying</h1>
-<ul>
-<li><p>from the console: <code>ggedit(p)</code></p></li>
-<li><p>from the addin toolbar: highlight script of a plot object on the source editor window of RStudio and run from toolbar.</p></li>
-<li>Shiny: use the Shiny module syntax to call the ggEdit UI elements.
-<ul>
-<li>server: <code>callModule(ggEdit,'pUI',obj=reactive(p))</code></li>
-<li>ui: <code>ggEditUI('pUI')</code></li>
-</ul></li>
-</ul> 
+<div id="default-values-1" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Default Values</h1>
+<p>The default values for each element in the layer UI are the following</p>
+<div id="htmlwidget-bd007ffa385ac75443a8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd007ffa385ac75443a8">{"x":{"filter":"none","data":[["alpha","size","shape","stroke","weight","linetype","width","angle","hjust","vjust","lineheight","fontface"],[0,0,1,0,0,1,0,0,-10,-10,0,1],[1,10,25,10,10,5,1,360,10,10,10,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<p>The default class for each element in the theme UI are the following</p>
+<div id="htmlwidget-ad2510cbe3f481dafa13" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ad2510cbe3f481dafa13">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32"],["angle","background","caption","colour","face","family","fill","grid.major","grid.minor","hjust","justification","key","key.size","line","lineheight","linetype","margin","ontop","position","size","subtitle","switch.pad.grid","switch.pad.wrap","text","text.x","text.y","ticks","ticks.length","title","title.x","title.y","vjust"],["numeric","character","character","character","character","character","character","character","character","numeric","character","character","character","character","numeric","numeric","numeric","character","character","numeric","character","character","character","character","character","character","numeric","numeric","character","character","character","numeric"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>item<\/th>\n      <th>class<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="themes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="console.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="verbose-outputs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="package-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -214,7 +212,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/04-Deploying.Rmd",
+"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/09-Defaults.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],

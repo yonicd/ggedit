@@ -1,0 +1,13 @@
+# Default Values
+
+The default values for each element in the layer UI are the following
+
+```{r}
+DT::datatable(do.call('rbind',slideDefaults),options = list(dom = 't'))
+```
+
+The default class for each element in the theme UI are the following
+
+```{r}
+DT::datatable(ThemeDefaultClass,options = list(dom = 't'))
+```

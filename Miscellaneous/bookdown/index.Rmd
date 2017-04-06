@@ -1,5 +1,5 @@
 --- 
-title: "Using the ggedit package"
+title: "The ggedit gitbook"
 author: "Metrum Research Group"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

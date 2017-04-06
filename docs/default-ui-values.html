@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="themes.html">
-<link rel="next" href="console.html">
+<link rel="prev" href="verbose-outputs.html">
+<link rel="next" href="package-functions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,11 +47,6 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<script src="libs/datatables-binding-0.2/datatables.js"></script>
-<link href="libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
 
 
 <style type="text/css">
@@ -135,7 +130,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="themes-1.html"><a href="themes-1.html"><i class="fa fa-check"></i><b>7.2</b> Themes</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="verbose-outputs.html"><a href="verbose-outputs.html"><i class="fa fa-check"></i><b>8</b> Verbose Outputs</a></li>
-<li class="chapter" data-level="9" data-path="default-values-1.html"><a href="default-values-1.html"><i class="fa fa-check"></i><b>9</b> Default Values</a></li>
+<li class="chapter" data-level="9" data-path="default-ui-values.html"><a href="default-ui-values.html"><i class="fa fa-check"></i><b>9</b> Default UI Values</a></li>
 <li class="chapter" data-level="10" data-path="package-functions.html"><a href="package-functions.html"><i class="fa fa-check"></i><b>10</b> Package Functions</a><ul>
 <li class="chapter" data-level="10.1" data-path="ggedit-1.html"><a href="ggedit-1.html"><i class="fa fa-check"></i><b>10.1</b> ggedit</a></li>
 <li class="chapter" data-level="10.2" data-path="ggedit-2.html"><a href="ggedit-2.html"><i class="fa fa-check"></i><b>10.2</b> ggEdit</a></li>
@@ -167,25 +162,387 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="deploying" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Deploying</h1>
-<ul>
-<li><p>from the console: <code>ggedit(p)</code></p></li>
-<li><p>from the addin toolbar: highlight script of a plot object on the source editor window of RStudio and run from toolbar.</p></li>
-<li>Shiny: use the Shiny module syntax to call the ggEdit UI elements.
-<ul>
-<li>server: <code>callModule(ggEdit,'pUI',obj=reactive(p))</code></li>
-<li>ui: <code>ggEditUI('pUI')</code></li>
-</ul></li>
-</ul> 
+<div id="default-ui-values" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Default UI Values</h1>
+<p>The default values for each element in the layer UI are the following</p>
+% latex table generated in R 3.3.2 by xtable 1.8-2 package % Thu Apr 6 13:30:56 2017
+
+<p>The default class for each element in the theme UI are the following</p>
+<!-- html table generated in R 3.3.2 by xtable 1.8-2 package -->
+<!-- Thu Apr  6 13:30:56 2017 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+item
+</th>
+<th>
+class
+</th>
+</tr>
+<tr>
+<td align="right">
+1
+</td>
+<td>
+angle
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+2
+</td>
+<td>
+background
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+3
+</td>
+<td>
+caption
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+4
+</td>
+<td>
+colour
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+5
+</td>
+<td>
+face
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+6
+</td>
+<td>
+family
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+7
+</td>
+<td>
+fill
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+8
+</td>
+<td>
+grid.major
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+9
+</td>
+<td>
+grid.minor
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+10
+</td>
+<td>
+hjust
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+11
+</td>
+<td>
+justification
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+12
+</td>
+<td>
+key
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+13
+</td>
+<td>
+key.size
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+14
+</td>
+<td>
+line
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+15
+</td>
+<td>
+lineheight
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+16
+</td>
+<td>
+linetype
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+17
+</td>
+<td>
+margin
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+18
+</td>
+<td>
+ontop
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+19
+</td>
+<td>
+position
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+20
+</td>
+<td>
+size
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+21
+</td>
+<td>
+subtitle
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+22
+</td>
+<td>
+switch.pad.grid
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+23
+</td>
+<td>
+switch.pad.wrap
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+24
+</td>
+<td>
+text
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+25
+</td>
+<td>
+text.x
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+26
+</td>
+<td>
+text.y
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+27
+</td>
+<td>
+ticks
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+28
+</td>
+<td>
+ticks.length
+</td>
+<td>
+numeric
+</td>
+</tr>
+<tr>
+<td align="right">
+29
+</td>
+<td>
+title
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+30
+</td>
+<td>
+title.x
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+31
+</td>
+<td>
+title.y
+</td>
+<td>
+character
+</td>
+</tr>
+<tr>
+<td align="right">
+32
+</td>
+<td>
+vjust
+</td>
+<td>
+numeric
+</td>
+</tr>
+</table>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="themes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="console.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="verbose-outputs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="package-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -214,7 +571,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/04-Deploying.Rmd",
+"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/09-Defaults.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],
