@@ -2,21 +2,21 @@
  
 Once the application is running the list of plots are shown in a grid and a number of objects will appear above them.
  
-Action buttons
+**Action buttons**
  
   - Cancel: Returns a NULL object
  
-  - Done: Returns the list decribed below. 
+  - Done: Returns the list decribed the following chapter. 
  
-Dropdown list
+**Dropdown list**
  
  Navigates through the plots in the input list. If the input list is a named list the names will be in the dropdown. The plot chosen is termed as the "active plot"
  
-Radio buttons
+**Radio buttons**
  
  The options to choose in the radio buttons are the layer names in the active plot.
  
-Links
+**Links**
  
   - Update Plot Layer
     - A pop up window will appear and be populated with aesthetic elements found in the layer chosen from the radio buttons.
