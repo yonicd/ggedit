@@ -9,4 +9,4 @@
 ```
   
 ## Themes
-margin,arrow are not currently available to edit, add a new part
+margin,arrow are not currently available to edit
