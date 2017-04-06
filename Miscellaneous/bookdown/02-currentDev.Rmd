@@ -59,4 +59,4 @@ theme(legend.key=element_rect(fill='white'),
 ```
 ## Default values
 
-The range for stroke has been changed from \[0,1\] to \[0,10\].
+The range for stroke has been changed from `[0,1]` to `[0,10]`.
