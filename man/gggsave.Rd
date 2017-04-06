@@ -28,5 +28,5 @@ objects to image or pdf.
 default output is to create one pdf regardless of size of list of plots inputted
 }
 \examples{
-\dontrun{ggglsave(pList)} 
+\dontrun{gggsave(pList)} 
 }
