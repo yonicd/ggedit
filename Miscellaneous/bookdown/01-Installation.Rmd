@@ -2,6 +2,8 @@
 
 ## CRAN
 
+The CRAN package [homepage](https://cran.r-project.org/web/packages/ggedit/index.html)
+
 ```r
 install.packages('ggedit')
 ```
@@ -20,6 +22,8 @@ plot(p2) # shows the updated plot (it is available in the first element of p2)
 ## DEV
 
 The package is currently under continuous development for the most up to date version run the script below.
+
+The github package [homepage](https://github.com/metrumresearchgroup/ggedit)
 
 ```r
 devtools::install_github("metrumresearchgroup/ggedit")

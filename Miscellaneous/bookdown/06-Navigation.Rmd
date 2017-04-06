@@ -1,0 +1,40 @@
+# Navigating the App
+ 
+Once the application is running the list of plots are shown in a grid and a number of objects will appear above them.
+ 
+Action buttons
+ 
+  - Cancel: Returns a NULL object
+ 
+  - Done: Returns the list decribed below. 
+ 
+Dropdown list
+ 
+ Navigates through the plots in the input list. If the input list is a named list the names will be in the dropdown. The plot chosen is termed as the "active plot"
+ 
+Radio buttons
+ 
+ The options to choose in the radio buttons are the layer names in the active plot.
+ 
+Links
+ 
+  - Update Plot Layer
+    - A pop up window will appear and be populated with aesthetic elements found in the layer chosen from the radio buttons.
+    
+  - The layer is cloned using cloneLayer creating a layer independent of the original plot. If the aesthetic is a: 
+    - Factor: the values will be shown in dropdown lists. 
+    - Numeric: it will be shown in a slider. 
+    - Factor colour/fill aesthetic: the colourPicker package will allow to choose from the full pallete of colours.
+    - Continuous colour/fill aesthetic: a dropdown list will be shown with different palletes. The first element in the list if 'manual'. If manual is chosen then two colourPicker objects will appear and the user can choose the high and low colour manually. A colour pallete will be created using that range.
+    
+  - Update Plot Theme
+    - A popup modal will appear populated with the theme elements found in the active plot. Each element will appear as having a value or empty depending if it was defined or not. The user can change or fill in any element [with valid values](http://docs.ggplot2.org/current/theme.html) and any textboxes left empty will use ggplot defaults.
+ 
+  - Update Grid Theme
+    - Copies the theme of the active plot to the other plots in the list 
+ 
+  - Update Global Theme
+    - Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme. 
+ 
+  - View Layer Code
+    - Opens an ace editor to compare the active layer initial script call and the updated script call.
