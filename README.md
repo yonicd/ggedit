@@ -73,5 +73,6 @@ ggedit(plot)
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
+    - stat_summary: only character objects can be passed to fun.y ie fun.y='median' is ok, fun.y=median will not work
   - theme
     - margin,arrow are not currently available to edit
