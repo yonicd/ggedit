@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="ggedit.html">
-<link rel="next" href="rgg.html">
+<link rel="prev" href="current-development.html">
+<link rel="next" href="limitations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -114,7 +114,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.2" data-path="dev.html"><a href="dev.html"><i class="fa fa-check"></i><b>1.2</b> DEV</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="current-development.html"><a href="current-development.html"><i class="fa fa-check"></i><b>2</b> Current Development</a><ul>
-<li class="chapter" data-level="2.1" data-path="bug-fix.html"><a href="bug-fix.html"><i class="fa fa-check"></i><b>2.1</b> Bug Fix</a></li>
+<li class="chapter" data-level="2.1" data-path="functionality-added-for-aesthetic-set-to-null-ie-aesgroupnull.html"><a href="functionality-added-for-aesthetic-set-to-null-ie-aesgroupnull.html"><i class="fa fa-check"></i><b>2.1</b> Functionality added for aesthetic set to NULL, ie aes(group=NULL)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="limitations.html"><a href="limitations.html"><i class="fa fa-check"></i><b>3</b> Limitations</a><ul>
 <li class="chapter" data-level="3.1" data-path="layers.html"><a href="layers.html"><i class="fa fa-check"></i><b>3.1</b> Layers</a></li>
@@ -164,18 +164,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ggedit-1" class="section level2">
-<h2><span class="header-section-number">10.2</span> ggEdit</h2>
-<iframe width="100%" height="400" src="_main_files/help/ggEdit_ModuleHelp.html" allowfullscreen>
-</iframe>
+<div id="functionality-added-for-aesthetic-set-to-null-ie-aesgroupnull" class="section level2">
+<h2><span class="header-section-number">2.1</span> Functionality added for aesthetic set to NULL, ie aes(group=NULL)</h2>
+<p>example plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot &lt;-<span class="st"> </span>
+<span class="st">  </span>iris%&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">cut</span>(Sepal.Width,<span class="dv">2</span>),<span class="dt">y=</span>Sepal.Width)) +
+<span class="st">  </span><span class="kw">aes</span>(<span class="dt">colour=</span>Species,<span class="dt">group=</span>Species)+
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>,<span class="dt">shape =</span> <span class="dv">16</span>, <span class="dt">size =</span> <span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">group=</span><span class="ot">NULL</span>), <span class="dt">varwidth =</span> <span class="ot">FALSE</span>,<span class="dt">notch =</span> <span class="ot">FALSE</span>, <span class="dt">show.legend =</span> <span class="ot">TRUE</span>)+
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.y =</span> <span class="st">&#39;median&#39;</span>, <span class="dt">geom =</span> <span class="st">&quot;line&quot;</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">16</span>) +
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,
+        <span class="dt">legend.box =</span> <span class="st">&quot;vertical&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>,
+        <span class="dt">axis.text.x =</span> ggplot2::<span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>,<span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">vjust =</span> <span class="fl">0.5</span>),
+        <span class="dt">legend.title =</span> <span class="kw">element_blank</span>())
+
+<span class="kw">ggedit</span>(plot)</code></pre></div>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="ggedit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="rgg.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="current-development.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limitations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -204,7 +219,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/10-utility.Rmd",
+"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/02-currentDev.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],

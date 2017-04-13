@@ -23,7 +23,6 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
     if(is.ggplot(p.in)) p.in=list(p.in)
     
     if(is.null(names(p.in))) names(p.in)=as.character(1:length(p.in))
-    
     if(!all(unlist(lapply(p.in,is.ggplot)))) stop("'object' is not a valid ggplot object")
     
     TEMPLIST$objList.new <- p.in

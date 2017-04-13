@@ -10,7 +10,7 @@
 class_layer=function(p){
 
   if('tbl'%in%class(p$data)) p$data=data.frame(p$data)
-  
+
   plot_aes=layer_aes=NULL
   if(length(as.character(p$mapping))>0){
   plot_aes=as.character(p$mapping)
@@ -39,7 +39,9 @@ class_layer=function(p){
   plot_aes$class=unlist(plot_cl)
   plot_aes$layer='plot'}
   
-  layer_aes=lapply(p$layers,function(x) data.frame(VAR=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F))
+  layer_aes=lapply(p$layers,function(x){
+    data.frame(VAR=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F)%>%filter_(~VAR!='NULL')
+  })
   layer_data=lapply(p$layers,function(x){
    dOut=x$data
    if('tbl'%in%class(dOut)) dOut=data.frame(dOut)
@@ -48,7 +50,7 @@ class_layer=function(p){
   names(layer_aes)=names(layer_data)=geom_list(p)
   layer_aes=plyr::ldply(layer_aes,.id = 'layer')
 
-  layer_aes=plyr::ddply(layer_aes,.variables = c('VAR','aes'),.fun=function(df){
+  layer_aes=plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
     
     if('waiver'%in%class(layer_data[[df$layer]])){
         pData=p$data
@@ -56,25 +58,26 @@ class_layer=function(p){
         pData=layer_data[df$layer][[1]]
       }
     
-    if(!df$VAR%in%names(pData)){
-      TEMP=p$data%>%mutate_(.NEWVAR=df$VAR)
-      df$class=class(TEMP[,'.NEWVAR'])
-    }else{
-      df$class=class(pData[,df$VAR])
-    }
+      if(!df$VAR%in%names(pData)){
+        TEMP=p$data%>%mutate_(.NEWVAR=df$VAR)
+        df$class=class(TEMP[,'.NEWVAR'])
+      }else{
+        df$class=class(pData[,df$VAR])
+      }  
+    
     
     df
   })
   
-  
   layer_bind=rbind(plot_aes,layer_aes)
   
-  layer_bind=plyr::ddply(layer_bind,.variables = c('VAR','aes'),.fun=function(df){
+  layer_bind=plyr::ddply(layer_bind,.variables = c('layer','VAR','aes'),.fun=function(df){
     if(class(layer_data[[df$layer]])%in%c('waiver','NULL')){
       pData=p$data
     }else{
       pData=layer_data[df$layer][[1]]
     }
+
     if(!df$VAR%in%names(pData)){
       TEMP=p$data%>%mutate_(.NEWVAR=df$VAR)
       df$level.num=length(unique(TEMP[,'.NEWVAR']))

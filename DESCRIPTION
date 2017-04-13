@@ -1,7 +1,7 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.2.1
+Version: 0.2.2
 Date: 2017-03-31
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>

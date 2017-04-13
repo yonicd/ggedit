@@ -83,7 +83,7 @@ fetch_aes_ggplotBuild=function(p,geom_list){
                   }
                   
                   if(nrow(x$data)!=nrow(aes.var)){
-                    x$data[aes.var.nm]=factor(x$data$fill,labels=unique(aes.var[[aes.var.nm]]))
+                    x$data[aes.var.nm]=factor(x$data[[item]],labels=unique(aes.var[[aes.var.nm]]))
                     val.new=x$data%>%select_(item,aes.var.nm)%>%distinct()
                   }else{
                     val.new=data.frame(x$data,aes.var=as.character(aes.var[,aes.var.nm]),stringsAsFactors = F)%>%select_(item,'aes.var')%>%distinct()  

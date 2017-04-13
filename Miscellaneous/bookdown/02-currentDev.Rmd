@@ -1,62 +1,27 @@
 # Current Development 
 
 Download current dev source file
-  - [ggedit_0.2.1](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.1.tar.gz)
+  - [ggedit_0.2.2](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.2.tar.gz)
 
-## ggedit()
+## Bug Fix 
 
-The console call to ggedit was rewritten to only have the plots as a mandatory input and the rest of the optional arguments are passed through the ellipses. 
-
-```r
-ggedit(p.in,...)
-```
-
-  - **p.in** ggplot or list of ggplots
+  - Functionality added for aesthetic set to NULL, ie aes(group=NULL)
   
-  The following arguments can be passed in to the  ellipses:
-  
-  - **viewer** shiny viewer options. It can be either paneViewer (default with `minHeight=1000`), dialogViewer, browserViewer
-
-  - **verbose** logical to control if the output includes script for layers and themes calls for parsing to create objects (default, `verbose=TRUE`)
-
-  - **showDefaults** toggle to control if the verbose output shows all the input arguments passed to the proto object (if `verbose==FALSE` then ignored)
-
-  - **width,height** dimensions of the renderPlot where the active plot is displayed
-
-## print.ggedit()
-  S3 method to print directly from the output object to the console the script to reproduce  changes on the original plot object
+example plot
 
 ```r
-print(obj)
+plot <- 
+  iris%>%
+  ggplot(aes(x=cut(Sepal.Width,2),y=Sepal.Width)) +
+  aes(colour=Species,group=Species)+
+  geom_point(alpha = 0.5,shape = 16, size = 1) +
+  geom_boxplot(aes(group=NULL), varwidth = FALSE,notch = FALSE, show.legend = TRUE)+
+  stat_summary(fun.y = 'median', geom = "line")+
+  theme_bw(base_size = 16) +
+  theme(legend.position = "bottom",
+        legend.box = "vertical", legend.direction = "horizontal",
+        axis.text.x = ggplot2::element_text(angle = 90,hjust = 1, vjust = 0.5),
+        legend.title = element_blank())
 
-point
-geom_point(mapping=aes(colour=Species),alpha=0.5,size=3)+
-  scale_colour_manual(values=c('#9E4A3F','#008B45','#6495ED'))
-
-pointWrap
-geom_point(mapping=aes(colour=Species),size=6)+
-  theme(panel.background=element_rect(fill='white'))
-
-boxplotWrap
-geom_boxplot()
-
-pointLine
-geom_point(mapping=aes(shape=Species,colour=Petal.Width),size=6)+geom_line(linetype=2)
+ggedit(plot)
 ```
-
-## compare()
-  Compare two theme objects and return script or new theme object with only the differences between the two
-
-```r
-compare(theme_bw(),theme_get())
-
-theme(legend.key=element_rect(fill='white'),
-      panel.background=element_rect(fill='white'),
-      panel.grid.major=element_line(colour='grey92'),
-      panel.grid.minor=element_line(colour='grey92'),
-      strip.background=element_rect(colour='grey20')
-)
-```
-## Default values
-
-The range for stroke has been changed from `[0,1]` to `[0,10]`.

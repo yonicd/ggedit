@@ -53,7 +53,9 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
     
     part2<-paste0('mapping=aes(',paste0(lapply(names(x$mapping),
                                                function(item){
-                                                 paste(item,x$mapping[[item]],sep="=")
+                                                 i=x$mapping[[item]]
+                                                 if(is.null(i)) i='NULL'
+                                                 paste(item,i,sep="=")
                                                }
     ),
     collapse=","),
