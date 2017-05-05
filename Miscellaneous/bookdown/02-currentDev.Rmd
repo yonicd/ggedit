@@ -3,6 +3,9 @@
 Download current dev source file
   - [ggedit_0.2.2](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.2.tar.gz)
 
+## Enhancements
+  - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` [release](http://dplyr.tidyverse.org/articles/compatibility.html).
+
 ## Bug Fix 
 
   - Functionality added for aesthetic set to NULL, ie aes(group=NULL)

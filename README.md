@@ -46,6 +46,8 @@ devtools::install_github("metrumresearchgroup/ggedit")
 
 #### DEV updates [ggedit_0.2.2](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.2.tar.gz)
 
+  - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` release
+
   - functionality added for aesthetic set to NULL, ie aes(group=NULL)
 
 example plot

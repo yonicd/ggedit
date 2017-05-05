@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="print-ggedit.html">
-
+<link rel="prev" href="current-development.html">
+<link rel="next" href="bug-fix.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -165,26 +165,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="plot.ggedit" class="section level2">
-<h2><span class="header-section-number">10.9</span> plot.ggedit</h2>
-<iframe width="100%" height="400" src="_main_files/help/plot.ggeditHelp.html" allowfullscreen>
-</iframe>
-<p>There is also a plotting function for ggedit objects that creates a grid.view for you and finds the best grid size for the amount of plots you have in the list. And for the exotic layouts you can give specific positions and the rest will be done for you. If you didn’t use ggedit, you can still add the class to any ggplot and use the plotting function just the same.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">as.ggedit</span>(<span class="kw">list</span>(p0,p1,p2,p3)),<span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">rows=</span><span class="dv">1</span>,<span class="dt">cols=</span><span class="dv">1</span>:<span class="dv">3</span>),
-                                       <span class="kw">list</span>(<span class="dt">rows=</span><span class="dv">2</span>,<span class="dt">cols=</span><span class="dv">2</span>),
-                                       <span class="kw">list</span>(<span class="dt">rows=</span><span class="dv">2</span>,<span class="dt">cols=</span><span class="dv">1</span>),
-                                       <span class="kw">list</span>(<span class="dt">rows=</span><span class="dv">2</span>,<span class="dt">cols=</span><span class="dv">3</span>))
-)</code></pre></div>
-
+<div id="enhancements" class="section level2">
+<h2><span class="header-section-number">2.1</span> Enhancements</h2>
+<ul>
+<li>replaced <code>mutate_each</code> with <code>mutate_all</code> to be compatible with new <code>dplyr</code> <a href="http://dplyr.tidyverse.org/articles/compatibility.html">release</a>.</li>
+</ul>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="print-ggedit.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="current-development.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bug-fix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -213,7 +206,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/10-utility.Rmd",
+"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/02-currentDev.Rmd",
 "text": "Edit"
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],
