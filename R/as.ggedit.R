@@ -13,6 +13,6 @@
 #' p4=as.ggedit(p3)
 #' plot(p4)
 as.ggedit<-function(p){
-  if(class(p)%in%c('gg','ggplot','list')) class(p)<-c('ggedit')
+  if(any(c('gg','ggplot','list')%in%class(p))) class(p)<-c('ggedit')
   return(p)
 }

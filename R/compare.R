@@ -26,7 +26,7 @@ compare=function(e1,e2,verbose=TRUE){
         out
       },.id='Theme')%>%
         dplyr::mutate_('subTheme'=NA)%>%
-        dplyr::mutate_each(funs(as.character)),
+        dplyr::mutate_all(as.character),
       
       x$objList[!x$objListDepth==1]%>%
         plyr::ldply(.fun=function(y) y%>%
@@ -36,7 +36,7 @@ compare=function(e1,e2,verbose=TRUE){
                                     out
                                   },.id='subTheme'),
                     .id='Theme')%>%
-        dplyr::mutate_each(funs(as.character))
+        dplyr::mutate_all(as.character)
     )
     
   dfOut$subTheme=ifelse(is.na(dfOut$subTheme),"",dfOut$subTheme)

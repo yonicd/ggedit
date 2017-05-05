@@ -15,10 +15,10 @@ Depends:
 Imports:
     plyr,
     reshape2,
+    scales,
     rstudioapi,
     utils,
     colourpicker (>= 0.2),
-    scales,
     graphics,
     shinyAce,
     grid,
