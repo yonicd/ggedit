@@ -5,6 +5,12 @@ Download current dev source file
 
 ## Enhancements
   - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` [release](http://dplyr.tidyverse.org/articles/compatibility.html).
+  - can pass functions into stat_summary, eg `stat_summary(fun.y=mean_sd, geom='point')`
+  - data.frames in layers are embedded as structures in verbose outputs, e.g. `geom_point(data=mtcars, aes(cyl, mpg))` will return
+```r
+  [1] "geom_point(mapping=aes(x=cyl,y=mpg),
+  data=structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, ... <truncated>
+```
 
 ## Bug Fix 
 

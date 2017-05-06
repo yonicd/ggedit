@@ -48,8 +48,14 @@ devtools::install_github("metrumresearchgroup/ggedit")
 
   - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` release
 
-  - functionality added for aesthetic set to NULL, ie aes(group=NULL)
-
+  - functionality added
+    - can pass functions into stat_summary, eg `stat_summary(fun.y=mean_sd, geom='point')`
+    - data.frames in layers are embedded as structures in verbose outputs, e.g. `geom_point(data=mtcars, aes(cyl, mpg))` will return
+    ```r
+    [1] "geom_point(mapping=aes(x=cyl,y=mpg), data=structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, \n24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4,.. <truncated>
+    ```
+    - aesthetic can be set to NULL, ie aes(group=NULL)
+    
 example plot
 
 ```r
@@ -75,6 +81,5 @@ ggedit(plot)
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
-    - stat_summary: only character objects can be passed to fun.y ie fun.y='median' is ok, fun.y=median will not work
   - theme
     - margin,arrow are not currently available to edit

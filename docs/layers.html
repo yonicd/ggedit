@@ -169,11 +169,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.1</span> Layers</h2>
 <ul>
 <li>geom_text: family is not currently open to change</li>
-<li>stat_summary: only character objects can be passed to fun.y
-<ul>
-<li><code>fun.y='median'</code> is ok</li>
-<li><code>fun.y=median</code> will not work</li>
-</ul></li>
 <li>non colour aesthetics of numeric inputs are not currently supported, e.g.:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">      iris%&gt;%<span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Sepal.Length,<span class="dt">y=</span>Sepal.Width))+

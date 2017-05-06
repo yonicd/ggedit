@@ -169,6 +169,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">2.1</span> Enhancements</h2>
 <ul>
 <li>replaced <code>mutate_each</code> with <code>mutate_all</code> to be compatible with new <code>dplyr</code> <a href="http://dplyr.tidyverse.org/articles/compatibility.html">release</a>.</li>
+<li>can pass functions into stat_summary, eg <code>stat_summary(fun.y=mean_sd, geom='point')</code></li>
+<li><p>data.frames in layers are embedded as structures in verbose outputs, e.g. <code>geom_point(data=mtcars, aes(cyl, mpg))</code> will return</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  [<span class="dv">1</span>] <span class="st">&quot;geom_point(mapping=aes(x=cyl,y=mpg),</span>
+<span class="st">  data=structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, ... &lt;truncated&gt;</span></code></pre></div></li>
 </ul>
 </div>
             </section>
