@@ -27,6 +27,7 @@ fetch_aes_ggplotBuild=function(p,geom_list){
   names(p.Elems)=geom_list
   gb=ggplot2::ggplot_build(p)
   data=gb$data
+
   cl=class_layer(p)
 
   for(i in 1:length(data)) data[[i]]=list(data=data[[i]],nm=names(p.Elems[[i]]),layer.map=layer_mapping[[i]],layer=geom_list(p)[i])
@@ -39,7 +40,7 @@ fetch_aes_ggplotBuild=function(p,geom_list){
     }else{
       pData=p$layer[[l]]$data
     }
-       
+
       class.temp=sapply(names(x$data)[names(x$data)%in%x$nm],function(item) {
         pm=p$mapping[item][[1]]
         p.cl=cl$VAR[cl$layer==x$layer&cl$aes==item]
@@ -57,11 +58,10 @@ fetch_aes_ggplotBuild=function(p,geom_list){
       })
 
     l0=lapply(names(x$data)[names(x$data)%in%x$nm],function(item) {
-      
                 cl.layer=cl[cl$layer%in%c(x$layer,'plot'),]
                 cl.item=cl.layer$class[cl.layer$aes==item]
                 if(class.temp[item]=='factor') {
-                  val=unique(x$data[,c(item,'group')])[item]
+                  val=unique(unique(x$data[,c(item,'group')])[item])
                 }else{
                   val=unique(x$data[item])  
                 }
@@ -88,7 +88,7 @@ fetch_aes_ggplotBuild=function(p,geom_list){
                   }else{
                     val.new=data.frame(x$data,aes.var=as.character(aes.var[,aes.var.nm]),stringsAsFactors = F)%>%select_(item,'aes.var')%>%distinct()  
                   }
-                  val=val.new[item]
+                  val=unique(val.new[item])
                 }
                 list(val=val,class=class.temp[item])
               }

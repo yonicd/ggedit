@@ -63,14 +63,14 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
     collapse=","),
     ')')
     
-    part3<-paste0(lapply(rev(names(unlist(x$params))),function(item) {
+    part3<-lapply(rev(names(unlist(x$params))),function(item) {
       cl=class(x$params[[item]])
       if(!cl%in%c('character','formula','function')) out=paste(item,x$params[[item]],sep="=") 
       if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
       if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
-      if(cl=='function') out=paste(utils::capture.output(dput(x$params[[item]])),collapse='\n')
+      if(cl=='function') out=paste0(item,'=',paste(utils::capture.output(dput(x$params[[item]])),collapse='\n'))
       return(out)
-    }),collapse=",")
+    })
     
     part4<-lapply(nm,function(y){
       if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
@@ -80,16 +80,24 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
       return(out)
     })
     
-    strRet=paste0(part1,'(',part2,',',part3,',',paste0(part4,collapse=','),')')
+    strRet=paste0(part1,'(',part2,',',paste0(part3,collapse=','),',',paste0(part4,collapse=','),')')
     
     if(!showDefaults){
       strDef<-cloneProto(eval(parse(text=paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])),'()'))))
-
-      h1<-paste0(strsplit(part3,'[,()]')[[1]][!strsplit(part3,'[,()]')[[1]]%in%strsplit(strDef,'[,()]')[[1]]],collapse=",")
-      h2<-paste0(',',paste0(part4[!part4%in%strsplit(strDef,'[,()]')[[1]]],collapse = ','))
+      
+      h1<-paste0(part3[!part3%in%strsplit(strDef,'[,()]')[[1]]],collapse = ',')
+      h2<-paste0(part4[!part4%in%strsplit(strDef,'[,()]')[[1]]],collapse = ',')
+      
       strRet=ifelse(part2=='mapping=aes()',
                     paste0(part1,'(',h1,')'),
-                    ifelse(h1=='',paste0(part1,'(',part2,h2,')'),paste0(part1,'(',paste(part2,h1,sep=','),h2,')'))
+                    ifelse(h1=='',
+                           paste0(part1,'(',ifelse(h2=='',
+                                                   paste(part2,sep=','),
+                                                   paste(part2,h2,sep=',')),')'),
+                           paste0(part1,'(',ifelse(h2=='',
+                                                   paste(part2,h1,sep=','),
+                                                   paste(part2,h1,h2,sep=',')),')')
+                           )
                     )
     }
     gsub('aes()','NULL',strRet,fixed = T) #failsafe for empty aes() call

@@ -3,8 +3,9 @@ cloneProto=function(l){
                 'stat','show.legend','inherit.aes',
                 'aes_params','geom_params','stat_params')
   x=sapply(layer.names,function(y){
+
     b=l[[y]]
-    
+
     if('waiver'%in%class(b)) b=NULL
     
     if(y=='geom') b=eval(parse(text=class(b)[1]))
@@ -15,6 +16,7 @@ cloneProto=function(l){
     
     b
   }) 
+  
   x$params=append(x$stat_params,x$geom_params)
   x$params=append(x$params,x$aes_params)
   x$params=x$params[!duplicated(names(x$params))]
@@ -40,6 +42,7 @@ cloneProto=function(l){
       out=paste(item,x$params[[item]],sep="=") 
       if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
       if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
+      if(cl=='function') out=paste(utils::capture.output(dput(x$params[[item]])),collapse='\n')
       return(out)
     }),collapse=",")
     
@@ -47,7 +50,7 @@ cloneProto=function(l){
       if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
       if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
       if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
-      if(is.data.frame(x[[y]])) out=paste(y,"'[InputDataFrame]'",sep="=")
+      if(is.data.frame(x[[y]])) out=paste(y,paste(utils::capture.output(dput(x[[y]])),collapse='\n'),sep="=")
       return(out)
     }),collapse=',')
     

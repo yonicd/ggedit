@@ -57,9 +57,8 @@ class_layer=function(p){
       }else{
         pData=layer_data[df$layer][[1]]
       }
-    
       if(!df$VAR%in%names(pData)){
-        TEMP=p$data%>%mutate_(.NEWVAR=df$VAR)
+        TEMP=pData%>%mutate_(.NEWVAR=df$VAR)
         df$class=class(TEMP[,'.NEWVAR'])
       }else{
         df$class=class(pData[,df$VAR])
@@ -79,7 +78,7 @@ class_layer=function(p){
     }
 
     if(!df$VAR%in%names(pData)){
-      TEMP=p$data%>%mutate_(.NEWVAR=df$VAR)
+      TEMP=pData%>%mutate_(.NEWVAR=df$VAR)
       df$level.num=length(unique(TEMP[,'.NEWVAR']))
     }else{
       df$level.num=length(unique(pData[,df$VAR]))
