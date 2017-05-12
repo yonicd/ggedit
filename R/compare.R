@@ -6,8 +6,8 @@
 #' @param verbose logical to control if the output is a character of script or a theme object (default TRUE)
 #' @return theme object or character depending on verbose
 #' @examples 
-#' compare(theme_bw(),theme_get())
-#' compare(theme_bw(),theme_get(),verbose=FALSE)
+#' compare(ggplot2::theme_bw(),ggplot2::theme_get())
+#' compare(ggplot2::theme_bw(),ggplot2::theme_get(),verbose=FALSE)
 #' @importFrom reshape2 dcast
 #' 
 compare=function(e1,e2,verbose=TRUE){

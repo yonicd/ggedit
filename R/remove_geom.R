@@ -5,8 +5,8 @@
 #' @param geom character string of the name of the layer to remove
 #' @param idx numeric of which index of geom to remove
 #' @examples
-#' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-#' p=p+geom_point(aes(colour=Species))+geom_line()
+#' p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+#' p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 #' p
 #' pnew=p%>%remove_geom('point',1)
 #' pnew

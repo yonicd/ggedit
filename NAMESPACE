@@ -3,6 +3,7 @@
 S3method(plot,ggedit)
 S3method(print,ggedit)
 S3method(print,gglist)
+export("%>%")
 export(as.ggedit)
 export(as.gglist)
 export(cloneLayer)

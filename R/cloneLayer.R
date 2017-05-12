@@ -14,8 +14,8 @@
 #' @param showDefaults toggle to control if the verbose output shows all the input arguments passed to the proto object (if verbose==FALSE then ignored)
 #' @return ggproto or string object (conditional on verbose)
 #' @examples
-#' p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-#' p=p+geom_point(aes(colour=Species))+geom_line()
+#' p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+#' p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 #' p$layers[[1]]
 #' newLayer=cloneLayer(l=p$layers[[1]])
 #' all.equal(p$layers[[1]],newLayer)
@@ -50,57 +50,40 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   if(verbose){
     nm=names(x)
     nm=nm[!nm%in%c('geom','params','mapping')]
-    
-    part1<-paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])))
-    
-    part2<-paste0('mapping=aes(',paste0(lapply(names(x$mapping),
-                                               function(item){
-                                                 i=x$mapping[[item]]
-                                                 if(is.null(i)) i='NULL'
-                                                 paste(item,i,sep="=")
-                                               }
-    ),
-    collapse=","),
-    ')')
-    
-    part3<-lapply(rev(names(unlist(x$params))),function(item) {
-      cl=class(x$params[[item]])
-      if(!cl%in%c('character','formula','function')) out=paste(item,x$params[[item]],sep="=") 
-      if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
-      if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
-      if(cl=='function') out=paste0(item,'=',paste(utils::capture.output(dput(x$params[[item]])),collapse='\n'))
-      return(out)
-    })
-    
-    part4<-lapply(nm,function(y){
-      if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
-      if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
-      if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
-      if(is.data.frame(x[[y]])) out=paste(y,paste(utils::capture.output(dput(x[[y]])),collapse='\n'),sep="=")
-      return(out)
-    })
-    
-    strRet=paste0(part1,'(',part2,',',paste0(part3,collapse=','),',',paste0(part4,collapse=','),')')
+
+    geom_aes=list(geom   =paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),
+                  mapping=paste0(names(x$mapping),sapply(x$mapping,build_map)),
+                  params =paste0(names(x$params),sapply(x$params,build_map)),
+                  layer  =paste0(rev(nm),sapply(x[rev(nm)],build_map))
+    )
+
+    strRet=sprintf('%s(mapping=aes(%s),%s,%s)',
+                   paste0(geom_aes$geom,collapse=','),
+                   paste0(geom_aes$mapping,collapse=','),
+                   paste0(geom_aes$params,collapse=','),
+                   paste0(geom_aes$layer,collapse=',')
+                   )
     
     if(!showDefaults){
-      strDef<-cloneProto(eval(parse(text=paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])),'()'))))
+
+      geom_proto<-cloneProto(eval(parse(text=paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])),'()'))))
       
-      h1<-paste0(part3[!part3%in%strsplit(strDef,'[,()]')[[1]]],collapse = ',')
-      h2<-paste0(part4[!part4%in%strsplit(strDef,'[,()]')[[1]]],collapse = ',')
+      geom_diff<-sapply(names(geom_aes)[-1],function(x) geom_aes[[x]][!geom_aes[[x]]%in%geom_proto[[x]]])
+
+      strRet=sprintf('%s(aes(%s),%s,%s)',
+                     paste0(geom_aes$geom,collapse=','),
+                     paste0(geom_diff$mapping,collapse=','),
+                     paste0(geom_diff$params,collapse=','),
+                     paste0(geom_diff$layer,collapse=',')
+      )
       
-      strRet=ifelse(part2=='mapping=aes()',
-                    paste0(part1,'(',h1,')'),
-                    ifelse(h1=='',
-                           paste0(part1,'(',ifelse(h2=='',
-                                                   paste(part2,sep=','),
-                                                   paste(part2,h2,sep=',')),')'),
-                           paste0(part1,'(',ifelse(h2=='',
-                                                   paste(part2,h1,sep=','),
-                                                   paste(part2,h1,h2,sep=',')),')')
-                           )
-                    )
+      strRet=gsub('aes()','',strRet,fixed = T) #failsafe for empty aes() call  
+      strRet=gsub(',,',',',strRet)
+      strRet=gsub(',)',')',strRet)
+      strRet=gsub('\\(,','(',strRet)
+
     }
-    gsub('aes()','NULL',strRet,fixed = T) #failsafe for empty aes() call
+    strRet
   }else{
     do.call(layer,x) 
   }

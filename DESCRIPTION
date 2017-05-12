@@ -8,11 +8,12 @@ Maintainer: Jonathan Sidi <yonis@metrumrg.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
     R (>= 2.3.0),
-    shiny,
-    shinyBS,
     ggplot2 (>= 2.2.0),
-    dplyr (>= 0.5)
+    shinyBS,
+    shiny,
 Imports:
+    dplyr (>= 0.5),
+    magrittr,
     plyr,
     reshape2,
     scales,
@@ -23,6 +24,8 @@ Imports:
     shinyAce,
     grid,
     miniUI
+Suggests:
+    sinew
 License: GPL-2 | GPL-3
 URL: https://github.com/metrumresearchgroup/ggedit
 BugReports: https://github.com/metrumresearchgroup/ggedit/issues

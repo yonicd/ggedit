@@ -27,39 +27,18 @@ cloneProto=function(l){
     nm=names(x)
     nm=nm[!nm%in%c('geom','params','mapping')]
     
-    part1<-paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])))
-    
-    part2<-paste0('mapping=aes(',paste0(lapply(names(x$mapping),
-                                               function(item){
-                                                 paste(item,x$mapping[[item]],sep="=")
-                                               }
-    ),
-    collapse=","),
-    ')')
-    
-    part3<-paste0(lapply(rev(names(unlist(x$params))),function(item) {
-      cl=class(x$params[[item]])
-      out=paste(item,x$params[[item]],sep="=") 
-      if(cl=='character') out=paste(item,paste0("'",x$params[[item]],"'"),sep="=") 
-      if(cl=='formula') out=paste0("formula=as.formula('",paste0(as.character(x$params[[item]])[-1],collapse="~"),"')")
-      if(cl=='function') out=paste(utils::capture.output(dput(x$params[[item]])),collapse='\n')
-      return(out)
-    }),collapse=",")
-    
-    part4<-paste0(lapply(nm,function(y){
-      if(is.logical(x[[y]])) out=paste(y,x[[y]],sep="=")
-      if(is.character(x[[y]])) out=paste(y,paste0("'",x[[y]],"'"),sep="=")
-      if(is.null(x[[y]])) out=paste(y,'NULL',sep="=")
-      if(is.data.frame(x[[y]])) out=paste(y,paste(utils::capture.output(dput(x[[y]])),collapse='\n'),sep="=")
-      return(out)
-    }),collapse=',')
-    
+    geom_aes=list(geom   =paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),
+                  mapping=paste0(names(x$mapping),sapply(x$mapping,build_map)),
+                  params =paste0(names(x$params),sapply(x$params,build_map)),
+                  layer  =paste0(rev(nm),sapply(x[rev(nm)],build_map))
+          )
+
     nDF<-cbind(names(g$geom$default_aes),paste(g$geom$default_aes))
     nDF[nDF[,1]%in%c('colour','fill','color'),2]=paste0("'",scales::col2hcl(nDF[nDF[,1]%in%c('colour','fill','color'),2],alpha = NULL),"'")
 
-    part5<-paste0(apply(nDF,1,function(x) paste0(x,collapse='=')),collapse=',')
+    geom_aes$default<-paste0(apply(nDF,1,function(x) paste0(x,collapse='=')))
     
-    paste0(part1,'(',part2,',',part3,',',part4,',',part5,')')
-    
+    #paste0(part1,'(',part2,',',part3,',',part4,',',part5,')')
+    geom_aes
     
 }

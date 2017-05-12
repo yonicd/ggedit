@@ -20,6 +20,6 @@ theme object or character depending on verbose
 Compare differences theme object e1 (new theme) to theme object e2 (old theme)
 }
 \examples{
-compare(theme_bw(),theme_get())
-compare(theme_bw(),theme_get(),verbose=FALSE)
+compare(ggplot2::theme_bw(),ggplot2::theme_get())
+compare(ggplot2::theme_bw(),ggplot2::theme_get(),verbose=FALSE)
 }

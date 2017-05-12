@@ -30,8 +30,8 @@ function returns the ggplot2 call as a string to paste in regular ggplot script
 to generate the layer.
 }
 \examples{
-p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-p=p+geom_point(aes(colour=Species))+geom_line()
+p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 p$layers[[1]]
 newLayer=cloneLayer(l=p$layers[[1]])
 all.equal(p$layers[[1]],newLayer)

@@ -16,9 +16,9 @@ an object of class ggedit
 Applied to ggplot objects to use the ploting function of ggedit.
 }
 \examples{
-p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-p1=p+geom_point(aes(colour=Species))+geom_line()
-p2=p+geom_point()+geom_smooth(method='loess')
+p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+p1=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+p2=p+ggplot2::geom_point()+ggplot2::geom_smooth(method='loess')
 p3=list(p1,p2)
 p4=as.ggedit(p3)
 plot(p4)

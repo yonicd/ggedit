@@ -23,8 +23,8 @@ the rows and the column indicies of each plot will produce a specific layout.
 }
 \examples{
 \donttest{
-p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-p=p+geom_point(aes(colour=Species))+geom_line()
+p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 p
 x=ggedit(p)
 plot(x)
