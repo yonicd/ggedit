@@ -11,5 +11,5 @@
 #' lapply(pList,gg_vetting,obj=x)
 #' @importFrom plyr ldply
 gg_vetting=function(p,obj){
-  plyr::ldply(p$layers,proto_features)%>%inner_join(obj%>%filter(!grepl('^stat',fn)),by = c("position", "geom", "stat"))
+  plyr::ldply(p$layers,proto_features)%>%inner_join(obj%>%filter_(~!grepl('^stat',fn)),by = c("position", "geom", "stat"))
 }

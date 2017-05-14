@@ -9,11 +9,12 @@
 #'
 #' @importFrom plyr ldply
 #' @importFrom reshape2 dcast
-#' @importFrom stringr str_extract_all
 #' @importFrom tools package_dependencies
+#' @importFrom utils sessionInfo
+#' @importFrom stats complete.cases
 gg_session=function(gg_pkg=NULL){
   if(is.null(gg_pkg)){
-    gg_pkg=names(which(sapply(tools::package_dependencies(names(sessionInfo()[['otherPkgs']])),function(x) any(grepl('ggplot2',x))))) 
+    gg_pkg=names(which(sapply(tools::package_dependencies(names(utils::sessionInfo()[['otherPkgs']])),function(x) any(grepl('ggplot2',x))))) 
     gg_pkg=c('ggplot2',gg_pkg[!grepl('ggedit',gg_pkg)])
   }
   fn<-unlist(sapply(gg_pkg,function(x){
@@ -23,7 +24,9 @@ gg_session=function(gg_pkg=NULL){
   },USE.NAMES = FALSE))
   
   x<-sapply(fn,function(x){
-    gsub('[,]','',unlist(stringr::str_extract_all(capture.output(eval(parse(text=x))),'geom = (.*?),|stat = (.*?),|position = (.*?),')))
+    string<-capture.output(eval(parse(text=x)))
+    y<-regmatches(string, gregexpr('geom = (.*?),|stat = (.*?),|position = (.*?),', string))
+    gsub('[,]','',unlist(y))
   })
   
   x1<-x[lapply(x,length)>0]
@@ -37,7 +40,7 @@ gg_session=function(gg_pkg=NULL){
   out<-plyr::ldply(y[sapply(y,length)>0],.fun=function(x){
     data.frame(do.call('rbind',strsplit(x,' = ')),stringsAsFactors = FALSE)
   } ,.id='fn')%>%reshape2::dcast(fn~X1,value.var='X2')%>%
-    filter(.,complete.cases(.))%>%mutate_all(as.character)
+    filter_(~stats::complete.cases(.))%>%mutate_all(as.character)
   
   out[,c('position','stat','geom')]=sapply(c('position','stat','geom'),function(x){
     y=which(grepl('"',out[[x]]))

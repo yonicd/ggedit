@@ -24,7 +24,7 @@ Imports:
     shinyAce,
     grid,
     tools,
-    stringr,
+    stats,
     miniUI
 Suggests:
     sinew
