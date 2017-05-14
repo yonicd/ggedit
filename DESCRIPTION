@@ -23,6 +23,8 @@ Imports:
     graphics,
     shinyAce,
     grid,
+    tools,
+    stringr,
     miniUI
 Suggests:
     sinew
