@@ -1,18 +1,29 @@
 cloneProto=function(l){
+  
+  parent.layer<-(proto_features(l)%>%
+                   left_join(ggedit.opts$geom_opts%>%filter_(~!grepl('^stat',fn)), 
+                             by = c("position", "geom", "stat"))
+  )
+  
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
                 'aes_params','geom_params','stat_params')
+  
   x=sapply(layer.names,function(y){
 
     b=l[[y]]
 
     if('waiver'%in%class(b)) b=NULL
     
-    if(y=='geom') b=eval(parse(text=class(b)[1]))
+    #if(y=='geom') b=eval(parse(text=class(b)[1]))
     
-    if(y%in%c('position','stat')) {
-      b=gsub(y, "", tolower(class(b)[1]))
-    }
+    if(y=='geom') b=eval(parse(text=parent.layer$geom))
+    if(y=='position') b=gsub(y, "", tolower(class(b)[1]))
+    if(y=='stat') b=eval(parse(text=parent.layer$stat))
+    
+    # if(y%in%c('position','stat')) {
+    #   b=gsub(y, "", tolower(class(b)[1]))
+    # }
     
     b
   }) 
@@ -22,12 +33,16 @@ cloneProto=function(l){
   x$params=x$params[!duplicated(names(x$params))]
   x$geom_params<-x$aes_params<-x$stat_params<-NULL
   
-  g<-paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1])),'()')
+  fn=parent.layer$fn
+  
+  g<-paste0(fn,'()')
   g<-eval(parse(text=g))
     nm=names(x)
-    nm=nm[!nm%in%c('geom','params','mapping')]
     
-    geom_aes=list(geom   =paste0('geom_',tolower(gsub('Geom','',class(x$geom)[1]))),
+    nm=nm[!sapply(x,typeof)%in%c('environment','closure','list')]
+    #nm=nm[!nm%in%c('geom','params','mapping')]
+    
+    geom_aes=list(geom   =fn,
                   mapping=paste0(names(x$mapping),sapply(x$mapping,build_map)),
                   params =paste0(names(x$params),sapply(x$params,build_map)),
                   layer  =paste0(rev(nm),sapply(x[rev(nm)],build_map))

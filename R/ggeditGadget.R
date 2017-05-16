@@ -118,7 +118,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
             gIdx=input$geoms
             }
           obj.elems=TEMPLIST$obj.Elems[[gIdx]]
-          obj.elems=obj.elems[!names(obj.elems)%in%c('family')]
+          obj.elems=obj.elems[!names(obj.elems)%in%c('family','lineend')]
           obj.elemsL=list()
           for(item in names(obj.elems)){
               item_class=obj.elems[[item]]$class[[1]]
