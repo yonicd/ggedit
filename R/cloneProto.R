@@ -1,9 +1,10 @@
 cloneProto=function(l){
   
-  parent.layer<-(proto_features(l)%>%
-                   left_join(ggedit.opts$geom_opts%>%filter_(~!grepl('^stat',fn)), 
-                             by = c("position", "geom", "stat"))
-  )
+  parent.layer<-proto_features(l)%>%
+    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+                     by = c("position", "geom", "stat"))
+  
+  if(is.na(parent.layer$fn)) parent.layer$fn='stat_summary'
   
   layer.names=c('mapping','data','geom','position',
                 'stat','show.legend','inherit.aes',
