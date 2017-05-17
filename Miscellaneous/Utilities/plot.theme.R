@@ -29,8 +29,8 @@ plot.theme=function(x,...){
 
   
   objName=paste0(deparse(substitute(x))," Red is active element")
-  objList=themeFetchFull(x)
-  objListDepth=sapply(objList,themeListDepth)
+  objList=ggedit:::themeFetchFull(x)
+  objListDepth=sapply(objList,ggedit:::themeListDepth)
   
   objL=list(compare=x)
   
@@ -43,8 +43,8 @@ plot.theme=function(x,...){
   } 
       
     objL=plyr::llply(objL,.fun = function(x){
-      objList=themeFetchFull(x)
-      objListDepth=sapply(objList,themeListDepth)      
+      objList=ggedit:::themeFetchFull(x)
+      objListDepth=sapply(objList,ggedit:::themeListDepth)      
       return(list(x=x,objList=objList,objListDepth=objListDepth))
     })
     
@@ -55,13 +55,13 @@ plot.theme=function(x,...){
         out=x[-length(x)]%>%plyr::ldply(.id='element')
         out$call=x$call
         out
-      },.id='Theme')%>%mutate(subTheme=NA)%>%mutate_each(funs(as.character)),
+      },.id='Theme')%>%mutate(subTheme=NA)%>%mutate_all(as.character),
       
       x$objList[!x$objListDepth==1]%>%plyr::ldply(.fun=function(y) y%>%plyr::ldply(.fun=function(x){
         out=x[-length(x)]%>%plyr::ldply(.id='element')
         out$call=x$call
         out
-      },.id='subTheme'),.id='Theme')%>%mutate_each(funs(as.character))
+      },.id='subTheme'),.id='Theme')%>%mutate_all(as.character)
     )
       dfOut%>%
         mutate(subTheme=ifelse(is.na(subTheme),"",subTheme),
