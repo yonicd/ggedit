@@ -168,12 +168,12 @@ $(document).ready(function () {
 <pre class="r"><code>theme(themeType.element=value)</code></pre>
 <p>To tie this all together we can create this single template that can be replicated for any element in the theme object. To add more information to the output the class of the value given to an elementClassArgument (or a themeType.element) and the index to uniquely identify the element.</p>
 <pre class="r"><code>library(ggedit)</code></pre>
-<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="grouping-templates" class="section level3">
 <h3>Grouping templates</h3>
 <pre class="r"><code>plot(theme_get(),themePart = &#39;legend&#39;,fnt=17,plotFrame = F)</code></pre>
-<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We add some colour to distinguish which elements are set to NULL (grey) and which ones have values (red).</p>
 <p>As an example this is how to read the output</p>
 <pre class="r"><code>theme(legend.key=element_rect(fill=&#39;grey95&#39;,colour=&#39;white&#39;),
@@ -187,7 +187,7 @@ $(document).ready(function () {
 <div id="visualize-the-whole-theme" class="section level3">
 <h3>Visualize the whole theme</h3>
 <pre class="r"><code>plot(theme_get(),plotFrame = F)</code></pre>
-<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-4-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>Make this plot interactive by applying ggplotly from the <a href='https://github.com/ropensci/plotly' target="_blank">plotly package</a>.</p>
 <pre class="r"><code>plot(theme_get(),as.plotly = T)</code></pre>
 <iframe src="https://cdn.rawgit.com/metrumresearchgroup/ggedit/be20b77a/BlogPosts/Data%20Driven%20Cheatsheets/plotlyOutput.html" scrolling="yes" width="100%" height="1000" frameborder="0">
@@ -197,14 +197,14 @@ $(document).ready(function () {
 <h3>Create the cheatsheet</h3>
 <p>Toggling the <code>plotFrame</code> argument to the plot call will nest the plots into a generic cheatsheet layout that does a better job of finding the best width for each box and supplies instructions on the border of how to read the output with a caption on the bottom which theme was used.</p>
 <pre class="r"><code>plot(theme_get(),plotFrame = T,fnt = 10)</code></pre>
-<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-6-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="compare-themes" class="section level3">
 <h3>Compare themes</h3>
 <p>Finally there is an option to compare themes. The same layout will be given but the color coding will change, where a blue color will indicate an update from the benchmark theme.</p>
 <pre class="r"><code>library(ggthemes)
 plot(obj=theme_economist(),obj2 = theme_bw(),fnt = 10)</code></pre>
-<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/metrumresearchgroup/ggedit/master/Miscellaneous/BlogPosts/Data%20Driven%20Cheatsheets/DataDrivenCheatsheets_files/figure-html/unnamed-chunk-7-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>When collaborating with many people and large changes are made to the theme this lets you have a single language everyone can understand for quick referencing and hopefully problem solving.</p>
 <hr>
 <p><em> Jonathan Sidi joined Metrum Researcg Group in 2016 after working for several years on problems in applied statistics, financial stress testing and economic forecasting in both industrial and academic settings.</p>

@@ -5,8 +5,7 @@
 #' @export
 #' @keywords internal
 geom_list=function(p) {
-  x<-gg_vetting(p,ggedit.opts$geom_opts)
-  g<-gsub('Geom','',x$geom)
+  g<-unlist(sapply(p$layers,function(x) gsub('Geom','',proto_features(x)[2])))
   #g=gsub('Geom','',unlist(lapply(p$layers,function(x) class(x$geom)[1])))
   g.list=sapply(unique(g),function(x) paste0(g[g==x],seq(1,table(g)[[x]])))
   unlist(g.list)
