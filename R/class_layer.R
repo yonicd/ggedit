@@ -52,10 +52,11 @@ class_layer=function(p){
 
   layer_aes=plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
     
-    if('waiver'%in%class(layer_data[[df$layer]])){
+    if(c('waiver')%in%class(layer_data[[df$layer]])){
         pData=p$data
       }else{
         pData=layer_data[df$layer][[1]]
+        if(class(pData)=='ggproto_method') pData=pData(p$data)
       }
       if(!df$VAR%in%names(pData)){
         TEMP=pData%>%mutate_(.NEWVAR=df$VAR)
@@ -75,6 +76,7 @@ class_layer=function(p){
       pData=p$data
     }else{
       pData=layer_data[df$layer][[1]]
+      if(class(pData)=='ggproto_method') pData=pData(p$data)
     }
 
     if(!df$VAR%in%names(pData)){

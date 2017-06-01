@@ -26,9 +26,8 @@
 #' @importFrom utils capture.output
  
 cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
-  
   parent.layer<-proto_features(l)%>%
-    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+    dplyr::left_join(ggedit::ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                           by = c("position", "geom", "stat"))
   
   

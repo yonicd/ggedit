@@ -1,6 +1,8 @@
-#' @import shiny
-#' @import shinyBS
-#' @import scales
+#' @importFrom miniUI miniPage gadgetTitleBar miniContentPanel
+#' @importFrom scales brewer_pal linetype_pal
+#' @importFrom shinyAce aceEditor
+#' @importFrom shinyBS bsModal
+#' @importFrom utils capture.output
 #' @importFrom graphics plot
 ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
   TEMPLIST<-new.env()
@@ -92,8 +94,8 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
                   }
               }else{
                 vals=unlist(lapply(names(input)[grepl(paste0('pop',toupper(item),'[1-9]'),names(input))],function(x) input[[x]]))
-                if(!item%in%c('size','shape','linetype')) vals=paste0("'",vals,"'")
-                if(item=='linetype') {
+                if(!grepl('size|shape|linetype',item)) vals=paste0("'",vals,"'")
+                if(grepl('linetype',item)){
                   vals=match(vals,c('0',scales::linetype_pal()(6)))-1
                 }
 
@@ -122,7 +124,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
           obj.elemsL=list()
           for(item in names(obj.elems)){
               item_class=obj.elems[[item]]$class[[1]]
-              if(item%in%c('colour','color','fill')){
+              if(grepl('colour|fill|color',item)){
                 divName='divColor'
                 if(is.null(obj.elemsL[[divName]])) obj.elemsL[[divName]]=list()
               }else{

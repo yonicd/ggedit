@@ -12,8 +12,10 @@
 #'   string and have \code{'px'} appended.
 #' @export
 #' @keywords internal
-#' @import shiny
-#' @import shinyBS
+#' @importFrom scales brewer_pal linetype_pal
+#' @importFrom shinyAce aceEditor
+#' @importFrom shinyBS bsModal
+#' @importFrom utils capture.output
 ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,width='auto',height='auto') {
   TEMPLIST<-new.env()
 

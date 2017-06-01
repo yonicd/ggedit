@@ -1,7 +1,7 @@
 cloneProto=function(l){
   
   parent.layer<-proto_features(l)%>%
-    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+    dplyr::left_join(ggedit::ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                      by = c("position", "geom", "stat"))
   
   if(is.na(parent.layer$fn)) parent.layer$fn=paste0(tolower(strsplit(parent.layer$stat,'(?<=Stat)',perl = TRUE)[[1]]),collapse = '_')
@@ -50,7 +50,7 @@ cloneProto=function(l){
           )
 
     nDF<-cbind(names(g$geom$default_aes),paste(g$geom$default_aes))
-    nDF[nDF[,1]%in%c('colour','fill','color'),2]=paste0("'",scales::col2hcl(nDF[nDF[,1]%in%c('colour','fill','color'),2],alpha = NULL),"'")
+    nDF[grep('colour|fill|color',nDF[,1]),2]=paste0("'",scales::col2hcl(nDF[grep('colour|fill|color',nDF[,1]),2],alpha = NULL),"'")
 
     geom_aes$default<-paste0(apply(nDF,1,function(x) paste0(x,collapse='=')))
     

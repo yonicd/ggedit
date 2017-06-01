@@ -39,6 +39,7 @@ fetch_aes_ggplotBuild=function(p,geom_list){
       pData=p$data
     }else{
       pData=p$layer[[l]]$data
+      if(class(pData)=='ggproto_method') pData=pData(p$data)
     }
 
       class.temp=sapply(names(x$data)[names(x$data)%in%x$nm],function(item) {

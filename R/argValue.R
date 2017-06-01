@@ -38,7 +38,7 @@ arg.value=function(item,obj.elems){
     }
     if(item_class%in%c('character','factor')){
       x=lapply(obj.elems[[item]]$val[[1]],function(y){
-        if(item%in%c('colour','color','fill')){
+        if(grepl('colour|fill|color',item)){
           z=aesColour(item)
           if(!grepl("[#]",y)) y=scales::col2hcl(y)
           z$args$value=closestColHex(y)[1]
