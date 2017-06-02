@@ -17,7 +17,7 @@ ggEditUI <-function(id){
                  shiny::column(width=2,shiny::actionLink(ns('viewVerbose'),'View Layer Code'))
       ),
       shiny::hr(),
-      shiny::conditionalPanel(paste0('input.',ns('viewVerbose')),shiny::uiOutput(ns("SimPrint"))),
+      shiny::conditionalPanel(paste0('input["',ns('viewVerbose'),'"]'),shiny::uiOutput(ns("SimPrint"))),
       shiny::column(width=3,shiny::uiOutput(ns('activePlot'))),
       shiny::column(width=6,shiny::uiOutput(ns('layers'))),
       shiny::plotOutput(outputId = ns("Plot")),
