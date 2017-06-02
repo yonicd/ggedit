@@ -24,6 +24,7 @@
 #' all.equal(p$layers[[1]],eval(parse(text=v)))
 #'
 #' @importFrom utils capture.output
+#' @importFrom ggraph get_edges
  
 cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   parent.layer<-proto_features(l)%>%
@@ -58,7 +59,10 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   x$params=x$params[!duplicated(names(x$params))]
   x$geom_params<-x$aes_params<-x$stat_params<-NULL
 
-  if(typeof(x$data)=='closure') x$data<-get_edges()
+  if(typeof(x$data)=='closure'){
+    requireNamespace("ggraph")
+    x$data<-ggraph::get_edges()
+  } 
 
   if(verbose){
     nm=names(x)

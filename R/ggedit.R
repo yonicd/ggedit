@@ -97,7 +97,7 @@
 #' }
 #' @import shiny
 ggedit <- function(p.in,...) {
-
+  requireNamespace("shinyBS")
   opts<-list(...)
 
   if(is.null(opts$viewer)) opts$viewer=shiny::paneViewer(minHeight = 1000)

@@ -17,6 +17,7 @@
 #' @importFrom shinyBS bsModal
 #' @importFrom utils capture.output
 ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,width='auto',height='auto') {
+  requireNamespace("shinyBS")
   TEMPLIST<-new.env()
 
   shiny::observe({
