@@ -11,7 +11,7 @@ aesColourCont=function(type) {
                  label='Pallete',
                  choices = c('Manual','Blues', 'BuGn', 'BuPu', 'GnBu', 'Greens', 'Greys', 'Oranges', 'OrRd', 'PuBu', 'PuBuGn', 'PuRd', 'Purples', 'RdPu', 'Reds', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd'),
                  selected = 'Blues'),
-    shiny::conditionalPanel(paste0('input.',paste0('pop',toupper(type),'fixedPal'),'=="Manual"'),
+    shiny::conditionalPanel(paste0('input[',paste0('pop',toupper(type),'fixedPal'),']=="Manual"'),
     lapply(c('Low','High'),function(x,type){
     if(x=='Low'){
       pad='padding:0px 0px 0px 10px;'
