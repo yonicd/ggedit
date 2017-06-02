@@ -16,7 +16,7 @@ ui <-fluidPage(
 
 server <- function(input, output,session) {
   p1=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Species))+geom_point()
-  p2=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Species))+geom_line()+geom_point()
+  p2=iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width,colour=Petal.Width))+geom_line()+geom_point()
   p3=list(p1=p1,p2=p2)
 
   output$p<-renderPlot({p1})
