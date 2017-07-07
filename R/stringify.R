@@ -15,7 +15,7 @@
 #'  writeLines(this.gg) #show the output
 #'  eval(parse(text=this.gg)) #recompile the plot
 #'  
-#' @rdname stringify.plot
+#' @rdname dput.ggedit
 #' @export 
 
 dput.ggedit<-function(obj,file=""){
