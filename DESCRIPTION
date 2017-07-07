@@ -9,6 +9,7 @@ Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions
 Depends:
     R (>= 2.3.0),
     ggplot2 (>= 2.2.0),
+    shinyBS,
     shiny
 Imports:
     dplyr (>= 0.5),
@@ -25,7 +26,6 @@ Imports:
     ggraph,
     tools,
     stats,
-    shinyBS,
     miniUI
 Suggests:
     sinew

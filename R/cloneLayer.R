@@ -28,7 +28,7 @@
  
 cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   parent.layer<-proto_features(l)%>%
-    dplyr::left_join(ggedit::ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                           by = c("position", "geom", "stat"))
   
   
@@ -68,17 +68,19 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
     nm=names(x)
     #nm=nm[!nm%in%c('geom','params','mapping')]
     nm=nm[!sapply(x,typeof)%in%c('environment','closure','list')]
-    geom_aes=list(geom   =parent.layer$fn,
-                  mapping=paste0(names(x$mapping),sapply(x$mapping,build_map)),
-                  params =paste0(names(x$params),sapply(x$params,build_map)),
-                  layer  =paste0(rev(nm),sapply(x[rev(nm)],build_map))
+    geom_aes=list(geom   = parent.layer$fn,
+                  mapping= paste0(names(x$mapping),sapply(x$mapping,build_map)),
+                  params = paste0(names(x$params),sapply(x$params,build_map)),
+                  layer  = paste0(rev(nm),sapply(x[rev(nm)],build_map)),
+                  data   = paste0('data=',paste0(capture.output(dput(x$data)),collapse='\n'))
     )
 
     strRet=sprintf('%s(mapping=aes(%s),%s,%s)',
                    paste0(geom_aes$geom,collapse=','),
                    paste0(geom_aes$mapping,collapse=','),
                    paste0(geom_aes$params,collapse=','),
-                   paste0(geom_aes$layer,collapse=',')
+                   paste0(geom_aes$layer,collapse=','),
+                   geom_aes$data
                    )
     
     if(!showDefaults){
@@ -87,17 +89,20 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
       
       geom_diff<-sapply(names(geom_aes)[-1],function(x) geom_aes[[x]][!geom_aes[[x]]%in%geom_proto[[x]]])
 
-      strRet=sprintf('%s(aes(%s),%s,%s)',
+      strRet=sprintf('%s(aes(%s),%s,%s,%s)',
                      paste0(geom_aes$geom,collapse=','),
                      paste0(geom_diff$mapping,collapse=','),
                      paste0(geom_diff$params,collapse=','),
-                     paste0(geom_diff$layer,collapse=',')
+                     paste0(geom_diff$layer,collapse=','),
+                     geom_aes$data
       )
     }
-    strRet=gsub('aes()','',strRet,fixed = T) #failsafe for empty aes() call  
-    strRet=gsub(',,',',',strRet)
+    strRet=gsub('aes()','',strRet,fixed = T) #failsafe for empty aes() call
+    strRet=gsub('[,]{2}','',strRet)
+    strRet=gsub('data=NULL','',strRet)
     strRet=gsub(',)',')',strRet)
     strRet=gsub('\\(,','(',strRet)
+
     strRet
   }else{
     do.call(layer,x) 
