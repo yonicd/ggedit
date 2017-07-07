@@ -1,5 +1,7 @@
 cloneProto=function(l){
   
+  if(!exists('ggedit.opts',where = parent.env(environment()))) ggedit.opts<-ggedit::ggedit.opts
+  
   parent.layer<-proto_features(l)%>%
     dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                      by = c("position", "geom", "stat"))

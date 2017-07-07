@@ -12,6 +12,7 @@
 #' @rdname clone_facet
 #' @export 
 #' @importFrom plyr as.quoted
+#' @importFrom stats as.formula
 cloneFacet<-function(obj,verbose=FALSE){
 
   facet_wrap_proto_class=list(
@@ -98,7 +99,7 @@ cloneFacet<-function(obj,verbose=FALSE){
                           
                             sprintf('facet_wrap(%s)',facet_str)
                           }else{
-                            facet_trim$facets<-plyr::as.quoted(as.formula(facet_trim$facets))
+                            facet_trim$facets<-plyr::as.quoted(stats::as.formula(facet_trim$facets))
                             do.call(facet_wrap,facet_trim)  
                           }
                       },
@@ -115,7 +116,7 @@ cloneFacet<-function(obj,verbose=FALSE){
                           },proto_class=facet_grid_proto_class),collapse = ',')
                           sprintf('facet_wrap(%s)',facet_str)
                         }else{
-                          facet_trim$facets<-plyr::as.quoted(as.formula(facet_trim$facets))
+                          facet_trim$facets<-plyr::as.quoted(stats::as.formula(facet_trim$facets))
                           do.call(facet_grid,facet_trim)  
                         }
                       })

@@ -27,6 +27,9 @@
 #' @importFrom ggraph get_edges
  
 cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
+  
+  if(!exists('ggedit.opts',where = parent.env(environment()))) ggedit.opts<-ggedit::ggedit.opts
+  
   parent.layer<-proto_features(l)%>%
     dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                           by = c("position", "geom", "stat"))
