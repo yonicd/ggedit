@@ -101,7 +101,7 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
       )
     }
     strRet=gsub('aes()','',strRet,fixed = T) #failsafe for empty aes() call
-    strRet=gsub('[,]{2}','',strRet)
+    strRet=gsub('[,]{2,3}',',',strRet)
     strRet=gsub('data=NULL','',strRet)
     strRet=gsub(',)',')',strRet)
     strRet=gsub('\\(,','(',strRet)
