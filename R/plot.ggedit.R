@@ -1,7 +1,7 @@
-#' @title Plots ggedit plot output objects
-#' @description Plots ggplot2 plots edited by ggedit with 
+#' @title Print ggedit objects
+#' @description Plots lists of ggplot2 plot objects
 #' layout functionality. 
-#' @param x ggedit output of list of plots from the ggedit output
+#' @param x list of ggplot2 plot objects
 #' @param ... list which defines the location of each plot within
 #' the viewport layout. (see details)
 #' @details If ... is NULL then a default layout is used filling in
@@ -9,20 +9,15 @@
 #' the rows and the column indicies of each plot will produce a specific layout.
 #' @examples
 #' \donttest{
-#' p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
-#' p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+#' p<-as.gglist(list(pList[[1]],pList[[2]]))
 #' p
-#' x=ggedit(p)
-#' plot(x)
-#' plot(x$UpdatedPlots)
-#' p1=pList[c(1:2)]
-#' x1=ggedit(p1)
-#' plot(x1)
-#' plot(x1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
+#' p1<-p+geom_hline(aes(yintercept=3))
+#' p1
+#' print(p1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
 #' }
 #' @export
 #' 
-plot.ggedit=function(x,...){
+print.ggedit=function(x,...){
   plot.layout=NULL
   l<-list(...)
   list2env(l,envir = environment())
@@ -49,5 +44,5 @@ plot.ggedit=function(x,...){
     for (i in 1:numPlots) {
       print(x[[i]], vp = vplayout(plot.layout[[i]]$rows, plot.layout[[i]]$cols))
     }
-    }
+  }
 }

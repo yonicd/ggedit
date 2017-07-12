@@ -241,16 +241,16 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
   
   #Render Plot----
   output$Plot=shiny::renderPlot({
-    plot(as.ggedit(TEMPLIST$objList.new))
+    as.ggedit(TEMPLIST$objList.new)
   },width=width,height=height)
   
   shiny::observeEvent(input$updateElem,{
     output$Plot=shiny::renderPlot({
       if(input$sendElem==0){
-        plot(as.ggedit(TEMPLIST$objList.new))
+        as.ggedit(TEMPLIST$objList.new)
       }else{
         pList.out=update.Layer()
-        plot(as.ggedit(pList.out))
+        as.ggedit(pList.out)
       }
     },width=width,height=height)
   })
@@ -258,17 +258,17 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
   shiny::observeEvent(input$updateTheme,{
     output$Plot=shiny::renderPlot({
       if(input$sendTheme==0){
-        plot(as.ggedit(TEMPLIST$objList.new))
+        as.ggedit(TEMPLIST$objList.new)
       }else{
         pList.out=update.Theme()
-        plot(as.ggedit(pList.out))
+        as.ggedit(pList.out)
       }
     },width=width,height=height)
   })
   
   shiny::observeEvent(input$SetThemeGrid,{
     pList.out=update.ThemeGrid()
-    output$Plot=shiny::renderPlot({plot(as.ggedit(pList.out))},width=width,height=height)
+    output$Plot=shiny::renderPlot({as.ggedit(pList.out)},width=width,height=height)
   })
   
   simTxt=shiny::reactive({
