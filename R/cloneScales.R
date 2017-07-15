@@ -30,10 +30,29 @@ cloneScales<-function(p,verbose=FALSE){
     structure(scaleout, class=class(obj))
     
     if(verbose){
-      scale_return<-paste0(capture.output(dput(scaleout$call)),collapse='\n') 
+      scaleout_cl<-sapply(scaleout$call,class)
+      idx_methods<-names(scaleout_cl)[scaleout_cl=="ggproto_method"]
+      for(idx in idx_methods) scaleout$call[[idx]]<-eval(parse(text=make_proto_method_str(scaleout$call[[idx]],environment(scaleout$call[[idx]])$f)))
+      
+      scale_return<-gsub('"',"'",paste0(format(scaleout$call),collapse='\n'))
+
     }else{
       scale_return<-scaleout
     }
     return(scale_return)
   })}
 
+make_proto_method_str <- function(self, f) {
+  args <- formals(f)
+  # is.null is a fast path for a common case; the %in% check is slower but also
+  # catches the case where there's a `self = NULL` argument.
+  has_self  <- !is.null(args[["self"]]) || "self"  %in% names(args)
+  if (has_self) {
+    fun <- 'structure(function(...) f(..., self = self),class="ggproto_method")'
+  } else {
+    browser()
+    fun <- sprintf('structure(function(...)\n %s,class="ggproto_method")',paste0(format(f),collapse='\n'))
+  }
+  
+  fun
+}
