@@ -1,9 +1,9 @@
 cloneProto=function(l){
   
-  if(!exists('ggedit.opts',where = parent.env(environment()))) ggedit.opts<-ggedit::ggedit.opts
+  geom_opts<-ggedit_opts$get('session_geoms')
   
   parent.layer<-proto_features(l)%>%
-    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+    dplyr::left_join(geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                      by = c("position", "geom", "stat"))
   
   if(is.na(parent.layer$fn)) parent.layer$fn=paste0(tolower(strsplit(parent.layer$stat,'(?<=Stat)',perl = TRUE)[[1]]),collapse = '_')

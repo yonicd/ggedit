@@ -24,14 +24,12 @@
 #' all.equal(p$layers[[1]],eval(parse(text=v)))
 #'
 #' @importFrom utils capture.output
-#' @importFrom ggraph get_edges
- 
 cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   
-  if(!exists('ggedit.opts',where = parent.env(environment()))) ggedit.opts<-ggedit::ggedit.opts
+  geom_opts<-ggedit_opts$get('session_geoms')
   
   parent.layer<-proto_features(l)%>%
-    dplyr::left_join(ggedit.opts$geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
+    dplyr::left_join(geom_opts%>%dplyr::filter_(~!grepl('^stat',fn)), 
                           by = c("position", "geom", "stat"))
   
   
@@ -65,7 +63,7 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   if(typeof(x$data)=='closure'){
     requireNamespace("ggraph")
     x$data<-ggraph::get_edges()
-  } 
+  }
 
   if(verbose){
     nm=names(x)

@@ -2,7 +2,6 @@
 #' @export
 `%>%`=magrittr::'%>%'
 
-#' @importFrom ggraph get_edges
 #' @importFrom utils capture.output
 #' @importFrom stats as.formula
 build_map=function(y){

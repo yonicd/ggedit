@@ -5,11 +5,14 @@
 #' @import shiny
 #' @keywords internal
 aesSlide=function(type){
+  
+  slideDefaults <- ggedit_opts$get('slideDefaults')
+  
   list(type=shiny::sliderInput,
        args=list(inputId = paste0('pop',toupper(type)),
                  label = type,
-                 min = ggedit::slideDefaults[[type]][1],
-                 max = ggedit::slideDefaults[[type]][2],
+                 min = slideDefaults[[type]][1],
+                 max = slideDefaults[[type]][2],
                  value = NA)
   )
 }

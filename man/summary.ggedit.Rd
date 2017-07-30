@@ -4,18 +4,17 @@
 \alias{summary.ggedit}
 \title{Print to console verbose outputs of objects of class ggedit}
 \usage{
-\method{summary}{ggedit}(x, show.structure = FALSE, ...)
+\method{summary}{ggedit}(object, ...)
 }
 \arguments{
-\item{x}{ggedit object}
+\item{object}{ggedit object}
 
-\item{show.structure}{boolean, controls if the output shows the full data.frame structure or just a placeholder [data.frame], Default: FALSE}
-
-\item{...}{nothing}
+\item{...}{used to pass show.structure}
 }
 \description{
 function to tidy the ggedit output to single script calls for each plot
 }
 \details{
-To see the complete structure of the data.frame
+use show.structure (boolean) to control if the output shows the full data.frame
+structure or just a placeholder [data.frame], Default: FALSE
 }

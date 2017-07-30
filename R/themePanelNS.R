@@ -8,6 +8,9 @@
 #' @keywords internal
 themePanelNS=function(obj.in,obj.name,session){
   ns<-session$ns
+  
+  themeTips <- ggedit_opts$get('themeTips')
+  
   lapply(names(obj.in) ,FUN = function(item){
     do.call(what = shiny::tabPanel,
             args = list(title=item,
@@ -23,8 +26,8 @@ themePanelNS=function(obj.in,obj.name,session){
                                           return(obj)
                                         })),
                         shiny::HTML(paste0(
-                          paste(paste0('<b>',names(ggedit::themeTips[[obj.in[[item]]$call]]),'</b>'),
-                                unlist(ggedit::themeTips[[obj.in[[item]]$call]]),
+                          paste(paste0('<b>',names(themeTips[[obj.in[[item]]$call]]),'</b>'),
+                                unlist(themeTips[[obj.in[[item]]$call]]),
                                 sep=': '),
                           sep="<br/>"))
             )

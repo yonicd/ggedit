@@ -55,7 +55,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
 
         theme.now=ggplot2::theme_get()
         TEMPLIST$obj.theme<-lapply(TEMPLIST$objList.new,function(p){
-          if(length(p$theme)>0) theme.now=theme.now+p$theme
+          if(length(p$theme)>0) theme.now=theme.now%+replace%p$theme
           themeFetch(theme.now)
         })
 
@@ -200,7 +200,9 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
                             if(themeListDepth(TEMPLIST$obj.theme[[plotIdx()]][j])>2){
                               list(themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][j]))
                             }else{
-                              unlist(lapply(j, function(i) {themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][i])}),F)}
+                              unlist(lapply(j, function(i) {
+                                themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][i])
+                                }),F)}
                           }),F)
 
 

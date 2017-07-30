@@ -3,6 +3,9 @@
 #' @export
 #' @keywords internal
 themeNewVal <- function(this,p.new,input){
+  
+  ThemeDefaultClass <- ggedit_opts$get('ThemeDefaultClass')
+  
   out=list()
   if(themeListDepth(this)==2){
     item=names(this)
@@ -27,7 +30,7 @@ themeNewVal <- function(this,p.new,input){
           subitem.class=this[[1]][[item1]][[subitem]]['class']='NULL'
           
           if(this[[1]][[item1]][[subitem]]['class']%in%c('NULL')){
-            subitem.class=ggedit::ThemeDefaultClass$class[ggedit::ThemeDefaultClass$item==subitem]
+            subitem.class=ThemeDefaultClass$class[ThemeDefaultClass$item==subitem]
           }else{
             subitem.class=this[[1]][[item1]][[subitem]]['class']  
           }

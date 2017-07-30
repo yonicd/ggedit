@@ -74,7 +74,7 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
     })
     
     TEMPLIST$obj.theme<-lapply(TEMPLIST$objList.new,function(p){
-      if(length(p$theme)>0) theme.now=theme.now+p$theme
+      if(length(p$theme)>0) theme.now=theme.now%+replace%p$theme
       themeFetch(theme.now)
     })
     

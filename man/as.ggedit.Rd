@@ -21,8 +21,8 @@ p1=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 p2=p+ggplot2::geom_point()+ggplot2::geom_smooth(method='loess')
 p3=list(p1,p2)
 p4=as.ggedit(p3)
-plot(p4)
+p4
 }
 \seealso{
-\code{\link{plot.ggedit}},\code{\link[ggplot2]{ggplot}}
+\code{\link{print.ggedit}},\code{\link[ggplot2]{ggplot}}
 }
