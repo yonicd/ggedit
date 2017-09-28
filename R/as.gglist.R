@@ -16,18 +16,19 @@ as.gglist=function(p){
 '+.gg'=function (e1, e2) {
   
   #check for na names in themes
-  idx<-which(is.na(names(e2)))
-  if(length(idx)>0) e2[idx]<-NULL
   
   if(inherits(e1,'gglist')){
     e3<-as.gglist(plyr::llply(e1, function(t1){
-      ggplot2:::add_ggplot(t1,e2)
+      add_ggplot(t1,e2)
     }))
   }else{
       if(inherits(e1,'theme')){
-        e3<-ggplot2:::add_theme(e1,e2)
+        idx<-which(is.na(names(e2)))
+        if(length(idx)>0) e2[idx]<-NULL
+        
+        e3<-add_theme(e1,e2)
       }else{
-        e3<-ggplot2:::add_ggplot(e1,e2)   
+        e3<-add_ggplot(e1,e2)   
       }
   }
   attributes(e3)<-attributes(e1)

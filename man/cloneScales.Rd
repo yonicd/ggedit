@@ -19,7 +19,7 @@ Clone ggplot2 scales from compiled ggplot objects returns not
 the original call but the nested call
 }
 \examples{
- p<-pList$pointSmooth+scale_colour_continuous(low='red')
- p
- pList$pointSmooth+cloneScales(p)
+ # p <- pList$pointSmooth+scale_colour_continuous(low='red')
+ # p
+ # pList$pointSmooth+cloneScales(p)
 }

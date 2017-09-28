@@ -5,7 +5,9 @@
 #' @import shiny
 #' @keywords internal
 ggEditUI <-function(id){
-  ns<-shiny::NS(id)
+  
+  ns <- shiny::NS(id)
+  
   shiny::tagList(
     shiny::div(style="height:700px; border-style: inset;",
     shiny::fluidPage(

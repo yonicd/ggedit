@@ -1,0 +1,12 @@
+lib/*
+*.mov
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+Youtube Movies
+*.zip
+*.conf
+module
+READMEOLD.md
+Miscellaneous/docs

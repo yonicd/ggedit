@@ -170,7 +170,7 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
                 shiny::column(4,
               lapply(names(objItem) ,FUN = function(item){
                 list(
-                     lapply(arg.valueNS(item,objItem,session),function(x) {
+                     lapply(arg.value(item,objItem,session),function(x) {
                             do.call(what = x[['type']],args = x[['args']])
                           })
                     )
@@ -223,9 +223,9 @@ ggEdit<- function(input, output, session,obj,verbose=TRUE,showDefaults=FALSE,wid
               do.call(shiny::tabsetPanel,
                       unlist(lapply(1:length(TEMPLIST$obj.theme[[plotIdx()]]),FUN = function(j){
                         if(themeListDepth(TEMPLIST$obj.theme[[plotIdx()]][j])>2){
-                          list(themeMakePanelNS(TEMPLIST$obj.theme[[plotIdx()]][j],session=session))
+                          list(themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][j],session=session))
                         }else{
-                          unlist(lapply(j, function(i) {themeMakePanelNS(TEMPLIST$obj.theme[[plotIdx()]][i],session=session)}),F)}
+                          unlist(lapply(j, function(i) {themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][i],session=session)}),F)}
                       }),F)
                       
                       

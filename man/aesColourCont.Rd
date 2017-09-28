@@ -4,10 +4,12 @@
 \alias{aesColourCont}
 \title{aesColorCont}
 \usage{
-aesColourCont(type)
+aesColourCont(type, session = NULL)
 }
 \arguments{
 \item{type}{character of label and inputId of element}
+
+\item{session}{shiny session object}
 }
 \value{
 UI object

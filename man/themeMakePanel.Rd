@@ -4,10 +4,14 @@
 \alias{themeMakePanel}
 \title{themeMakePanel}
 \usage{
-themeMakePanel(x, y = NULL)
+themeMakePanel(x, y = NULL, session = NULL)
 }
 \arguments{
 \item{x}{list from themeFetch}
+
+\item{y}{character, names of nested themes elements, Default: NULL}
+
+\item{session}{shiny session object}
 }
 \value{
 UI

@@ -11,9 +11,10 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
   verbose<- get(".verbose", envir = .ggeditEnv)  
   showDefaults<- get(".showDefaults", envir = .ggeditEnv)  
   plotWidth<- get(".plotWidth", envir = .ggeditEnv)  
-  plotHeight<- get(".plotHeight", envir = .ggeditEnv)  
+  plotHeight<- get(".plotHeight", envir = .ggeditEnv)
   
     ui <-miniUI::miniPage( 
+      
       miniUI::gadgetTitleBar("Edit ggplots themes and layer aesthetics"),
       miniUI::miniContentPanel(
         shiny::fluidPage(
@@ -41,6 +42,20 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         TEMPLIST$nonLayers<-vector('list',length(TEMPLIST$objList.new))
         TEMPLIST$nonLayersTxt<-vector('list',length(TEMPLIST$objList.new))
         
+        #populate select with the plots chosen to work on
+        output$activePlot=shiny::renderUI({
+          
+          if(is.null(session)){
+            ns <- function(x) x 
+          }else{
+            ns <- session$ns  
+          }
+          
+          nm <- factor(names(TEMPLIST$objList.new),ordered = T,levels=names(TEMPLIST$objList.new))
+          
+          shiny::selectInput(ns("activePlot"),"Choose Plot:",choices = split(1:length(nm),nm),selected = 1)
+        })
+        
         baseLayerVerbose=lapply(TEMPLIST$obj,function(x) lapply(x$layers,function(y) cloneLayer(y,verbose = T,showDefaults = showDefaults)))
         
         plotIdx=shiny::reactive({
@@ -61,8 +76,15 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
 
 #Layers----
         output$layers=shiny::renderUI({
+          
+          if(is.null(session)){
+            ns <- function(x) x 
+          }else{
+            ns <- session$ns  
+          }
+          
           TEMPLIST$obj.new<-TEMPLIST$objList.new[[as.numeric(input$activePlot)]]
-          shiny::radioButtons("geoms","Choose layer(s):",choices = geom_list(TEMPLIST$obj.new),selected = geom_list(TEMPLIST$obj.new)[1],inline = T)
+          shiny::radioButtons(ns("geoms"),"Choose layer(s):",choices = geom_list(TEMPLIST$obj.new),selected = geom_list(TEMPLIST$obj.new)[1],inline = T)
         })
 
         update.Layer=shiny::eventReactive(input$sendElem,{
@@ -112,6 +134,13 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         })
 
         output$popElems=shiny::renderUI({
+          
+          if(is.null(session)){
+            ns <- function(x) x 
+          }else{
+            ns <- session$ns  
+          }
+          
           TEMPLIST$obj.new<-TEMPLIST$objList.new[[as.numeric(input$activePlot)]]
           TEMPLIST$obj.Elems<-fetch_aes_ggplotBuild(TEMPLIST$obj.new,geom_list(TEMPLIST$obj.new))
           if(is.null(input$geoms)){
@@ -140,13 +169,13 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
               obj.elemsL[[divName]][[item]]=obj.elems[[item]]
           }
 
-          shinyBS::bsModal(id = "updateElemPopup", title = "Update Plot Layer", trigger = "updateElem", size = "large",
+          shinyBS::bsModal(id = ns("updateElemPopup"), title = "Update Plot Layer", trigger = ns("updateElem"), size = "large",
                            shiny::fluidRow(
                     lapply(obj.elemsL,function(objItem){
                       shiny::column(4,
                            lapply(names(objItem) ,FUN = function(item){
                              list(
-                               lapply(arg.value(item,objItem),function(x) {
+                               lapply(arg.value(item, objItem, session),function(x) {
                                  do.call(what = x[['type']],args = x[['args']])
                                })
                              )
@@ -154,7 +183,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
                            )
                       })
                     ),
-                    shiny::div(align="right",shiny::actionButton("sendElem","Update Layer"))
+                    shiny::div(align="right",shiny::actionButton(ns("sendElem"),"Update Layer"))
           )
         })
 #Theme----
@@ -192,23 +221,30 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         })
 
         output$popTheme=shiny::renderUI({
-          shinyBS::bsModal(id = "updateThemePopup", title = shiny::HTML('Update Plot Theme <a href="http://docs.ggplot2.org/0.9.3.1/theme.html" target="_blank">(help)</a>'), trigger = "updateTheme", size = "large",
+          
+          if(is.null(session)){
+            ns <- function(x) x 
+          }else{
+            ns <- session$ns  
+          }
+          
+          shinyBS::bsModal(id = ns("updateThemePopup"), title = shiny::HTML('Update Plot Theme <a href="http://docs.ggplot2.org/0.9.3.1/theme.html" target="_blank">(help)</a>'), trigger = ns("updateTheme"), size = "large",
 
                   do.call(shiny::tabsetPanel,
 
                           unlist(lapply(1:length(TEMPLIST$obj.theme[[plotIdx()]]),FUN = function(j){
                             if(themeListDepth(TEMPLIST$obj.theme[[plotIdx()]][j])>2){
-                              list(themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][j]))
+                              list(themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][j],session=session))
                             }else{
                               unlist(lapply(j, function(i) {
-                                themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][i])
+                                themeMakePanel(TEMPLIST$obj.theme[[plotIdx()]][i],session=session)
                                 }),F)}
                           }),F)
 
 
                   ),
                   shiny::hr(),
-                  shiny::div(align="right",shiny::actionButton("sendTheme","Set Theme"))
+                  shiny::div(align="right",shiny::actionButton(ns("sendTheme"),"Set Theme"))
 
 
           )
@@ -324,6 +360,13 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000),...) {
         })
         
         output$SimPrint <- shiny::renderUI({
+          
+          if(is.null(session)){
+            ns <- function(x) x 
+          }else{
+            ns <- session$ns  
+          }
+          
           junk=''
           if(length(simTxt())>0) junk=textConnection(utils::capture.output(simTxt()))
           toace=paste0(readLines(junk),collapse='\n')

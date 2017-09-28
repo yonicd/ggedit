@@ -4,10 +4,12 @@
 \alias{aesSlide}
 \title{aesSlide}
 \usage{
-aesSlide(type)
+aesSlide(type, session = NULL)
 }
 \arguments{
 \item{type}{character of label and inputId of element}
+
+\item{session}{shiny session object}
 }
 \value{
 UI object

@@ -4,12 +4,14 @@
 \alias{arg.value}
 \title{arg.value}
 \usage{
-arg.value(item, obj.elems)
+arg.value(item, obj.elems, session = NULL)
 }
 \arguments{
 \item{item}{character type of gg layer}
 
 \item{obj.elems}{elements in layer}
+
+\item{session}{shiny session object}
 }
 \value{
 list

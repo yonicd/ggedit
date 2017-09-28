@@ -4,12 +4,14 @@
 \alias{themePanel}
 \title{themePanel}
 \usage{
-themePanel(obj.in, obj.name)
+themePanel(obj.in, obj.name, session = NULL)
 }
 \arguments{
 \item{obj.in}{theme object in list form}
 
 \item{obj.name}{name of theme object}
+
+\item{session}{shiny session object}
 }
 \value{
 UI

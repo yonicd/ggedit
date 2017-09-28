@@ -4,10 +4,12 @@
 \alias{aesSelect}
 \title{aesSelect}
 \usage{
-aesSelect(type)
+aesSelect(type, session = NULL)
 }
 \arguments{
 \item{type}{character of label and inputId of element}
+
+\item{session}{shiny session object}
 }
 \value{
 UI object
