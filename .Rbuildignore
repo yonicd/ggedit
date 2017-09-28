@@ -3,3 +3,4 @@
 Miscellaneous
 docs
 man-roxygen
+^\.travis\.yml$
