@@ -60,10 +60,10 @@ cloneLayer=function(l,verbose=FALSE,showDefaults=TRUE){
   x$params=x$params[!duplicated(names(x$params))]
   x$geom_params<-x$aes_params<-x$stat_params<-NULL
 
-  # if(typeof(x$data)=='closure'){
-  #   requireNamespace("ggraph")
-  #   x$data<-ggraph::get_edges()
-  # }
+  if(typeof(x$data)=='closure'){
+    requireNamespace("ggraph")
+    x$data<-ggraph::get_edges()
+  }
 
   if(verbose){
     nm=names(x)
