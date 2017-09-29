@@ -26,8 +26,6 @@ Imports:
     tools,
     stats,
     miniUI
-Suggests:
-    ggraph
 License: GPL-2 | GPL-3
 URL: https://github.com/metrumresearchgroup/ggedit
 BugReports: https://github.com/metrumresearchgroup/ggedit/issues
