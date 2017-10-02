@@ -5,7 +5,7 @@
 #' @param verbose boolean, toggles to return object or script (TRUE), Default: FALSE
 #' @return gg object or script
 #' @examples 
-#'  obj=facet_grid(a+b~c+d,scales = 'free',as.table = FALSE,switch = 'x',shrink = FALSE)
+#'  obj=ggplot2::facet_grid(a+b~c+d,scales = 'free',as.table = FALSE,switch = 'x',shrink = FALSE)
 #'  
 #'  cloneFacet(obj)
 #'  cloneFacet(obj,verbose=TRUE)

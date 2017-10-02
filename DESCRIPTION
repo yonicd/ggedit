@@ -1,18 +1,18 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.2.5
-Date: 2017-07-07
+Version: 0.2.6
+Date: 2017-10-01
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
     R (>= 2.3.0),
-    ggplot2 (>= 2.2.0),
-    shinyBS,
-    shiny
+    ggplot2 (>= 2.2.0)
 Imports:
     dplyr (>= 0.5),
+    shiny,
+    shinyBS,
     magrittr,
     plyr,
     reshape2,

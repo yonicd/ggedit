@@ -19,7 +19,7 @@ Clone ggplot facet object and return either a gg object or
  the script to parse and evaluate
 }
 \examples{
- obj=facet_grid(a+b~c+d,scales = 'free',as.table = FALSE,switch = 'x',shrink = FALSE)
+ obj=ggplot2::facet_grid(a+b~c+d,scales = 'free',as.table = FALSE,switch = 'x',shrink = FALSE)
  
  cloneFacet(obj)
  cloneFacet(obj,verbose=TRUE)
