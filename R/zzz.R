@@ -1,10 +1,11 @@
 .onLoad <- function(libname, pkgname) {
-  if(!'shinyBS'%in%loadedNamespaces()) attachNamespace('shinyBS')
+  shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
 }
 
 .onAttach <- function(libname, pkgname) {
-  if(!'shinyBS'%in%loadedNamespaces()) attachNamespace('shinyBS')
+  shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
 }
 
 setHook(packageEvent("shiny", "onLoad"),
-        function(...) if(!'shinyBS'%in%loadedNamespaces()) attachNamespace('shinyBS'))
+        function(...) shiny::addResourcePath("sbs", system.file("www", package="shinyBS"))
+        )
