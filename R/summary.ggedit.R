@@ -5,15 +5,19 @@
 #'@details use show.structure (boolean) to control if the output shows the full data.frame
 #' structure or just a placeholder [data.frame], Default: FALSE
 #'@export
-summary.ggedit=function(object, ...){
-if(!inherits(object,'ggedit')) stop('Not ggedit object')
+summary.ggedit <- function(object, ...){
+  
+if( !inherits(object,'ggedit') ) 
+  stop('Not ggedit object')
+  
   show.structure <- FALSE
   
   list2env(list(...),envir = environment())
   
-  out<-dput.ggedit(object)
+  out <- dput.ggedit(object)
 
-  if(!show.structure) out<-gsub(',data=structure(.*?)class = "data.frame"\\)',',\\[data.frame\\]',out)
+  if( !show.structure ) 
+    out <- gsub(',data=structure(.*?)class = "data.frame"\\)',',\\[data.frame\\]',out)
   
  writeLines(paste0('\n',names(out),'\n',out))
  

@@ -1,10 +1,10 @@
 # forked from https://github.com/yihui/knitr/blob/master/R/defaults.R
 #' @importFrom stats setNames
-new_defaults = function(value = list()) {
-  defaults = value
+new_defaults <- function(value = list()) {
+  defaults <- value
   
-  get = function(name, default = FALSE, drop = TRUE, regex=FALSE, ...) {
-    if (default) defaults = value  # this is only a local version
+  get <- function(name, default = FALSE, drop = TRUE, regex=FALSE, ...) {
+    if (default) defaults <- value  # this is only a local version
     if (missing(name)) defaults else {
       if (drop && length(name) == 1){
         if(regex){
@@ -19,8 +19,8 @@ new_defaults = function(value = list()) {
     }
   }
   
-  set = function(...) {
-    dots = list(...)
+  set <- function(...) {
+    dots <- list(...)
     if (length(dots) == 0) return()
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
       if (length(dots <- dots[[1]]) == 0) return()
@@ -28,12 +28,12 @@ new_defaults = function(value = list()) {
     invisible(NULL)
   }
   
-  merge = function(values) merge_list(defaults, values)
+  merge <- function(values) merge_list(defaults, values)
   
-  restore = function(target = value) defaults <<- target
+  restore <- function(target = value) defaults <<- target
   
-  append = function(...) {
-    dots = list(...)
+  append <- function(...) {
+    dots <- list(...)
     if (length(dots) == 0) return()
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
       if (length(dots <- dots[[1]]) == 0) return()
@@ -73,7 +73,7 @@ new_defaults = function(value = list()) {
 #' @export
 #' @rdname ggeditOpts
 #' @examples ggedit_opts$get('themeDefaultClass')
-ggedit_opts = new_defaults(list(
+ggedit_opts <- new_defaults(list(
   
   fontDefaults=c('sans',
                  'Canonical',
@@ -226,10 +226,10 @@ session_geoms=
 
 #' @rdname ggeditOpts
 #' @export
-ggedit_opts_current = new_defaults()
+ggedit_opts_current <- new_defaults()
 
 # merge elements of y into x with the same names
-merge_list = function(x, y) {
-  x[names(y)] = y
+merge_list <- function(x, y) {
+  x[names(y)] <- y
   x
 }

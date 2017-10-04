@@ -4,7 +4,7 @@
 #' @export
 #' @import shiny
 #' @keywords internal
-ggEditUI <-function(id){
+ggEditUI <- function(id){
   
   ns <- shiny::NS(id)
   

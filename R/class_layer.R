@@ -7,84 +7,141 @@
 #' @import dplyr
 #' @importFrom  plyr ddply ldply
 #' 
-class_layer=function(p){
+class_layer <- function(p){
 
-  if('tbl'%in%class(p$data)) p$data=data.frame(p$data)
+  if( 'tbl'%in%class(p$data) ) 
+    p$data <- data.frame(p$data)
 
-  plot_aes=layer_aes=NULL
-  if(length(as.character(p$mapping))>0){
-  plot_aes=as.character(p$mapping)
-  aes.nm=names(p$mapping)[plot_aes!='NULL']
-  plot_aes=plot_aes[plot_aes!='NULL']
-  plot_aes=data.frame(VAR=unlist(plot_aes),stringsAsFactors = F)
-  plot_aes$aes=aes.nm
-  plot_cl=lapply(plot_aes$VAR,function(x){
-    if('call'%in%class(p$mapping[[which(p$mapping==x)[1]]])){
-      TEMP=p$data%>%mutate_(.NEWVAR=x)
-      class(TEMP[,'.NEWVAR'])
-    }else{
-      class(p$data[,as.character(x)])  
-    }
-  })
+  plot_aes = layer_aes = NULL
+  
+  if( length(as.character(p$mapping))>0 ){
     
-  chkIdx=which(unlist(lapply(plot_cl,length))!=1)
-  for(i in chkIdx){
-    if('data.frame'%in%plot_cl[[i]]){
+  plot_aes <- as.character(p$mapping)
+  
+  aes.nm <- names(p$mapping)[plot_aes!='NULL']
+  
+  plot_aes <- plot_aes[plot_aes!='NULL']
+  
+  plot_aes <- data.frame(VAR=unlist(plot_aes),stringsAsFactors = FALSE)
+  
+  plot_aes$aes <- aes.nm
+  
+  plot_cl <- lapply(plot_aes$VAR,function(x){
+    
+              if( 'call'%in%class(p$mapping[[which(p$mapping==x)[1]]]) ){
+                
+                TEMP <- p$data%>%mutate_(.NEWVAR=x)
+                class(TEMP[,'.NEWVAR'])
+                
+              }else{
+                
+                class(p$data[,as.character(x)])
+                
+              }
+    })
+    
+  chkIdx <- which(unlist(lapply(plot_cl,length))!=1)
+  
+  for( i in chkIdx ){
+    
+    if( 'data.frame'%in%plot_cl[[i]] ){
+      
       plot_cl[[i]]='data.frame'
+      
     }else{
-        break(paste0('classes:c(',paste0(plot_cl[[i]],collapse=','),') for plot variable:', plot_aes$VAR[i],'. Please choose one and rerun'))
-      }
+      
+      break(paste0('classes:c(',paste0(plot_cl[[i]],collapse=','),') for plot variable:', plot_aes$VAR[i],'. Please choose one and rerun'))
+      
+    }
+    
   }
   
-  plot_aes$class=unlist(plot_cl)
-  plot_aes$layer='plot'}
+  plot_aes$class <- unlist(plot_cl)
   
-  layer_aes=lapply(p$layers,function(x){
+  plot_aes$layer <- 'plot'
+  
+  }
+  
+  layer_aes <- lapply(p$layers,function(x){
+    
     data.frame(VAR=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F)%>%filter_(~VAR!='NULL')
+    
   })
-  layer_data=lapply(p$layers,function(x){
-   dOut=x$data
-   if('tbl'%in%class(dOut)) dOut=data.frame(dOut)
-   dOut
+  
+  layer_data <- lapply(p$layers,function(x){
+    
+             dOut <- x$data
+             
+             if('tbl'%in%class(dOut)) 
+               dOut <- data.frame(dOut)
+             
+             dOut
+             
   })
-  names(layer_aes)=names(layer_data)=geom_list(p)
-  layer_aes=plyr::ldply(layer_aes,.id = 'layer')
+  
+  names(layer_aes) <- names(layer_data) <- geom_list(p)
+  
+  layer_aes <- plyr::ldply(layer_aes,.id = 'layer')
 
-  layer_aes=plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
+  layer_aes <- plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
     
     if(c('waiver')%in%class(layer_data[[df$layer]])){
-        pData=p$data
+      
+        pData <- p$data
+        
       }else{
-        pData=layer_data[df$layer][[1]]
-        if(class(pData)=='ggproto_method') pData=pData(p$data)
+        
+        pData <- layer_data[df$layer][[1]]
+        
+        if(class(pData)=='ggproto_method') 
+          pData <- pData(p$data)
+        
       }
-      if(!df$VAR%in%names(pData)){
-        TEMP=pData%>%mutate_(.NEWVAR=df$VAR)
-        df$class=class(TEMP[,'.NEWVAR'])
-      }else{
-        df$class=class(pData[,df$VAR])
-      }  
     
+      if(!df$VAR%in%names(pData)){
+        
+        TEMP <- pData%>%mutate_(.NEWVAR=df$VAR)
+        
+        df$class <- class(TEMP[,'.NEWVAR'])
+        
+      }else{
+        
+        df$class <- class(pData[,df$VAR])
+        
+      }
     
     df
   })
   
-  layer_bind=rbind(plot_aes,layer_aes)
+  layer_bind <- rbind(plot_aes,layer_aes)
   
-  layer_bind=plyr::ddply(layer_bind,.variables = c('layer','VAR','aes'),.fun=function(df){
-    if(class(layer_data[[df$layer]])%in%c('waiver','NULL')){
-      pData=p$data
-    }else{
-      pData=layer_data[df$layer][[1]]
-      if(class(pData)=='ggproto_method') pData=pData(p$data)
-    }
+  layer_bind <- plyr::ddply(layer_bind,
+                            .variables = c('layer','VAR','aes'),
+                            .fun=function(df){
+    
+        if( class(layer_data[[df$layer]])%in%c('waiver','NULL') ){
+          
+          pData <- p$data
+          
+        }else{
+          
+          pData <- layer_data[df$layer][[1]]
+          
+          if( class(pData)=='ggproto_method' ) 
+            pData <- pData(p$data)
+        }
 
-    if(!df$VAR%in%names(pData)){
-      TEMP=pData%>%mutate_(.NEWVAR=df$VAR)
-      df$level.num=length(unique(TEMP[,'.NEWVAR']))
-    }else{
-      df$level.num=length(unique(pData[,df$VAR]))
-    }
+        if( !df$VAR%in%names(pData) ){
+          
+          TEMP <- pData%>%mutate_(.NEWVAR=df$VAR)
+          
+          df$level.num <- length(unique(TEMP[,'.NEWVAR']))
+          
+        }else{
+          
+          df$level.num <- length(unique(pData[,df$VAR]))
+          
+        }
     
     df
   })

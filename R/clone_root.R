@@ -12,24 +12,33 @@
 #' @rdname cloneRoot
 #' @export 
 #' @importFrom utils capture.output
-cloneRoot<-function(obj,verbose=FALSE){
+cloneRoot <- function(obj,verbose=FALSE){
 
-  data='NULL'
-  mapping_str='aes()'
+  data = 'NULL'
   
-  if(!is.null(obj$data)) data=paste(utils::capture.output(dput(obj$data)),collapse='\n')
+  mapping_str <- 'aes()'
+  
+  if( !is.null(obj$data) ) 
+    data <- paste(utils::capture.output(dput(obj$data)),collapse='\n')
 
-  if(!is.null(obj$mapping)){
-    mapping=unlist(obj$mapping)
-    mapping_str<-sprintf('aes(%s)',paste0(sapply(names(mapping),function(y) paste(y,mapping[[y]],sep='=')),collapse=','))
+  if( !is.null(obj$mapping) ){
+    
+    mapping <- unlist(obj$mapping)
+    
+    mapping_str <- sprintf('aes(%s)',paste0(sapply(names(mapping),function(y) paste(y,mapping[[y]],sep='=')),collapse=','))
+    
   } 
   
-  strout<-sprintf('ggplot(mapping=%s,data=%s)',mapping_str,data)
+  strout <- sprintf('ggplot(mapping=%s,data=%s)',mapping_str,data)
   
-  if(verbose){
+  if( verbose ){
+    
     strout
+    
   }else{
+    
     eval(parse(text=strout))
-    } 
+    
+  } 
   
 }

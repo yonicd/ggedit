@@ -97,24 +97,37 @@
 #' }
 #' @import shiny
 ggedit <- function(p.in,...) {
-  requireNamespace("shinyBS")
-  opts<-list(...)
+  
+  opts <- list(...)
 
-  if(is.null(opts$viewer)) opts$viewer=shiny::paneViewer(minHeight = 1000)
-  if(is.null(opts$verbose)) opts$verbose=TRUE
-  if(is.null(opts$showDefaults)) opts$showDefaults=FALSE
-  if(is.null(opts$width)) opts$width='auto'
-  if(is.null(opts$height)) opts$height=600
+  if( is.null(opts$viewer) ) 
+    opts$viewer <- shiny::paneViewer(minHeight = 1000)
+  
+  if( is.null(opts$verbose) ) 
+    opts$verbose <- TRUE
+  
+  if( is.null(opts$showDefaults) ) 
+    opts$showDefaults <- FALSE
+  
+  if( is.null(opts$width) ) 
+    opts$width <- 'auto'
+  
+  if( is.null(opts$height) ) 
+    opts$height <- 600
 
-  if(!Sys.getenv("RSTUDIO") == "1") opts$viewer=shiny::browserViewer()
+  if( !Sys.getenv("RSTUDIO") == "1" ) 
+    opts$viewer <- shiny::browserViewer()
   
-  if(is.ggplot(p.in)) p.in=list(p.in)
+  if( is.ggplot(p.in) ) 
+    p.in <- list(p.in)
   
-  if(is.null(names(p.in))) names(p.in)=as.character(1:length(p.in))
+  if( is.null(names(p.in)) ) 
+    names(p.in) <- as.character(1:length(p.in))
   
-  p.names=split(1:length(p.in),names(p.in))
+  p.names <- split(1:length(p.in),names(p.in))
   
-  if(!all(unlist(lapply(p.in,is.ggplot)))) stop("'object' is not a valid ggplot object")
+  if( !all(unlist(lapply(p.in,is.ggplot))) ) 
+    stop("'object' is not a valid ggplot object")
 
   assign('.p',envir = .ggeditEnv,p.in)
   assign('.verbose',envir = .ggeditEnv,opts$verbose)

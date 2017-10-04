@@ -14,7 +14,7 @@ search will look in loaded packages, Default: NULL}
 data.frame
 }
 \description{
-retreive all functions that create ggroto layers or stats
+Retreive all functions that create ggroto layers or stats
 }
 \examples{
 gg_session('ggplot2')

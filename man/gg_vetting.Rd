@@ -15,7 +15,7 @@ gg_vetting(p, obj)
 data.frame
 }
 \description{
-FUNCTION_DESCRIPTION
+Validate geoms with their unique attributes
 }
 \examples{
 x<-gg_session('ggplot2')

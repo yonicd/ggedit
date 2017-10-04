@@ -1,6 +1,9 @@
-.creatEnv=function(){
-  .ggeditEnv<-new.env()
+.creatEnv <- function(){
+  
+  .ggeditEnv <- new.env()
+  
   assign('.ggeditEnv',envir=parent.frame(),value = .ggeditEnv)
+  
   return(.ggeditEnv)
 }
 

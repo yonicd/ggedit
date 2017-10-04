@@ -23,10 +23,12 @@ the rows and the column indicies of each plot will produce a specific layout.
 }
 \examples{
 \donttest{
-p<-as.gglist(list(pList[[1]],pList[[2]]))
+p <- as.gglist(list(pList[[1]],pList[[2]]))
 p
-p1<-p+geom_hline(aes(yintercept=3))
+
+p1 <- p+geom_hline(aes(yintercept=3))
 p1
+
 print(p1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
 }
 }
