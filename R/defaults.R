@@ -130,7 +130,7 @@ ggedit_opts <- new_defaults(list(
                               "longdash", "twodash"),sep=": "),
                       collapse=", "),
       lineend=c("butt(default),round,square")),
-    element_text=list(family=HTML('<a href="http://www.cookbook-r.com/Graphs/Fonts/" target="_blank">font family</a>'),
+    element_text=list(family=shiny::HTML('<a href="http://www.cookbook-r.com/Graphs/Fonts/" target="_blank">font family</a>'),
                       face='font face ("plain", "italic", "bold", "bold.italic")',
                       colour='text colour',
                       size='text size (in pts)',
