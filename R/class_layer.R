@@ -56,7 +56,7 @@ class_layer <- function(p){
     
   }
   
-  plot_aes$class <- unlist(plot_cl)
+  plot_aes$class <- unlist(plot_cl)[1]
   
   plot_aes$layer <- 'plot'
   
