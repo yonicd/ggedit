@@ -24,13 +24,17 @@ In the latter case the layers are found in the updatedLayers object in
 the ggedit output.
 }
 \examples{
-p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
-p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+p <- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+
+p <- p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+
 p
+
 p\%>\%rgg('point',1)
-if(interactive()){
-x=ggedit(p)
-pnew=p\%>\%rgg('point',1,x$updatedLayers[[1]])
+
+if( interactive() ){
+x <- ggedit(p)
+pnew <- p\%>\%rgg('point',1,x$updatedLayers[[1]])
 pnew
 }
 }
