@@ -7,7 +7,7 @@
 gg_session(gg_pkg = NULL)
 }
 \arguments{
-\item{gg_pkg}{character, package names to search in if NULL an internal 
+\item{gg_pkg}{character, package names to search in if NULL an internal
 search will look in loaded packages, Default: NULL}
 }
 \value{

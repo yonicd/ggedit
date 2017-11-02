@@ -5,6 +5,6 @@
 #' @param p an object
 #' @return logical - is the object of class ggedit
 
-is.ggedit<-function(p){
+is.ggedit <- function(p) {
   inherits(p, "ggedit")
-} 
+}

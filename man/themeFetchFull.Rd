@@ -13,7 +13,7 @@ themeFetchFull(a = theme_get())
 list
 }
 \description{
-Returns a nested list of all elements in gg theme object, 
+Returns a nested list of all elements in gg theme object,
 for plot.theme plot.
 }
 \keyword{internal}

@@ -25,12 +25,12 @@ List of elements
 }
 }
 \description{
-Shiny gadget that takes an input ggplots and populates a user 
-interface with objects that let the user update aesthetics of layers 
+Shiny gadget that takes an input ggplots and populates a user
+interface with objects that let the user update aesthetics of layers
 and theme elements.
 }
 \details{
-The user can start the gadget using the console \code{ggedit(plotobj)} or through the Addins menu in Rstudio. 
+The user can start the gadget using the console \code{ggedit(plotobj)} or through the Addins menu in Rstudio.
 
 If you are using the the Addin option highlight on the editor window the ggplot object and then click the addin.
 
@@ -48,30 +48,30 @@ Once the gadget is running the list of plots are shown in a grid and a number of
 
 \strong{Action buttons}
 
-Cancel: 
+Cancel:
 
 Returns a NULL object
 
-Done: 
+Done:
 
-Returns the list decribed below. 
+Returns the list decribed below.
 
-\strong{Dropdown list} 
+\strong{Dropdown list}
 
 Navigates through the plots in the input list. If the input list is a named list the names will be in the dropdown. The plot chosen is termed as the "active plot"
 
-\strong{Radio buttons} 
+\strong{Radio buttons}
 
 The options to choose in the radio buttons are the layer names in the active plot.
 
 \strong{Links}
 
-Update Plot Layer: 
+Update Plot Layer:
 
 A pop up window will appear and be populated with aesthetic elements found in the layer chosen from the radio buttons.
 The layer is cloned using \code{\link{cloneLayer}} creating a layer independent of the original plot.
-If the aesthetic is a factor the values will be shown in dropdown lists. 
-If it is numeric it will be shown in a slider. 
+If the aesthetic is a factor the values will be shown in dropdown lists.
+If it is numeric it will be shown in a slider.
 If it is a factor colour/fill aesthetic the \code{\link[colourpicker]{colourPicker}} package will allow to choose from the full pallete of colours.
 If the continuous colour/fill aesthetic a dropdown list will be shown with different palletes
 
@@ -79,16 +79,16 @@ Update Plot Theme:
 
 A popup modal will appear populated with the theme elements found in the active plot.
 Each element will appear as having a value or empty depending if it was defined or not.
-The user can change or fill in any element \href{http://docs.ggplot2.org/current/theme.html}{with valid values} 
+The user can change or fill in any element \href{http://docs.ggplot2.org/current/theme.html}{with valid values}
 and any textboxes left empty will use ggplot defaults.
 
 Update Grid Theme:
 
-Copies the theme of the active plot to the other plots in the list 
+Copies the theme of the active plot to the other plots in the list
 
 Update Global Theme:
 
-Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme. 
+Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme.
 
 View Layer Code:
 

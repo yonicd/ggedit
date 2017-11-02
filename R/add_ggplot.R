@@ -1,8 +1,8 @@
-#taken from ggplot2:::* to avoid r cmd check note on using :::
+# taken from ggplot2:::* to avoid r cmd check note on using :::
 
 add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
-  
+
   p <- plot_clone(p)
   if (is.data.frame(object)) {
     p$data <- object
@@ -18,7 +18,7 @@ add_ggplot <- function(p, object, objectname) {
     p$mapping <- defaults(object, p$mapping)
     # defaults() doesn't copy class, so copy it.
     class(p$mapping) <- class(object)
-    
+
     labels <- lapply(object, deparse)
     names(labels) <- names(object)
     p <- update_labels(p, labels)
@@ -34,15 +34,17 @@ add_ggplot <- function(p, object, objectname) {
     }
   } else if (is.layer(object)) {
     p$layers <- append(p$layers, object)
-    
+
     # Add any new labels
     mapping <- make_labels(object$mapping)
     default <- make_labels(object$stat$default_aes)
     new_labels <- defaults(mapping, default)
     p$labels <- defaults(p$labels, new_labels)
   } else {
-    stop("Don't know how to add ", objectname, " to a plot",
-         call. = FALSE)
+    stop(
+      "Don't know how to add ", objectname, " to a plot",
+      call. = FALSE
+    )
   }
   set_last_plot(p)
   p
@@ -51,32 +53,35 @@ add_ggplot <- function(p, object, objectname) {
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
-  
+
   p
 }
 
 update_theme <- function(oldtheme, newtheme) {
   # If the newtheme is a complete one, don't bother searching
   # the default theme -- just replace everything with newtheme
-  if (attr(newtheme, "complete"))
+  if (attr(newtheme, "complete")) {
     return(newtheme)
-  
+  }
+
   # These are elements in newtheme that aren't already set in oldtheme.
   # They will be pulled from the default theme.
   newitems <- !names(newtheme) %in% names(oldtheme)
   newitem_names <- names(newtheme)[newitems]
   oldtheme[newitem_names] <- theme_get()[newitem_names]
-  
+
   # Update the theme elements with the things from newtheme
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
   # list, and in that case, set complete to FALSE.
   old.validate <- isTRUE(attr(oldtheme, "validate"))
   new.validate <- isTRUE(attr(newtheme, "validate"))
-  oldtheme <- do.call(theme, c(oldtheme,
-                               complete = isTRUE(attr(oldtheme, "complete")),
-                               validate = old.validate & new.validate))
-  
+  oldtheme <- do.call(theme, c(
+    oldtheme,
+    complete = isTRUE(attr(oldtheme, "complete")),
+    validate = old.validate & new.validate
+  ))
+
   oldtheme + newtheme
 }
 
@@ -96,12 +101,11 @@ is.layer <- function(x) inherits(x, "Layer")
 
 make_labels <- function(mapping) {
   remove_dots <- function(x) {
-    
     match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
-    
+
     gsub(match_calculated_aes, "\\1", x)
   }
-  
+
   default_label <- function(aesthetic, mapping) {
     # e.g., geom_smooth(aes(colour = "loess"))
     if (is.character(mapping)) {
@@ -113,7 +117,6 @@ make_labels <- function(mapping) {
   Map(default_label, names(mapping), mapping)
 }
 
-defaults <- function (x, y) 
-{
+defaults <- function(x, y) {
   c(x, y[setdiff(names(y), names(x))])
 }

@@ -15,7 +15,7 @@ cloneRoot(obj, verbose = FALSE)
 gg object or script
 }
 \description{
-clone root of ggplot object and return either a new gg object or 
+clone root of ggplot object and return either a new gg object or
 a string to parse and evaluate
 }
 \examples{

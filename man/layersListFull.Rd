@@ -13,8 +13,8 @@ layersListFull(obj)
 list of aesthetics and their values for each layer in a plot
 }
 \description{
-Runs the ggplot_build function on the input and converts 
-the output data objects into a nested list with the unique values of 
+Runs the ggplot_build function on the input and converts
+the output data objects into a nested list with the unique values of
 each of the aesthetic columns. Includes all objects used for theme plots
 }
 \keyword{internal}

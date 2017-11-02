@@ -1,7 +1,7 @@
 #' @title layersList
 #' @export
 #' @description Runs the ggplot_build function on the input and converts
-#'  the output data objects into a nested list with the unique values of 
+#'  the output data objects into a nested list with the unique values of
 #'  each of the aesthetic columns.
 #' @param obj ggplot2 plot object or list of plot objects
 #' @return list of aesthetics and their values for each layer in a plot
@@ -11,8 +11,8 @@
 #' p
 #' p.list=layersList(p)
 #' p.list
-#' 
-layersList=function(obj){
-  if(is.ggplot(obj)) obj=list(obj)
-  rmNullObs(lapply(obj,layersListFull))
+#'
+layersList <- function(obj) {
+  if (is.ggplot(obj)) obj <- list(obj)
+  rmNullObs(lapply(obj, layersListFull))
 }

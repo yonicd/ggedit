@@ -4,20 +4,20 @@
 #' @param session shiny session object
 #' @return UI object
 #' @keywords internal
-aesColour <- function( type, session = NULL ) {
-  
-  if(is.null(session)){
-    ns <- function(x) x 
-  }else{
-    ns <- session$ns  
+aesColour <- function(type, session = NULL) {
+  if (is.null(session)) {
+    ns <- function(x) x
+  } else {
+    ns <- session$ns
   }
-  
+
   list(
     type = colourpicker::colourInput,
-    args = list(inputId = ns(paste0('pop',toupper(type))),
-                label = type,
-                value = NA,
-                allowTransparent = TRUE)
+    args = list(
+      inputId = ns(paste0("pop", toupper(type))),
+      label = type,
+      value = NA,
+      allowTransparent = TRUE
+    )
   )
-  
 }

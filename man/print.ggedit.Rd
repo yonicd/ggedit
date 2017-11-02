@@ -18,7 +18,7 @@ layout functionality.
 }
 \details{
 If ... is NULL then a default layout is used filling in
-a grid.layout row.wise. Defining plot.layout as a nested list giving 
+a grid.layout row.wise. Defining plot.layout as a nested list giving
 the rows and the column indicies of each plot will produce a specific layout.
 }
 \examples{

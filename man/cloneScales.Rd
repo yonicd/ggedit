@@ -15,7 +15,7 @@ cloneScales(p, verbose = FALSE)
 ggplot scale or script (depends on verbose)
 }
 \description{
-Clone ggplot2 scales from compiled ggplot objects returns not 
+Clone ggplot2 scales from compiled ggplot objects returns not
 the original call but the nested call
 }
 \examples{

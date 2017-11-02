@@ -7,10 +7,10 @@
 gggsave(filename = "Rplot.pdf", plot = last_plot(), ...)
 }
 \arguments{
-\item{filename}{a character string giving the name of the file. 
-If it is of the form "|cmd", the output is piped to the command given by cmd. 
+\item{filename}{a character string giving the name of the file.
+If it is of the form "|cmd", the output is piped to the command given by cmd.
 If it is NULL, then no external file is created (effectively, no drawing occurs),
-but the device may still be queried (e.g., for size of text). For use with onefile = FALSE 
+but the device may still be queried (e.g., for size of text). For use with onefile = FALSE
 give a C integer format such as "Rplot\%03d.pdf" (the default in that case)}
 
 \item{plot}{ggplot or list of ggplots to save, defaults to last plot displayed}
@@ -21,12 +21,12 @@ give a C integer format such as "Rplot\%03d.pdf" (the default in that case)}
 nothing
 }
 \description{
-Wrapper of ggsave that saves ggplot or list of ggplot 
+Wrapper of ggsave that saves ggplot or list of ggplot
 objects to image or pdf.
 }
 \details{
 default output is to create one pdf regardless of size of list of plots inputted
 }
 \examples{
-\dontrun{gggsave(pList)} 
+\dontrun{gggsave(pList)}
 }

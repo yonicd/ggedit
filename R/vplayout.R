@@ -5,6 +5,6 @@
 #' @return viewport
 #' @export
 #' @keywords internal
-vplayout <- function(x, y){
+vplayout <- function(x, y) {
   grid::viewport(layout.pos.row = x, layout.pos.col = y)
-} 
+}
