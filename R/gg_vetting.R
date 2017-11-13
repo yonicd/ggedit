@@ -1,16 +1,15 @@
 #' @title Backcheck what functions created the layers in a ggplot2 plot object
 #' @description Validate geoms with their unique attributes
 #' @param p gg, compiled ggplot object
-#' @param obj data.frame, contains the mapping of layer functions as created in gg_session()
+#' @param obj data.frame, contains the mapping of layer functions as created in gg_session(),
+#' Default: ggedit_opts$get('session_geoms')
 #' @return data.frame
 #' @export
 #' @examples
-#' x<-gg_session('ggplot2')
-#' p=pList$boxplotWrap
-#' gg_vetting(p,x)
-#' lapply(pList,gg_vetting,obj=x)
+#' gg_vetting(pList$boxplotWrap)
+#' lapply(pList,gg_vetting)
 #' @importFrom plyr ldply
-gg_vetting <- function(p, obj) {
+gg_vetting <- function(p, obj=ggedit_opts$get('session_geoms')) {
   plyr::ldply(p$layers, proto_features) %>%
     inner_join(
       obj %>%

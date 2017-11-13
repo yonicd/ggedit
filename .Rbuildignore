@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 Miscellaneous
+NEWS.Rmd
 docs
 man-roxygen
 ^\.travis\.yml$

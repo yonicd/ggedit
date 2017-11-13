@@ -104,7 +104,10 @@ cloneFacet <- function(obj, verbose=FALSE) {
   )
 
 
-  facet_trim <- facet_p[which(!sapply(names(facet_p), function(x) {
+  nm_p <- names(facet_p)
+  nm_p <- nm_p[-grep('plot_env',nm_p)]
+  
+  facet_trim <- facet_p[which(!sapply(nm_p, function(x) {
     is.logical(all.equal(facet_proto[x], facet_p[x]))
   }))]
 

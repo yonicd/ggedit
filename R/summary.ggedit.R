@@ -6,6 +6,7 @@
 #' structure or just a placeholder [data.frame], Default: FALSE
 #' @export
 summary.ggedit <- function(object, ...) {
+  
   if (!inherits(object, "ggedit")) {
     stop("Not ggedit object")
   }
@@ -14,11 +15,11 @@ summary.ggedit <- function(object, ...) {
 
   list2env(list(...), envir = environment())
 
-  out <- dput.ggedit(object)
+    ret <- dput.ggedit(object$UpdatedPlots)
+    
+    if (!show.structure) {
+      ret <- gsub(',data=structure(.*?)class = "data.frame"\\)', ",\\[data.frame\\]", ret)
+    }  
 
-  if (!show.structure) {
-    out <- gsub(',data=structure(.*?)class = "data.frame"\\)', ",\\[data.frame\\]", out)
-  }
-
-  writeLines(paste0("\n", names(out), "\n", out))
+  writeLines(paste0("\n", names(ret), "\n", ret))
 }

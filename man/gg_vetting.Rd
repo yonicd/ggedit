@@ -4,12 +4,13 @@
 \alias{gg_vetting}
 \title{Backcheck what functions created the layers in a ggplot2 plot object}
 \usage{
-gg_vetting(p, obj)
+gg_vetting(p, obj = ggedit_opts$get("session_geoms"))
 }
 \arguments{
 \item{p}{gg, compiled ggplot object}
 
-\item{obj}{data.frame, contains the mapping of layer functions as created in gg_session()}
+\item{obj}{data.frame, contains the mapping of layer functions as created in gg_session(),
+Default: ggedit_opts$get('session_geoms')}
 }
 \value{
 data.frame
@@ -18,8 +19,6 @@ data.frame
 Validate geoms with their unique attributes
 }
 \examples{
-x<-gg_session('ggplot2')
-p=pList$boxplotWrap
-gg_vetting(p,x)
-lapply(pList,gg_vetting,obj=x)
+gg_vetting(pList$boxplotWrap)
+lapply(pList,gg_vetting)
 }
