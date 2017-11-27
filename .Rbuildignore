@@ -7,3 +7,4 @@ tests/*
 docs
 man-roxygen
 ^\.travis\.yml$
+^codecov\.yml$

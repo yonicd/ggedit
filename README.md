@@ -1,6 +1,7 @@
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/ggedit)](https://cran.r-project.org/package=ggedit)
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
 ![downloads](http://cranlogs.r-pkg.org/badges/ggedit)
+[![Coverage Status](https://img.shields.io/codecov/c/github/metrumresearchgroup/ggedit/master.svg)](https://codecov.io/github/metrumresearchgroup/ggedit?branch=master)
 # ggedit
 
 ggplot2 has become the standard of plotting in R for many users. New users, however, may find the learning curve steep at first, and more experienced users may find it challenging to keep track of all the options (especially in the theme!). 
