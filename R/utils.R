@@ -12,7 +12,7 @@ build_map <- function(y) {
   if (is.null(y)) out <- paste(item, "NULL", sep = "=")
   if (inherits(y, c("function", "call", "ggproto"))) out <- paste0(item, "=", paste(utils::capture.output(dput(y)), collapse = "\n"))
   if (inherits(y, c("data.frame"))) out <- paste0("=", paste(utils::capture.output(dput(y)), collapse = "\n"))
-  if (inherits(y, c("ggproto_method"))) out <- paste0("=ggraph::get_edges(edges='short')")
+  #if (inherits(y, c("ggproto_method"))) out <- paste0("=ggraph::get_edges(edges='short')")
   if (out == "") out <- paste(item, y, sep = "=")
   return(out)
 }

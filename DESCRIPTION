@@ -27,7 +27,6 @@ Imports:
     stats,
     miniUI
 Suggests:
-    ggraph,
     testthat,
     covr
 License: GPL-2 | GPL-3
