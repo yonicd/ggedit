@@ -27,11 +27,12 @@ Imports:
     stats,
     miniUI
 Suggests:
-    ggraph
+    ggraph,
+    testthat
 License: GPL-2 | GPL-3
 URL: https://github.com/metrumresearchgroup/ggedit
 BugReports: https://github.com/metrumresearchgroup/ggedit/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

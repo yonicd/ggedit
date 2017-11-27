@@ -25,6 +25,8 @@ Change plot.ggedit be a print.ggedit method.
 Add
 ---
 
+**margins** can be edited in the theme UI
+
 `+.gg` functionality added to *gglist* class to manipulate to multiple plots in layout
 
 ``` r

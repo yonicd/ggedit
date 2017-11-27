@@ -12,7 +12,7 @@
 #'
 compare <- function(e1, e2, verbose=TRUE) {
   objL <- lapply(list(compare = e1, base = e2), function(x) {
-    objList <- themeFetch(x)
+    objList <- themeFetchFull(x)
 
     objListDepth <- sapply(objList, themeListDepth)
 

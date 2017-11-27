@@ -4,30 +4,32 @@
 \alias{print.ggedit}
 \title{Print ggedit objects}
 \usage{
-\method{print}{ggedit}(x, ...)
+\method{print}{ggedit}(x, layout = NULL, byrow = FALSE, ...)
 }
 \arguments{
 \item{x}{list of ggplot2 plot objects}
 
-\item{...}{list which defines the location of each plot within
-the viewport layout. (see details)}
+\item{layout}{matrix, layout of plots like in \code{\link[graphics]{layout}}, 
+if NULL then a default layout is used, Default: NULL}
+
+\item{byrow}{boolean, argument passed to default layout (when layout is NULL), used to 
+transpose the output.}
+
+\item{...}{not used}
 }
 \description{
 Plots lists of ggplot2 plot objects
 layout functionality.
 }
-\details{
-If ... is NULL then a default layout is used filling in
-a grid.layout row.wise. Defining plot.layout as a nested list giving
-the rows and the column indicies of each plot will produce a specific layout.
-}
 \examples{
-p <- as.gglist(list(pList[[1]],pList[[2]]))
+p <- as.gglist(pList[1:2])
 p
 
 p1 <- p+geom_hline(aes(yintercept=3))
 p1
 
-print(p1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
+print(p1,byrow=TRUE)
+
+print(p1,layout = matrix(c(2,2,NA,1),ncol=2))
 
 }

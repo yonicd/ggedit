@@ -2,61 +2,59 @@
 #' @description Plots lists of ggplot2 plot objects
 #' layout functionality.
 #' @param x list of ggplot2 plot objects
-#' @param ... list which defines the location of each plot within
-#' the viewport layout. (see details)
-#' @details If ... is NULL then a default layout is used filling in
-#' a grid.layout row.wise. Defining plot.layout as a nested list giving
-#' the rows and the column indicies of each plot will produce a specific layout.
+#' @param layout matrix, layout of plots like in \code{\link[graphics]{layout}}, 
+#' if NULL then a default layout is used, Default: NULL
+#' @param byrow boolean, argument passed to default layout (when layout is NULL), used to 
+#' transpose the output.
+#' @param ... not used
 #' @examples
-#' p <- as.gglist(list(pList[[1]],pList[[2]]))
+#' p <- as.gglist(pList[1:2])
 #' p
 #'
 #' p1 <- p+geom_hline(aes(yintercept=3))
 #' p1
 #'
-#' print(p1,plot.layout = list(list(rows=2,cols=2),list(rows=1,cols=1:2)))
+#' print(p1,byrow=TRUE)
+#'
+#' print(p1,layout = matrix(c(2,2,NA,1),ncol=2))
 #'
 #' @export
-print.ggedit <- function(x, ...) {
-  plot.layout <- NULL
-
-  l <- list(...)
-
-  list2env(l, envir = environment())
+print.ggedit <- function(x, layout=NULL, byrow = FALSE, ...) {
 
   if (!is.null(x$UpdatedPlots)) {
     x <- x$UpdatedPlots
   }
 
-  if (is.null(plot.layout)) {
-    plot.layout <- 1:length(x)
+  if (is.null(layout)) {
 
     numPlots <- length(x)
 
     cols <- min(numPlots, 2)
-
-    plotCols <- cols
-
-    plotRows <- ceiling(numPlots / plotCols)
-
-    grid::grid.newpage()
-    grid::pushViewport(grid::viewport(layout = grid::grid.layout(plotRows, plotCols)))
-
-    for (i in 1:numPlots) {
-      curRow <- ceiling(i / plotCols)
-      curCol <- (i - 1) %% plotCols + 1
-      print(x[[i]], vp = vplayout(curRow, curCol))
+    rows <- ceiling(numPlots / cols)
+    
+    plot_vec <- 1:numPlots
+    
+    if(cols*rows>numPlots){
+      plot_vec <- c(plot_vec,rep(NA,(cols*rows)-numPlots))
     }
-  } else {
-    numPlots <- length(x)
-    plotRows <- max(unlist(lapply(plot.layout, "[", 1)))
-    plotCols <- max(unlist(lapply(plot.layout, "[", 2)))
+    
+    layout <- matrix(plot_vec,ncol=cols,nrow=rows,byrow = byrow)
 
-    grid::grid.newpage()
-    grid::pushViewport(grid::viewport(layout = grid::grid.layout(plotRows, plotCols)))
-
-    for (i in 1:numPlots) {
-      print(x[[i]], vp = vplayout(plot.layout[[i]]$rows, plot.layout[[i]]$cols))
-    }
+    if(byrow&rows==1)
+      layout <- matrix(plot_vec,ncol=rows,nrow=cols)  
   }
+  
+    grid::grid.newpage()
+
+    grid::pushViewport(
+        grid::viewport(
+          layout = grid::grid.layout(nrow(layout), ncol(layout))
+        )
+      )
+
+    for (i in 1:max(layout,na.rm = TRUE)) {
+        thisdim <- which(layout==i,arr.ind = TRUE)
+        print(x[[i]], vp = vplayout(thisdim[,1], thisdim[,2]))  
+    }
+  
 }

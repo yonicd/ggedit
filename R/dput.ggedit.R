@@ -10,7 +10,7 @@
 #'  eval(parse(text=this.gg)) #recompile the plot
 #'
 #'  #add theme change
-#'  p<-pList$pointSmooth+theme(panel.background = element_rect(fill='green'))
+#'  p <- pList$pointSmooth+theme(panel.background = element_rect(fill='green'))
 #'  this.gg<-dput.ggedit(p) #dput the plot
 #'  writeLines(this.gg) #show the output
 #'  eval(parse(text=this.gg)) #recompile the plot

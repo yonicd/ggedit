@@ -5,10 +5,10 @@
 #' @param geom character string of the name of the layer to remove
 #' @param idx numeric of which index of geom to remove
 #' @examples
-#' p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
-#' p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+#' p <- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+#' p <- p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 #' p
-#' pnew=p%>%remove_geom('point',1)
+#' pnew <- p%>%remove_geom('point',1)
 #' pnew
 
 remove_geom <- function(p, geom, idx) {
@@ -21,7 +21,11 @@ remove_geom <- function(p, geom, idx) {
   if (idx > length(a.rm)) stop(paste0("There are less than ", idx, " ", geom, " layers available in the plot to remove"), call. = FALSE)
 
   if (length(a.rm) >= idx) a.rm <- a.rm[idx]
+  
+  p$labels[[names(layers[[a.rm]]$mapping)]] <- NULL
   layers <- layers[-a.rm]
+  
+  
   p$layers <- layers
   p
 }

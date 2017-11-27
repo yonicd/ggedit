@@ -25,6 +25,9 @@ Change plot.ggedit be a print.ggedit method.
 `shinyBS` js library dependencies loaded with package, this lets ggedit run on attachment. i.e. `ggedit::ggedit(p)`
     
 ## Add
+
+**margins** can be edited in the theme UI
+
 `+.gg` functionality added to *gglist* class to manipulate to multiple plots in layout
     
 ```{r,eval=FALSE}

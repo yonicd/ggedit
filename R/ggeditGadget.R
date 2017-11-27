@@ -77,7 +77,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000), ...) {
         theme.now <- theme.now %+replace% p$theme
       }
 
-      themeFetch(theme.now)
+      themeFetchFull(theme.now)
     })
 
     # Layers----
@@ -245,6 +245,8 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000), ...) {
     })
     # Theme----
     update.Theme <- shiny::eventReactive(input$sendTheme, {
+      
+      
       TEMPLIST$obj.new <- TEMPLIST$objList.new[[as.numeric(input$activePlot)]]
 
       strThemeCallList <- lapply(names(TEMPLIST$obj.theme[[plotIdx()]]), function(item) {
@@ -392,7 +394,7 @@ ggeditGadget <- function(viewer=shiny::paneViewer(minHeight = 1000), ...) {
 
                 compare(p$theme, themeBase, verbose = T)
               } else {
-                x.theme <- themeFetch(p$theme)
+                x.theme <- themeFetchFull(p$theme)
 
                 x <- lapply(names(x.theme), function(item) {
                   themeNewVal(x.theme[item], p, input)

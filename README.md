@@ -81,4 +81,4 @@ ggedit(plot)
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
   - theme
-    - margin,arrow are not currently available to edit
+    - arrow objects are not currently available to edit

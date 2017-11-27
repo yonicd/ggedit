@@ -14,6 +14,15 @@ themeNewVal <- function(this, p.new, input) {
     for (subitem in utils::head(names(this[[1]]), -1)) {
       newval <- input[[paste0("pop", item, subitem)]]
 
+      if (this[[1]][[subitem]]["class"]==0) {
+        subitem.class='logical'
+        newval <- eval(parse(text=newval))
+      }
+      
+      if(grepl('unit',newval)){
+        newval <- paste0("margin(", newval, ")")
+      }
+      
       if (this[[1]][[subitem]]["class"] == "character") {
         newval <- paste0("'", newval, "'")
       } 
@@ -46,6 +55,15 @@ themeNewVal <- function(this, p.new, input) {
 
           newval <- input[[paste0("pop", item, item1, subitem)]]
 
+          if (length(subitem.class)==0) {
+            subitem.class='logical'
+            newval <- eval(parse(text=newval))
+          }
+          
+          if(grepl('unit',newval)){
+            newval <- paste0("margin(", newval, ")")
+          }
+          
           if (subitem.class == "character") {
             newval <- paste0("'", newval, "'")
           }

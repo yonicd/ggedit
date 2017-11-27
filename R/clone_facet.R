@@ -105,7 +105,7 @@ cloneFacet <- function(obj, verbose=FALSE) {
 
 
   nm_p <- names(facet_p)
-  nm_p <- nm_p[-grep('plot_env',nm_p)]
+  nm_p <- nm_p[!grepl('plot_env',nm_p)]
   
   facet_trim <- facet_p[which(!sapply(nm_p, function(x) {
     is.logical(all.equal(facet_proto[x], facet_p[x]))
@@ -145,7 +145,7 @@ cloneFacet <- function(obj, verbose=FALSE) {
         }, proto_class = facet_grid_proto_class), collapse = ",")
         sprintf("facet_wrap(%s)", facet_str)
       } else {
-        facet_trim$facets <- plyr::as.quoted(stats::as.formula(facet_trim$facets))
+        facet_trim$facets <- stats::as.formula(facet_trim$facets)
         do.call(facet_grid, facet_trim)
       }
     }
