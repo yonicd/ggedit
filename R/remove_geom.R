@@ -22,7 +22,6 @@ remove_geom <- function(p, geom, idx) {
 
   if (length(a.rm) >= idx) a.rm <- a.rm[idx]
   
-  p$labels[[names(layers[[a.rm]]$mapping)]] <- NULL
   layers <- layers[-a.rm]
   
   
