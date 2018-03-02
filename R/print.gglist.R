@@ -8,6 +8,7 @@
 print.gglist <- function(x, ...) plyr::l_ply(x, print.ggplot, ...)
 
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
+
   set_last_plot(x)
   if (newpage) {
     grid.newpage()

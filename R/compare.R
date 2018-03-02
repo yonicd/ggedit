@@ -50,6 +50,7 @@ compare <- function(e1, e2, verbose=TRUE) {
 
     dfOut$class <- ifelse(dfOut$call == "unit", "unit", dfOut$class)
     dfOut$value <- ifelse(grepl("#", dfOut$value), gsub("#", "'#'*", dfOut$value), dfOut$value)
+    #dfOut$value <- ifelse(grepl("^[.]$", dfOut$value), NA, dfOut$value)
     dfOut$value <- ifelse(grepl("TRUE|FALSE|[=]", dfOut$value), paste0("'", dfOut$value, "'"), dfOut$value)
     dfOut$call <- ifelse(dfOut$call %in% c("character", "unit", dfOut$subTheme), "", dfOut$call)
     dfOut$element <- ifelse(dfOut$element == dfOut$subTheme, "", dfOut$element)
@@ -59,15 +60,19 @@ compare <- function(e1, e2, verbose=TRUE) {
 
   d <- objDF %>%
     select_("idTheme:value", "subTheme") %>%
-    reshape2::dcast(Theme + subTheme + element + name~idTheme, value.var = "value") %>%
+    reshape2::dcast(Theme + subTheme + element + name~idTheme, value.var = "value") %>% #,fill='.'
     dplyr::filter_(~compare != base) %>%
     dplyr::left_join(objDF, by = c("Theme", "subTheme", "element", "name")) %>%
     dplyr::filter_(~idTheme == "compare") %>%
     dplyr::select_("Theme", "subTheme", "call", "element", value = "compare")
 
   d$Theme <- as.character(d$Theme)
+  
   d <- d[d$value != ".", ]
   d$value[grepl("[^0-9]", d$value)] <- paste0("'", d$value[grepl("[^0-9]", d$value)], "'")
+  
+  #d$value[d$value== "."] <- NA
+  #d$value[grepl("[^0-9]", d$value)&!grepl('^(TRUE|FALSE)$',d$value)] <- paste0("'", d$value[grepl("[^0-9]", d$value)&!grepl('^(TRUE|FALSE)$',d$value)], "'")
 
   x1 <- d %>%
     dplyr::group_by_("Theme", "subTheme", "call") %>%
@@ -75,6 +80,10 @@ compare <- function(e1, e2, verbose=TRUE) {
     dplyr::ungroup()
 
   x1$y <- ifelse(x1$call == "", gsub("=", "", x1$y), paste0(x1$call, "(", x1$y, ")"))
+  
+  # x1$y <- gsub("''TRUE''","TRUE",x1$y)
+  # x1$y <- gsub("''FALSE''","FALSE",x1$y)
+  
   x1$x <- ifelse(x1$subTheme == "", x1$Theme, paste(x1$Theme, x1$subTheme, sep = "."))
   out <- paste0("theme(", paste0(paste(x1$x, x1$y, sep = "="), collapse = ","), ")")
 
