@@ -1,6 +1,6 @@
 Tests and Coverage
 ================
-02 July, 2018 17:33:40
+02 July, 2018 17:42:12
 
 This output is created by
 [covrpage](https://github.com/yonicd/covrpage).
@@ -81,12 +81,12 @@ package.
 
 |              | file                                  | n |  time | error | failed | skipped | warning |
 | ------------ | :------------------------------------ | -: | ----: | ----: | -----: | ------: | ------: |
-| test-clone.R | [test-clone.R](testthat/test-clone.R) | 3 | 0.011 |     0 |      0 |       2 |       0 |
+| test-clone.R | [test-clone.R](testthat/test-clone.R) | 3 | 0.009 |     0 |      0 |       2 |       0 |
 | test-rgg.R   | [test-rgg.R](testthat/test-rgg.R)     | 2 | 0.002 |     0 |      0 |       2 |       0 |
 
 | file                                      | context                      | test               | status  | n |  time |
 | :---------------------------------------- | :--------------------------- | :----------------- | :------ | -: | ----: |
-| [test-clone.R](testthat/test-clone.R#L16) | cloning functionality        | facet clones       | PASS    | 1 | 0.009 |
+| [test-clone.R](testthat/test-clone.R#L16) | cloning functionality        | facet clones       | PASS    | 1 | 0.007 |
 | [test-clone.R](testthat/test-clone.R#L21) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 |
 | [test-clone.R](testthat/test-clone.R#L33) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 |
 | [test-rgg.R](testthat/test-rgg.R#L4)      | remove replace functionality | remove             | SKIPPED | 1 | 0.001 |
