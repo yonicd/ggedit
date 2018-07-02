@@ -2,17 +2,28 @@
 % Please edit documentation in R/as.gglist.R
 \name{as.gglist}
 \alias{as.gglist}
-\title{as.gglist}
+\alias{as.gglist.gglist}
+\alias{as.gglist.list}
+\alias{as.gglist.ggplot}
+\alias{as.gglist.ggmatrix}
+\title{recasts to gglist}
 \usage{
-as.gglist(p)
+as.gglist(plot)
+
+\method{as.gglist}{gglist}(plot)
+
+\method{as.gglist}{list}(plot)
+
+\method{as.gglist}{ggplot}(plot)
+
+\method{as.gglist}{ggmatrix}(plot)
 }
 \arguments{
-\item{p}{gg}
+\item{plot}{object}
 }
 \value{
-gg
+gglist object
 }
 \description{
-Creates structure of lists of ggplots.
+adds gglist class to object
 }
-\keyword{internal}

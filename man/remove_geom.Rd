@@ -4,14 +4,14 @@
 \alias{remove_geom}
 \title{Remove a layer from a compiled ggplot2 object.}
 \usage{
-remove_geom(p, geom, idx)
+remove_geom(p, geom, idx = NULL)
 }
 \arguments{
 \item{p}{ggplot2 plot object}
 
 \item{geom}{character string of the name of the layer to remove}
 
-\item{idx}{numeric of which index of geom to remove}
+\item{idx}{numeric of which index of geom to remove, Default: 1}
 }
 \description{
 Removes specified layers from a ggplot object.

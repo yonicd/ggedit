@@ -89,8 +89,12 @@
 #' @seealso
 #' \code{\link{cloneLayer}},\code{\link{rgg}},\code{\link[ggplot2]{ggplot}},\code{\link[colourpicker]{colourPicker}}
 #' @examples
-#' p=ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
-#' p=p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+#' p <- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+#' 
+#' p <- p + 
+#' ggplot2::geom_point(ggplot2::aes(colour=Species)) + 
+#' ggplot2::geom_line()
+#' 
 #' if(interactive()){
 #' \dontrun{
 #' pnew <- ggedit(p)

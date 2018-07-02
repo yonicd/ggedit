@@ -3,9 +3,8 @@
 #' @export
 #' @keywords internal
 #' @import ggplot2
-#' @importFrom plyr l_ply ldply ddply quickdf
-#'
-print.gglist <- function(x, ...) plyr::l_ply(x, print.ggplot, ...)
+#' @importFrom purrr map
+print.gglist <- function(x, ...) purrr::map(x, print.ggplot, ...)
 
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
 

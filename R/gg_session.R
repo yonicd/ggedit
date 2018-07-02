@@ -7,12 +7,14 @@
 #' @examples
 #' gg_session('ggplot2')
 #'
-#' @importFrom plyr ldply
-#' @importFrom reshape2 dcast
+#' @importFrom tidyr spread
+#' @importFrom purrr map_df
 #' @importFrom tools package_dependencies
 #' @importFrom utils sessionInfo
 #' @importFrom stats complete.cases
+#' @importFrom rlang sym '!!'
 gg_session <- function(gg_pkg=NULL) {
+  
   if (is.null(gg_pkg)) {
     gg_pkg <- names(which(sapply(tools::package_dependencies(names(utils::sessionInfo()[["otherPkgs"]])), function(x) any(grepl("ggplot2", x)))))
 
@@ -47,11 +49,12 @@ gg_session <- function(gg_pkg=NULL) {
       "stat = list(NULL)", "position = list(NULL)"
     )])
 
-  out <- plyr::ldply(y[sapply(y, length) > 0], .fun = function(x) {
-    data.frame(do.call("rbind", strsplit(x, " = ")), stringsAsFactors = FALSE)
-  }, .id = "fn") %>%
-    reshape2::dcast(fn~X1, value.var = "X2") %>%
-    filter_(~stats::complete.cases(.)) %>%
+  out <- purrr::map_df(y[sapply(y, length) > 0],
+                       .f = function(x) {
+                         data.frame(do.call("rbind", strsplit(x, " = ")), stringsAsFactors = FALSE)},
+                       .id = "fn")%>%
+    tidyr::spread(!!rlang::sym('X1'),!!rlang::sym('X2'))%>%
+    dplyr::filter(complete.cases(!!rlang::sym('.')))%>%
     mutate_all(as.character)
 
   out[, c("position", "stat", "geom")] <- sapply(c("position", "stat", "geom"), function(x) {

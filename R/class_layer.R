@@ -5,7 +5,8 @@
 #' @keywords internal
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom  plyr ddply ldply
+#' @importFrom rlang quo_name quo_expr
+#' @importFrom  plyr ddply
 #' 
 class_layer <- function(p){
 
@@ -16,28 +17,23 @@ class_layer <- function(p){
   
   if( length(as.character(p$mapping))>0 ){
     
-  plot_aes <- as.character(p$mapping)
+  plot_aes <- sapply(p$mapping,rlang::quo_name)
   
-  aes.nm <- names(p$mapping)[plot_aes!='NULL']
+  aes_nm <- names(p$mapping)[plot_aes!='NULL']
   
   plot_aes <- plot_aes[plot_aes!='NULL']
   
   plot_aes <- data.frame(VAR=unlist(plot_aes),stringsAsFactors = FALSE)
   
-  plot_aes$aes <- aes.nm
+  plot_aes$aes <- aes_nm
   
-  plot_cl <- lapply(plot_aes$VAR,function(x){
+  plot_cl <- lapply(plot_aes$aes,function(x){
     
-              if( 'call'%in%class(p$mapping[[which(p$mapping==x)[1]]]) ){
-                
-                TEMP <- p$data%>%mutate_(.NEWVAR=x)
-                class(TEMP[,'.NEWVAR'])
-                
-              }else{
-                
-                class(p$data[,as.character(x)])
-                
-              }
+    TEMP <- p$data%>%
+      dplyr::mutate(.NEWVAR = !!rlang::quo_expr(p$mapping[[x]]))
+    
+    class(TEMP[['.NEWVAR']])
+
     })
     
   chkIdx <- which(unlist(lapply(plot_cl,length))!=1)
@@ -50,7 +46,7 @@ class_layer <- function(p){
       
     }else{
       
-      break(paste0('classes:c(',paste0(plot_cl[[i]],collapse=','),') for plot variable:', plot_aes$VAR[i],'. Please choose one and rerun'))
+      break(sprintf('classes:c(%s) for plot variable:%s. Please choose one and rerun',paste0(plot_cl[[i]],collapse=','), plot_aes$VAR[i]))
       
     }
     
@@ -64,7 +60,9 @@ class_layer <- function(p){
   
   layer_aes <- lapply(p$layers,function(x){
     
-    data.frame(VAR=as.character(x$mapping),aes=names(x$mapping),stringsAsFactors = F)%>%filter_(~VAR!='NULL')
+    data.frame(VAR=sapply(x$mapping,quo_name),
+               aes=names(x$mapping),stringsAsFactors = FALSE)%>%
+      dplyr::filter(!is.null(!!rlang::sym('VAR')))
     
   })
   
@@ -73,42 +71,26 @@ class_layer <- function(p){
              dOut <- x$data
              
              if('tbl'%in%class(dOut)) 
-               dOut <- data.frame(dOut)
+               dOut <- data.frame(dOut,stringsAsFactors = FALSE)
              
              dOut
              
   })
+
+  pData <- lapply(p$layers,function(l,d) l$layer_data(d), p$data)
+    
+  names(pData) <- names(layer_aes) <- names(layer_data) <- geom_list(p)
   
-  names(layer_aes) <- names(layer_data) <- geom_list(p)
+  pData$plot <- p$data
   
-  layer_aes <- plyr::ldply(layer_aes,.id = 'layer')
+  layer_aes <- dplyr::bind_rows(layer_aes,.id = 'layer')
 
   layer_aes <- plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
+
+      TEMP <- pData[[df$layer]]%>%
+        dplyr::mutate(.NEWVAR = eval(parse(text = df$VAR)))
     
-    if(c('waiver')%in%class(layer_data[[df$layer]])){
-      
-        pData <- p$data
-        
-      }else{
-        
-        pData <- layer_data[df$layer][[1]]
-        
-        if(class(pData)=='ggproto_method') 
-          pData <- pData(p$data)
-        
-      }
-    
-      if(!df$VAR%in%names(pData)){
-        
-        TEMP <- pData%>%mutate_(.NEWVAR=df$VAR)
-        
-        df$class <- class(TEMP[,'.NEWVAR'])
-        
-      }else{
-        
-        df$class <- class(pData[,df$VAR])
-        
-      }
+      df$class <-class(TEMP[['.NEWVAR']])
     
     df
   })
@@ -119,30 +101,11 @@ class_layer <- function(p){
                             .variables = c('layer','VAR','aes'),
                             .fun=function(df){
     
-        if( class(layer_data[[df$layer]])%in%c('waiver','NULL') ){
-          
-          pData <- p$data
-          
-        }else{
-          
-          pData <- layer_data[df$layer][[1]]
-          
-          if( class(pData)=='ggproto_method' ) 
-            pData <- pData(p$data)
-        }
-
-        if( !df$VAR%in%names(pData) ){
-          
-          TEMP <- pData%>%mutate_(.NEWVAR=df$VAR)
-          
-          df$level.num <- length(unique(TEMP[,'.NEWVAR']))
-          
-        }else{
-          
-          df$level.num <- length(unique(pData[,df$VAR]))
-          
-        }
-    
+        TEMP <- pData[[df$layer]]%>%
+          dplyr::mutate(.NEWVAR = eval(parse(text = df$VAR)))
+        
+        df$level.num <- length(unique(TEMP[,'.NEWVAR']))
+                              
     df
   })
   

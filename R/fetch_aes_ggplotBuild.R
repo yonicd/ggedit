@@ -2,8 +2,10 @@
 #' @description Converts ggplot layers to list.
 #' @param p ggplot
 #' @param geom_list character vector of geoms in plot
+#' @importFrom rlang syms sym '!!!' '!!'
 #' @keywords internal
 fetch_aes_ggplotBuild <- function(p, geom_list) {
+  
   train_map <- function(p) {
     m <- p$mapping
 
@@ -16,13 +18,11 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
 
   if (!"waiver" %in% class(p$data)) {
     mapping_class <- lapply(train_map(p), function(m) {
-        if (class(m) == "call") {
-          TEMP <- p$data %>% mutate_(.NEWVAR = m)
-
-          class(TEMP[, ".NEWVAR"])
-        } else {
-          class(p$data[, as.character(m)])
-        }
+      TEMP <- p$data%>%
+        dplyr::mutate(.NEWVAR = !!m)
+      
+      class(TEMP[['.NEWVAR']])
+      
       })
   }
 
@@ -71,9 +71,9 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (m %in% names(pData)) {
           class(as.data.frame(pData)[, m])
         } else {
-          TEMP <- as.data.frame(pData) %>% mutate_(.NEWVAR = m)
+          TEMP <- as.data.frame(pData) %>% mutate(.NEWVAR = !!m)
 
-          class(TEMP[, ".NEWVAR"])
+          class(TEMP[[".NEWVAR"]])
         }
       } else {
         "data.frame"
@@ -97,7 +97,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (aes.var.nm %in% names(pData)) {
           aes.var <- pData[aes.var.nm]
         } else {
-          TEMP <- as.data.frame(pData) %>% mutate_(.NEWVAR = aes.var.nm)
+          TEMP <- as.data.frame(pData) %>% mutate(.NEWVAR = !!rlang::sym(aes.var.nm))
 
           aes.var <- TEMP[".NEWVAR"]
 
@@ -109,7 +109,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
 
           aes.var <- pData %>%
             left_join(
-              gb$layout$panel_layout %>% select_(.dots = c(order.nms)),
+              gb$layout$panel_layout %>% select(!!!rlang::syms(order.nms)),
               by = order.nms[-1]
             ) %>%
             arrange_(order.nms)
@@ -118,9 +118,11 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (nrow(x$data) != nrow(aes.var)) {
           x$data[aes.var.nm] <- factor(x$data[[item]], labels = unique(aes.var[[aes.var.nm]]))
 
-          val.new <- x$data %>% select_(item, aes.var.nm) %>% distinct()
+          val.new <- x$data %>% select(!!!rlang::syms(c(item, aes.var.nm))) %>% distinct()
         } else {
-          val.new <- data.frame(x$data, aes.var = as.character(aes.var[, aes.var.nm]), stringsAsFactors = F) %>% select_(item, "aes.var") %>% distinct()
+          val.new <- data.frame(x$data, aes.var = as.character(aes.var[, aes.var.nm]), stringsAsFactors = FALSE) %>%
+            select(!!!rlang::syms(c(item, "aes.var"))) %>%
+            distinct()
         }
 
         val <- unique(val.new[item])

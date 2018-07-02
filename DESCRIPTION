@@ -1,39 +1,41 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.2.6.1
-Date: 2018-02-10
+Version: 0.3.0
+Date: 2018-07-02
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
-    R (>= 2.3.0),
+    R (>= 3.5.0),
     ggplot2
 Imports:
-    dplyr (>= 0.5),
-    shiny,
-    shinyBS,
-    magrittr,
+    dplyr (>= 0.7.5),
     plyr,
-    reshape2,
+    tidyr,
+    purrr,
+    rlang,
     scales,
     rstudioapi,
-    utils,
+    shiny,
+    miniUI,
+    shinyBS,    
     colourpicker (>= 0.2),
-    graphics,
     shinyAce,
+    magrittr,
+    utils,
+    graphics,
     grid,
     tools,
-    stats,
-    miniUI
+    stats
 Suggests:
     testthat,
     covr
-Remotes: tidyverse/ggplot2#2405
+Remotes: tidyverse/ggplot2
 License: MIT + file LICENSE
 URL: https://github.com/metrumresearchgroup/ggedit
 BugReports: https://github.com/metrumresearchgroup/ggedit/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000

@@ -16,7 +16,9 @@
 #' @examples
 #' p <- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
 #'
-#' p <- p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
+#' p <- p + 
+#' ggplot2::geom_point(ggplot2::aes(colour='Species')) + 
+#' ggplot2::geom_line()
 #'
 #' p$layers[[1]]
 #'
@@ -31,12 +33,14 @@
 #' all.equal(p$layers[[1]],eval(parse(text=v)))
 #'
 #' @importFrom utils capture.output
+#' @importFrom rlang sym '!!'
 cloneLayer <- function(l, verbose=FALSE, showDefaults=TRUE) {
+  
   geom_opts <- ggedit_opts$get("session_geoms")
 
   parent.layer <- proto_features(l) %>%
     dplyr::left_join(
-      geom_opts %>% dplyr::filter_(~!grepl("^stat", fn)),
+      geom_opts %>% dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )
 
@@ -78,13 +82,15 @@ cloneLayer <- function(l, verbose=FALSE, showDefaults=TRUE) {
   if (verbose) {
     nm <- names(x)
     # nm=nm[!nm%in%c('geom','params','mapping')]
+    
     nm <- nm[!sapply(x, typeof) %in% c("environment", "closure", "list")]
+    
     geom_aes <- list(
-      geom = parent.layer$fn,
-      mapping = paste0(names(x$mapping), sapply(x$mapping, build_map)),
-      params = paste0(names(x$params), sapply(x$params, build_map)),
-      layer = paste0(rev(nm), sapply(x[rev(nm)], build_map)),
-      data = paste0("data=", paste0(capture.output(dput(x$data)), collapse = "\n"))
+      geom       = parent.layer$fn,
+      mapping    = sapply(names(x$mapping), build_map,y = x$mapping),
+      params     = sapply(names(x$params), build_map, y = x$params),
+      layer      = sapply(rev(nm), build_map, y = x[rev(nm)]),
+      data       = paste0("data = ", paste0(capture.output(dput(x$data)), collapse = "\n"))
     )
 
     strRet <- sprintf(

@@ -8,8 +8,9 @@
 #' @examples
 #' compare(ggplot2::theme_bw(),ggplot2::theme_get())
 #' compare(ggplot2::theme_bw(),ggplot2::theme_get(),verbose=FALSE)
-#' @importFrom reshape2 dcast
-#'
+#' @importFrom tidyr spread
+#' @importFrom purrr map_df
+#' @importFrom rlang sym syms '!!!' '!!'
 compare <- function(e1, e2, verbose=TRUE) {
   objL <- lapply(list(compare = e1, base = e2), function(x) {
     objList <- themeFetchFull(x)
@@ -19,24 +20,31 @@ compare <- function(e1, e2, verbose=TRUE) {
     return(list(x = x, objList = objList, objListDepth = objListDepth))
   })
 
-  objDF <- plyr::ldply(objL, .fun = function(x) {
+  objDF <- purrr::map_df(objL, .f = function(x) {
+    
     dfOut <- dplyr::bind_rows(
       x$objList[x$objListDepth == 1] %>%
-        plyr::ldply(.fun = function(x) {
-          out <- x[-length(x)] %>% plyr::ldply(.id = "element")
-          out$call <- x$call
-          out
+        purrr::map_df(.f = function(x) {
+
+            purrr::map_df(x[-length(x)],
+                        function(x) dplyr::as_data_frame(t(x)),
+                        .id = 'element')%>%
+            dplyr::mutate(call = x$call)
+        
         }, .id = "Theme") %>%
-        dplyr::mutate_("subTheme" = NA) %>%
+        dplyr::mutate(subTheme = NA) %>%
         dplyr::mutate_all(as.character),
 
       x$objList[!x$objListDepth == 1] %>%
-        plyr::ldply(
-          .fun = function(y) y %>%
-              plyr::ldply(.fun = function(x) {
-                out <- x[-length(x)] %>% plyr::ldply(.id = "element")
-                out$call <- x$call
-                out
+        purrr::map_df(
+          .f = function(y) y %>%
+            purrr::map_df(.f = function(x) {
+              
+              purrr::map_df(x[-length(x)],
+                            function(x) dplyr::as_data_frame(t(x)),
+                            .id = 'element')%>%
+                dplyr::mutate(call = x$call)
+              
               }, .id = "subTheme"),
           .id = "Theme"
         ) %>%
@@ -59,12 +67,12 @@ compare <- function(e1, e2, verbose=TRUE) {
   }, .id = "idTheme")
 
   d <- objDF %>%
-    select_("idTheme:value", "subTheme") %>%
-    reshape2::dcast(Theme + subTheme + element + name~idTheme, value.var = "value") %>% #,fill='.'
-    dplyr::filter_(~compare != base) %>%
+    dplyr::select(!!rlang::sym('idTheme'):!!rlang::sym('value'), !!rlang::sym('subTheme'))%>%
+    tidyr::spread(!!rlang::sym('idTheme'),!!rlang::sym('value')) %>% #,fill='.'
+    dplyr::filter(!!rlang::sym('compare') != !!rlang::sym('base')) %>%
     dplyr::left_join(objDF, by = c("Theme", "subTheme", "element", "name")) %>%
-    dplyr::filter_(~idTheme == "compare") %>%
-    dplyr::select_("Theme", "subTheme", "call", "element", value = "compare")
+    dplyr::filter(!!rlang::sym("idTheme") == 'compare') %>%
+    dplyr::select(!!!rlang::syms(c("Theme", "subTheme", "call", "element")), value = !!rlang::sym("compare"))
 
   d$Theme <- as.character(d$Theme)
   

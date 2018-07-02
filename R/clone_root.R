@@ -22,8 +22,7 @@ cloneRoot <- function(obj, verbose=FALSE) {
   }
 
   if (!is.null(obj$mapping)) {
-    mapping <- unlist(obj$mapping)
-
+    mapping <- sapply(obj$mapping,rlang::quo_name)
     mapping_str <- sprintf("aes(%s)", paste0(sapply(names(mapping), function(y) paste(y, mapping[[y]], sep = "=")), collapse = ","))
   }
 

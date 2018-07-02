@@ -8,12 +8,14 @@
 #' @examples
 #' gg_vetting(pList$boxplotWrap)
 #' lapply(pList,gg_vetting)
-#' @importFrom plyr ldply
+#' @importFrom purrr map_df
+#' @importFrom rlang sym '!!'
 gg_vetting <- function(p, obj=ggedit_opts$get('session_geoms')) {
-  plyr::ldply(p$layers, proto_features) %>%
+  
+  purrr::map_df(p$layers, proto_features) %>%
     inner_join(
       obj %>%
-        filter_(~!grepl("^stat", fn)),
+        filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )
 }

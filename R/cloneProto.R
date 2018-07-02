@@ -1,9 +1,13 @@
+#' @import dplyr
+#' @importFrom rlang sym '!!'
+#' @importFrom scales col2hcl
 cloneProto <- function(l) {
+  
   geom_opts <- ggedit_opts$get("session_geoms")
 
   parent.layer <- proto_features(l) %>%
     dplyr::left_join(
-      geom_opts %>% dplyr::filter_(~!grepl("^stat", fn)),
+      geom_opts %>% dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )
 
@@ -51,9 +55,9 @@ cloneProto <- function(l) {
 
   geom_aes <- list(
     geom = fn,
-    mapping = paste0(names(x$mapping), sapply(x$mapping, build_map)),
-    params = paste0(names(x$params), sapply(x$params, build_map)),
-    layer = paste0(rev(nm), sapply(x[rev(nm)], build_map))
+    mapping = sapply(names(x$mapping), build_map,y = x$mapping),
+    params = sapply(names(x$params), build_map, y = x$params),
+    layer = sapply(rev(nm), build_map, y = x[rev(nm)])
   )
 
   nDF <- cbind(names(g$geom$default_aes), paste(g$geom$default_aes))
