@@ -7,7 +7,7 @@ Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.2.0),
     ggplot2
 Imports:
     dplyr (>= 0.7.5),
