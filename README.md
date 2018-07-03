@@ -44,42 +44,8 @@ plot(p2) # shows the updated plot (it is available in the first element of p2)
 devtools::install_github("metrumresearchgroup/ggedit")
 ```
 
-#### DEV updates [ggedit_0.2.2](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.2.tar.gz)
-
-  - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` release
-
-  - functionality added
-    - can pass functions into stat_summary, eg `stat_summary(fun.y=mean_sd, geom='point')`
-    - data.frames in layers are embedded as structures in verbose outputs, e.g. `geom_point(data=mtcars, aes(cyl, mpg))` will return
-    ```r
-    [1] "geom_point(mapping=aes(x=cyl,y=mpg), data=structure(list(mpg = c(21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, \n24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4,.. <truncated>
-    ```
-    - aesthetic can be set to NULL, ie aes(group=NULL)
-    
-example plot
-
-```r
-plot <- 
-  iris%>%
-  ggplot(aes(x=cut(Sepal.Width,2),y=Sepal.Width)) +
-  aes(colour=Species,group=Species)+
-  geom_point(alpha = 0.5,shape = 16, size = 1) +
-  geom_boxplot(aes(group=NULL), varwidth = FALSE,notch = FALSE, show.legend = TRUE)+
-  stat_summary(fun.y = 'median', geom = "line")+
-  theme_bw(base_size = 16) +
-  theme(legend.position = "bottom",
-        legend.box = "vertical", legend.direction = "horizontal",
-        axis.text.x = ggplot2::element_text(angle = 90,hjust = 1, vjust = 0.5),
-        legend.title = element_blank())
-
-ggedit(plot)
-```
-    
-
 ## Limitations
   - layers
     - non colour aesthetics of numeric inputs are not currently supported, e.g.:
       `iris%>%ggplot(aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+geom_text(aes(label=Species,size=Sepal.Length))`
     - geom_text: family is not currently open to change
-  - theme
-    - arrow objects are not currently available to edit
