@@ -5,7 +5,7 @@
 #' @keywords internal
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom rlang quo_name quo_expr
+#' @importFrom rlang quo_name quo_squash
 #' @importFrom  plyr ddply
 #' 
 class_layer <- function(p){
@@ -30,7 +30,7 @@ class_layer <- function(p){
   plot_cl <- lapply(plot_aes$aes,function(x){
     
     TEMP <- p$data%>%
-      dplyr::mutate(.NEWVAR = !!rlang::quo_expr(p$mapping[[x]]))
+      dplyr::mutate(.NEWVAR = !!rlang::quo_squash(p$mapping[[x]]))
     
     class(TEMP[['.NEWVAR']])
 

@@ -23,11 +23,6 @@ document using \code{ggedit_opts$set()}, so that all \emph{latter} chunks will
 use these options. Note the global options set in one chunk will not affect
 the options in this chunk itself, and that is why we often need to set global
 options in a separate chunk.
-
-Below is a list of default chunk options, retrieved via
-\code{ggedit_opts$get()}:
-
-\Sexpr[results=verbatim]{str(ggedit::ggedit_opts$get())}
 }
 \note{
 \code{ggedit_opts_current} is read-only in the sense that it does nothing if

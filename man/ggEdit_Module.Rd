@@ -5,8 +5,8 @@
 \alias{ggEdit}
 \title{ggEdit}
 \usage{
-ggEdit(input, output, session, obj, verbose = TRUE, showDefaults = FALSE,
-  width = "auto", height = "auto")
+ggEdit(input, output, session, obj, verbose = TRUE,
+  showDefaults = FALSE, width = "auto", height = "auto")
 }
 \arguments{
 \item{input}{shinyapp input argument}
