@@ -1,8 +1,8 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.3.0
-Date: 2018-07-02
+Version: 0.3.1
+Date: 2019-09-12
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonis@metrumrg.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
@@ -37,4 +37,4 @@ BugReports: https://github.com/metrumresearchgroup/ggedit/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
