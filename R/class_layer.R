@@ -59,9 +59,9 @@ class_layer <- function(p){
   }
   
   layer_aes <- lapply(p$layers,function(x){
-    
-    data.frame(VAR=sapply(x$mapping,quo_name),
-               aes=names(x$mapping),stringsAsFactors = FALSE)%>%
+    mappings <- x$mapping
+    data.frame(VAR = if(is.null(mappings)) character() else sapply(mappings, quo_name),
+               aes = if(is.null(mappings)) character() else names(x$mapping),stringsAsFactors = FALSE) %>%
       dplyr::filter(!is.null(!!rlang::sym('VAR')))
     
   })
