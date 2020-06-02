@@ -5,7 +5,11 @@
 \alias{ggedit_opts}
 \alias{ggedit_opts_current}
 \title{Default and current ggedit options}
-\format{An object of class \code{list} of length 5.}
+\format{
+An object of class \code{list} of length 5.
+
+An object of class \code{list} of length 5.
+}
 \usage{
 ggedit_opts
 

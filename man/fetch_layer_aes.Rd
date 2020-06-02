@@ -4,8 +4,12 @@
 \alias{fetch_layer_aes}
 \title{fetch_layer_aes}
 \usage{
-fetch_layer_aes(self, data = data.frame(x = 1), params = list(),
-  stats = list())
+fetch_layer_aes(
+  self,
+  data = data.frame(x = 1),
+  params = list(),
+  stats = list()
+)
 }
 \description{
 Checks the aesthetics in a layer for internal use only.

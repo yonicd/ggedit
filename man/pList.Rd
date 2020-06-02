@@ -4,7 +4,9 @@
 \name{pList}
 \alias{pList}
 \title{List of plots for ggedit examples}
-\format{An object of class \code{"list"}}
+\format{
+An object of class \code{"list"}
+}
 \usage{
 pList
 }

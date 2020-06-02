@@ -1,15 +1,17 @@
 Tests and Coverage
 ================
-02 July, 2018 17:42:12
+01 June, 2020 21:09:17
+
+  - [Coverage](#coverage)
+  - [Unit Tests](#unit-tests)
 
 This output is created by
-[covrpage](https://github.com/yonicd/covrpage).
+[covrpage](https://github.com/metrumresearchgroup/covrpage).
 
 ## Coverage
 
 Coverage summary is created using the
-[covr](https://github.com/r-lib/covr)
-package.
+[covr](https://github.com/r-lib/covr) package.
 
 | Object                                                      | Coverage (%) |
 | :---------------------------------------------------------- | :----------: |
@@ -76,20 +78,49 @@ package.
 ## Unit Tests
 
 Unit Test summary is created using the
-[testthat](https://github.com/r-lib/testthat)
-package.
+[testthat](https://github.com/r-lib/testthat) package.
 
-|              | file                                  | n |  time | error | failed | skipped | warning |
-| ------------ | :------------------------------------ | -: | ----: | ----: | -----: | ------: | ------: |
-| test-clone.R | [test-clone.R](testthat/test-clone.R) | 3 | 0.009 |     0 |      0 |       2 |       0 |
-| test-rgg.R   | [test-rgg.R](testthat/test-rgg.R)     | 2 | 0.002 |     0 |      0 |       2 |       0 |
+| file                                  | n |  time | error | failed | skipped | warning | icon |
+| :------------------------------------ | -: | ----: | ----: | -----: | ------: | ------: | :--- |
+| [test-clone.R](testthat/test-clone.R) | 3 | 0.026 |     0 |      0 |       2 |       0 | 🔶    |
+| [test-rgg.R](testthat/test-rgg.R)     | 2 | 0.002 |     0 |      0 |       2 |       0 | 🔶    |
 
-| file                                      | context                      | test               | status  | n |  time |
-| :---------------------------------------- | :--------------------------- | :----------------- | :------ | -: | ----: |
-| [test-clone.R](testthat/test-clone.R#L16) | cloning functionality        | facet clones       | PASS    | 1 | 0.007 |
-| [test-clone.R](testthat/test-clone.R#L21) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 |
-| [test-clone.R](testthat/test-clone.R#L33) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 |
-| [test-rgg.R](testthat/test-rgg.R#L4)      | remove replace functionality | remove             | SKIPPED | 1 | 0.001 |
-| [test-rgg.R](testthat/test-rgg.R#L15)     | remove replace functionality | remove and replace | SKIPPED | 1 | 0.001 |
+<details open>
+
+<summary> Show Detailed Test Results </summary>
+
+| file                                      | context                      | test               | status  | n |  time | icon |
+| :---------------------------------------- | :--------------------------- | :----------------- | :------ | -: | ----: | :--- |
+| [test-clone.R](testthat/test-clone.R#L16) | cloning functionality        | facet clones       | PASS    | 1 | 0.024 |      |
+| [test-clone.R](testthat/test-clone.R#L21) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 | 🔶    |
+| [test-clone.R](testthat/test-clone.R#L33) | cloning functionality        | layer clones       | SKIPPED | 1 | 0.001 | 🔶    |
+| [test-rgg.R](testthat/test-rgg.R#L4)      | remove replace functionality | remove             | SKIPPED | 1 | 0.001 | 🔶    |
+| [test-rgg.R](testthat/test-rgg.R#L15)     | remove replace functionality | remove and replace | SKIPPED | 1 | 0.001 | 🔶    |
+
+| Failed | Warning | Skipped |
+| :----- | :------ | :------ |
+| 🛑      | ⚠️      | 🔶       |
+
+</details>
+
+<details>
+
+<summary> Session Info </summary>
+
+| Field    | Value                               |
+| :------- | :---------------------------------- |
+| Version  | R version 3.6.3 (2020-02-29)        |
+| Platform | x86\_64-apple-darwin15.6.0 (64-bit) |
+| Running  | macOS Mojave 10.14.5                |
+| Language | en\_US                              |
+| Timezone | America/New\_York                   |
+
+| Package  | Version |
+| :------- | :------ |
+| testthat | 2.3.2   |
+| covr     | 3.5.0   |
+| covrpage | 0.0.70  |
+
+</details>
 
 <!--- Final Status : skipped/warning --->

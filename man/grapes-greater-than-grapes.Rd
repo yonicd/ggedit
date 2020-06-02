@@ -124,5 +124,5 @@ trig_fest <- . \%>\% tan \%>\% cos \%>\% sin
 trig_fest(1:10)
 }
 \seealso{
-\code{\link{\%<>\%}}, \code{\link{\%T>\%}}, \code{\link{\%$\%}}
+\code{\link[magrittr]{\%<>\%}}, \code{\link[magrittr]{\%T>\%}}, \code{\link[magrittr]{\%$\%}}
 }

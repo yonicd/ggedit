@@ -2,15 +2,15 @@ Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
 Version: 0.3.1
-Date: 2019-09-12
+Date: 2020-06-01
 Author: Jonathan Sidi [aut, cre]
-Maintainer: Jonathan Sidi <yonis@metrumrg.com>
+Maintainer: Jonathan Sidi <yonicd@gmail.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
     R (>= 3.2.0),
     ggplot2 (>= 3.0.0)
 Imports:
-    dplyr (>= 0.7.5),
+    dplyr (>= 1.0.0),
     plyr,
     tidyr,
     purrr,
@@ -32,9 +32,9 @@ Suggests:
     testthat,
     covr
 License: MIT + file LICENSE
-URL: https://github.com/metrumresearchgroup/ggedit
-BugReports: https://github.com/metrumresearchgroup/ggedit/issues
+URL: https://github.com/yonicd/ggedit
+BugReports: https://github.com/yonicd/ggedit/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
