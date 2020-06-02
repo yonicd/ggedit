@@ -16,7 +16,7 @@
 <h3>Usage</h3>
 
 <pre>
-remove_geom(p, geom, idx)
+remove_geom(p, geom, idx = NULL)
 </pre>
 
 
@@ -33,7 +33,7 @@ remove_geom(p, geom, idx)
 </td></tr>
 <tr valign="top"><td><code>idx</code></td>
 <td>
-<p>numeric of which index of geom to remove</p>
+<p>numeric of which index of geom to remove, Default: 1</p>
 </td></tr>
 </table>
 
@@ -41,10 +41,10 @@ remove_geom(p, geom, idx)
 <h3>Examples</h3>
 
 <pre>
-p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-p=p+geom_point(aes(colour=Species))+geom_line()
+p &lt;- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
+p &lt;- p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 p
-pnew=p%&gt;%remove_geom('point',1)
+pnew &lt;- p%&gt;%remove_geom('point',1)
 pnew
 </pre>
 

@@ -74,18 +74,3 @@ fn.src('cloneLayer','ggedit',hlp.dir)
 ```{r results='asis',echo=FALSE}
 fn.src('print.ggedit','ggedit',hlp.dir)
 ```
-
-## plot.ggedit
-```{r results='asis',echo=FALSE}
-fn.src('plot.ggedit','ggedit',hlp.dir)
-```
-
-There is also a plotting function for ggedit objects that creates a grid.view for you and finds the best grid size for the amount of plots you have in the list. And for the exotic layouts you can give specific positions and the rest will be done for you. If you didn't use ggedit, you can still add the class to any ggplot and use the plotting function just the same.
-
-```r
-plot(as.ggedit(list(p0,p1,p2,p3)),list(list(rows=1,cols=1:3),
-                                       list(rows=2,cols=2),
-                                       list(rows=2,cols=1),
-                                       list(rows=2,cols=3))
-)
-```

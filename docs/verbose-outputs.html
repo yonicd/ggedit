@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>The ggedit gitbook</title>
-  <meta name="description" content="ggedit user book">
-  <meta name="generator" content="bookdown 0.3.14 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Verbose Outputs | The ggedit gitbook</title>
+  <meta name="description" content="ggedit user book" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The ggedit gitbook" />
+  <meta property="og:title" content="Chapter 8 Verbose Outputs | The ggedit gitbook" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="images/logo.jpg" />
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The ggedit gitbook" />
+  <meta name="twitter:title" content="Chapter 8 Verbose Outputs | The ggedit gitbook" />
   
   <meta name="twitter:description" content="ggedit user book" />
   <meta name="twitter:image" content="images/logo.jpg" />
 
-<meta name="author" content="Metrum Research Group">
+<meta name="author" content="Jonathan Sidi" />
 
 
-<meta name="date" content="2017-05-08">
+<meta name="date" content="2020-06-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="themes-1.html">
-<link rel="next" href="default-values.html">
+<link rel="prev" href="themes-1.html"/>
+<link rel="next" href="default-values.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,49 +48,81 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<script src="libs/datatables-binding-0.2/datatables.js"></script>
-<link href="libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.13/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -105,7 +138,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="https://github.com/metrumresearchgroup/ggedit">Using the ggedit package</a></li>
+<li><a href="https://github.com/yonicd/ggedit">Using the ggedit package</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
@@ -133,17 +166,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.2" data-path="themes-1.html"><a href="themes-1.html"><i class="fa fa-check"></i><b>7.2</b> Themes</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="verbose-outputs.html"><a href="verbose-outputs.html"><i class="fa fa-check"></i><b>8</b> Verbose Outputs</a></li>
-<li class="chapter" data-level="9" data-path="default-values.html"><a href="default-values.html"><i class="fa fa-check"></i><b>9</b> Default Values</a></li>
-<li class="chapter" data-level="10" data-path="package-functions.html"><a href="package-functions.html"><i class="fa fa-check"></i><b>10</b> Package Functions</a><ul>
-<li class="chapter" data-level="10.1" data-path="ggedit.html"><a href="ggedit.html"><i class="fa fa-check"></i><b>10.1</b> ggedit</a></li>
-<li class="chapter" data-level="10.2" data-path="ggedit-1.html"><a href="ggedit-1.html"><i class="fa fa-check"></i><b>10.2</b> ggEdit</a></li>
-<li class="chapter" data-level="10.3" data-path="rgg.html"><a href="rgg.html"><i class="fa fa-check"></i><b>10.3</b> rgg</a></li>
-<li class="chapter" data-level="10.4" data-path="remove-geom.html"><a href="remove-geom.html"><i class="fa fa-check"></i><b>10.4</b> remove_geom</a></li>
-<li class="chapter" data-level="10.5" data-path="gggsave.html"><a href="gggsave.html"><i class="fa fa-check"></i><b>10.5</b> gggsave</a></li>
-<li class="chapter" data-level="10.6" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>10.6</b> compare</a></li>
-<li class="chapter" data-level="10.7" data-path="clonelayer.html"><a href="clonelayer.html"><i class="fa fa-check"></i><b>10.7</b> cloneLayer</a></li>
-<li class="chapter" data-level="10.8" data-path="print-ggedit.html"><a href="print-ggedit.html"><i class="fa fa-check"></i><b>10.8</b> print.ggedit</a></li>
-<li class="chapter" data-level="10.9" data-path="plot-ggedit.html"><a href="plot-ggedit.html"><i class="fa fa-check"></i><b>10.9</b> plot.ggedit</a></li>
+<li class="chapter" data-level="9" data-path="default-values.html"><a href="default-values.html"><i class="fa fa-check"></i><b>9</b> Default Values</a><ul>
+<li class="chapter" data-level="9.1" data-path="ggedit.html"><a href="ggedit.html"><i class="fa fa-check"></i><b>9.1</b> ggedit</a></li>
+<li class="chapter" data-level="9.2" data-path="ggedit-1.html"><a href="ggedit-1.html"><i class="fa fa-check"></i><b>9.2</b> ggEdit</a></li>
+<li class="chapter" data-level="9.3" data-path="rgg.html"><a href="rgg.html"><i class="fa fa-check"></i><b>9.3</b> rgg</a></li>
+<li class="chapter" data-level="9.4" data-path="remove-geom.html"><a href="remove-geom.html"><i class="fa fa-check"></i><b>9.4</b> remove_geom</a></li>
+<li class="chapter" data-level="9.5" data-path="gggsave.html"><a href="gggsave.html"><i class="fa fa-check"></i><b>9.5</b> gggsave</a></li>
+<li class="chapter" data-level="9.6" data-path="compare.html"><a href="compare.html"><i class="fa fa-check"></i><b>9.6</b> compare</a></li>
+<li class="chapter" data-level="9.7" data-path="clonelayer.html"><a href="clonelayer.html"><i class="fa fa-check"></i><b>9.7</b> cloneLayer</a></li>
+<li class="chapter" data-level="9.8" data-path="print-ggedit.html"><a href="print-ggedit.html"><i class="fa fa-check"></i><b>9.8</b> print.ggedit</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -189,23 +220,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": true,
 "facebook": true,
 "twitter": true,
-"google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -213,8 +246,16 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/08-Verbose.Rmd",
+"link": "https://github.com/yonicd/ggedit/edit/master/Miscellaneous/bookdown/08-Verbose.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
 },
 "download": ["ggeditBook.pdf", "ggeditBook.epub", "ggeditBook.mobi"],
 "toc": {

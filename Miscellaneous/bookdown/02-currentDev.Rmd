@@ -1,7 +1,7 @@
 # Current Development 
 
 Download current dev source file
-  - [ggedit_0.2.2](https://github.com/metrumresearchgroup/ggedit/blob/master/Miscellaneous/ggedit_0.2.2.tar.gz)
+  - [ggedit_0.3.1](https://github.com/yonicd/ggedit/blob/master/Miscellaneous/ggedit_0.3.1.tar.gz)
 
 ## Enhancements
   - replaced `mutate_each` with `mutate_all` to be compatible with new `dplyr` [release](http://dplyr.tidyverse.org/articles/compatibility.html).

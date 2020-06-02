@@ -79,7 +79,7 @@ Update Plot Theme:
 
 A popup modal will appear populated with the theme elements found in the active plot.
 Each element will appear as having a value or empty depending if it was defined or not.
-The user can change or fill in any element \href{http://docs.ggplot2.org/current/theme.html}{with valid values}
+The user can change or fill in any element \href{https://ggplot2.tidyverse.org/reference/theme.html}{with valid values}
 and any textboxes left empty will use ggplot defaults.
 
 Update Grid Theme:

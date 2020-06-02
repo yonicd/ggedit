@@ -1,5 +1,5 @@
 book_filename: ggeditBook
-repo: https://github.com/metrumresearchgroup/ggedit
+repo: https://github.com/yonicd/ggedit
 output_dir: "../docs"
 clean: [packages.bib, bookdown.bbl]
 language:

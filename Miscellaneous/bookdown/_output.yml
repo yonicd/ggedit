@@ -6,11 +6,11 @@ bookdown::gitbook:
     toc:
       collapse: none
       before: |
-        <li><a href="https://github.com/metrumresearchgroup/ggedit">Using the ggedit package</a></li>
+        <li><a href="https://github.com/yonicd/ggedit">Using the ggedit package</a></li>
       after: |
         <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
     download: [pdf, epub, mobi]
-    edit: https://github.com/metrumresearchgroup/ggedit/edit/master/Miscellaneous/bookdown/%s
+    edit: https://github.com/yonicd/ggedit/edit/master/Miscellaneous/bookdown/%s
     sharing:
       github: yes
-      facebook: yes
+      twitter: yes

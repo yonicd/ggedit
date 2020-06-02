@@ -9,8 +9,8 @@
 
 <h3>Description</h3>
 
-<p>Shiny gadget that takes an input ggplots and populates a user 
-interface with objects that let the user update aesthetics of layers 
+<p>Shiny gadget that takes an input ggplots and populates a user
+interface with objects that let the user update aesthetics of layers
 and theme elements.
 </p>
 
@@ -38,7 +38,7 @@ ggedit(p.in, ...)
 
 <h3>Details</h3>
 
-<p>The user can start the gadget using the console <code>ggedit(plotobj)</code> or through the Addins menu in Rstudio. 
+<p>The user can start the gadget using the console <code>ggedit(plotobj)</code> or through the Addins menu in Rstudio.
 </p>
 <p>If you are using the the Addin option highlight on the editor window the ggplot object and then click the addin.
 </p>
@@ -56,30 +56,30 @@ ggedit(p.in, ...)
 </p>
 <p><strong>Action buttons</strong>
 </p>
-<p>Cancel: 
+<p>Cancel:
 </p>
 <p>Returns a NULL object
 </p>
-<p>Done: 
+<p>Done:
 </p>
-<p>Returns the list decribed below. 
+<p>Returns the list decribed below.
 </p>
-<p><strong>Dropdown list</strong> 
+<p><strong>Dropdown list</strong>
 </p>
 <p>Navigates through the plots in the input list. If the input list is a named list the names will be in the dropdown. The plot chosen is termed as the &quot;active plot&quot;
 </p>
-<p><strong>Radio buttons</strong> 
+<p><strong>Radio buttons</strong>
 </p>
 <p>The options to choose in the radio buttons are the layer names in the active plot.
 </p>
 <p><strong>Links</strong>
 </p>
-<p>Update Plot Layer: 
+<p>Update Plot Layer:
 </p>
 <p>A pop up window will appear and be populated with aesthetic elements found in the layer chosen from the radio buttons.
 The layer is cloned using <code>cloneLayer</code> creating a layer independent of the original plot.
-If the aesthetic is a factor the values will be shown in dropdown lists. 
-If it is numeric it will be shown in a slider. 
+If the aesthetic is a factor the values will be shown in dropdown lists.
+If it is numeric it will be shown in a slider.
 If it is a factor colour/fill aesthetic the <code>colourPicker</code> package will allow to choose from the full pallete of colours.
 If the continuous colour/fill aesthetic a dropdown list will be shown with different palletes
 </p>
@@ -87,16 +87,16 @@ If the continuous colour/fill aesthetic a dropdown list will be shown with diffe
 </p>
 <p>A popup modal will appear populated with the theme elements found in the active plot.
 Each element will appear as having a value or empty depending if it was defined or not.
-The user can change or fill in any element <a href="http://docs.ggplot2.org/current/theme.html">with valid values</a> 
+The user can change or fill in any element <a href="http://docs.ggplot2.org/current/theme.html">with valid values</a>
 and any textboxes left empty will use ggplot defaults.
 </p>
 <p>Update Grid Theme:
 </p>
-<p>Copies the theme of the active plot to the other plots in the list 
+<p>Copies the theme of the active plot to the other plots in the list
 </p>
 <p>Update Global Theme:
 </p>
-<p>Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme. 
+<p>Copies the theme of the active plot to the session theme and all plots created outside of the gadget will have this theme.
 </p>
 <p>View Layer Code:
 </p>
@@ -141,12 +141,19 @@ and any textboxes left empty will use ggplot defaults.
 <h3>Examples</h3>
 
 <pre>
-p=ggplot(iris,aes(x =Sepal.Length,y=Sepal.Width))
-p=p+geom_point(aes(colour=Species))+geom_line()
+p &lt;- ggplot2::ggplot(iris,ggplot2::aes(x =Sepal.Length,y=Sepal.Width))
 
-pnew=ggedit(p)
+p &lt;- p + 
+ggplot2::geom_point(ggplot2::aes(colour=Species)) + 
+ggplot2::geom_line()
+
+if(interactive()){
+## Not run: 
+pnew &lt;- ggedit(p)
 pnew
 
+## End(Not run)
+}
 </pre>
 
 

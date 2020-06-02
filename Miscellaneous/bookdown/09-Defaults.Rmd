@@ -3,11 +3,11 @@
 The default values for each element in the layer UI are the following
 
 ```{r}
-DT::datatable(do.call('rbind',slideDefaults),options = list(dom = 't'))
+DT::datatable(do.call('rbind',ggedit::ggedit_opts$get("slideDefaults")),options = list(dom = 't'))
 ```
 
 The default class for each element in the theme UI are the following
 
 ```{r}
-DT::datatable(ThemeDefaultClass,options = list(dom = 't'))
+DT::datatable(ggedit::ggedit_opts$get("ThemeDefaultClass"),options = list(dom = 't'))
 ```
