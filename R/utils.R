@@ -1,7 +1,3 @@
-#' @inherit magrittr::`%>%`
-#' @export
-`%>%` <- magrittr::"%>%"
-
 #' @importFrom utils capture.output
 #' @importFrom stats as.formula
 #' @importFrom rlang quo_name

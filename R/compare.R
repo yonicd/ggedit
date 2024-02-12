@@ -9,6 +9,7 @@
 #' compare(ggplot2::theme_bw(),ggplot2::theme_get())
 #' compare(ggplot2::theme_bw(),ggplot2::theme_get(),verbose=FALSE)
 #' @importFrom tidyr spread
+#' @importFrom tibble as_tibble
 #' @importFrom purrr map_df
 #' @importFrom rlang sym syms '!!!' '!!'
 compare <- function(e1, e2, verbose=TRUE) {
@@ -23,31 +24,31 @@ compare <- function(e1, e2, verbose=TRUE) {
   objDF <- purrr::map_df(objL, .f = function(x) {
     
     dfOut <- dplyr::bind_rows(
-      x$objList[x$objListDepth == 1] %>%
+      x$objList[x$objListDepth == 1]  |> 
         purrr::map_df(.f = function(x) {
 
             purrr::map_df(x[-length(x)],
-                        function(x) dplyr::as_data_frame(t(x)),
-                        .id = 'element')%>%
+                        function(x) tibble::as_tibble(t(x)),
+                        .id = 'element') |> 
             dplyr::mutate(call = x$call)
         
-        }, .id = "Theme") %>%
-        dplyr::mutate(subTheme = NA) %>%
+        }, .id = "Theme")  |> 
+        dplyr::mutate(subTheme = NA)  |> 
         dplyr::mutate_all(as.character),
 
-      x$objList[!x$objListDepth == 1] %>%
+      x$objList[!x$objListDepth == 1]  |> 
         purrr::map_df(
-          .f = function(y) y %>%
+          .f = function(y) y  |> 
             purrr::map_df(.f = function(x) {
               
               purrr::map_df(x[-length(x)],
-                            function(x) dplyr::as_data_frame(t(x)),
-                            .id = 'element')%>%
+                            function(x) tibble::as_tibble(t(x)),
+                            .id = 'element') |> 
                 dplyr::mutate(call = x$call)
               
               }, .id = "subTheme"),
           .id = "Theme"
-        ) %>%
+        )  |> 
         dplyr::mutate_all(as.character)
     )
 
@@ -66,12 +67,12 @@ compare <- function(e1, e2, verbose=TRUE) {
     return(dfOut)
   }, .id = "idTheme")
 
-  d <- objDF %>%
-    dplyr::select(!!rlang::sym('idTheme'):!!rlang::sym('value'), !!rlang::sym('subTheme'))%>%
-    tidyr::spread(!!rlang::sym('idTheme'),!!rlang::sym('value')) %>% #,fill='.'
-    dplyr::filter(!!rlang::sym('compare') != !!rlang::sym('base')) %>%
-    dplyr::left_join(objDF, by = c("Theme", "subTheme", "element", "name")) %>%
-    dplyr::filter(!!rlang::sym("idTheme") == 'compare') %>%
+  d <- objDF  |> 
+    dplyr::select(!!rlang::sym('idTheme'):!!rlang::sym('value'), !!rlang::sym('subTheme')) |> 
+    tidyr::spread(!!rlang::sym('idTheme'),!!rlang::sym('value'))  |>  #,fill='.'
+    dplyr::filter(!!rlang::sym('compare') != !!rlang::sym('base'))  |> 
+    dplyr::left_join(objDF, by = c("Theme", "subTheme", "element", "name"))  |> 
+    dplyr::filter(!!rlang::sym("idTheme") == 'compare')  |> 
     dplyr::select(!!!rlang::syms(c("Theme", "subTheme", "call", "element")), value = !!rlang::sym("compare"))
 
   d$Theme <- as.character(d$Theme)
@@ -82,9 +83,9 @@ compare <- function(e1, e2, verbose=TRUE) {
   #d$value[d$value== "."] <- NA
   #d$value[grepl("[^0-9]", d$value)&!grepl('^(TRUE|FALSE)$',d$value)] <- paste0("'", d$value[grepl("[^0-9]", d$value)&!grepl('^(TRUE|FALSE)$',d$value)], "'")
 
-  x1 <- d %>%
-    dplyr::group_by_("Theme", "subTheme", "call") %>%
-    dplyr::summarise_(y = "paste0(paste0(element,'=',value),collapse=',')") %>%
+  x1 <- d  |> 
+    dplyr::group_by(Theme, subTheme, call)  |>
+    dplyr::summarise(y = paste0(paste0(element, '=', value),collapse = ','))  |>
     dplyr::ungroup()
 
   x1$y <- ifelse(x1$call == "", gsub("=", "", x1$y), paste0(x1$call, "(", x1$y, ")"))
@@ -101,3 +102,6 @@ compare <- function(e1, e2, verbose=TRUE) {
     eval(parse(text = out))
   }
 }
+
+#' @importFrom utils globalVariables
+utils::globalVariables(c('Theme', 'subTheme', 'element', 'value'))

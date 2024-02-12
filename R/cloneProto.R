@@ -5,9 +5,9 @@ cloneProto <- function(l) {
   
   geom_opts <- ggedit_opts$get("session_geoms")
 
-  parent.layer <- proto_features(l) %>%
+  parent.layer <- proto_features(l)  |> 
     dplyr::left_join(
-      geom_opts %>% dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
+      geom_opts  |>  dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )
 

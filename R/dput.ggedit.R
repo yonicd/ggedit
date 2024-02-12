@@ -79,8 +79,10 @@ dput.ggedit <- function(obj, file="") {
         cloneFacet(obj$facet, verbose = TRUE)
       )
 
-      if (inherits(obj$theme, "theme")) {
-        obj.call <- c(obj.call, compare(obj$theme, theme_get()))
+      if ("theme" %in% names(obj)) {
+        if(length(obj$theme)>0){
+          obj.call <- c(obj.call, compare(obj$theme, theme_get()))
+        }
       }
 
       paste0(obj.call, collapse = "+\n")

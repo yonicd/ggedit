@@ -7,7 +7,7 @@
 #' @examples
 #' gg_session('ggplot2')
 #'
-#' @importFrom tidyr spread
+#' @importFrom tidyr spread drop_na
 #' @importFrom purrr map_df
 #' @importFrom tools package_dependencies
 #' @importFrom utils sessionInfo
@@ -52,9 +52,9 @@ gg_session <- function(gg_pkg=NULL) {
   out <- purrr::map_df(y[sapply(y, length) > 0],
                        .f = function(x) {
                          data.frame(do.call("rbind", strsplit(x, " = ")), stringsAsFactors = FALSE)},
-                       .id = "fn")%>%
-    tidyr::spread(!!rlang::sym('X1'),!!rlang::sym('X2'))%>%
-    dplyr::filter(complete.cases(!!rlang::sym('.')))%>%
+                       .id = "fn") |> 
+    tidyr::spread(!!rlang::sym('X1'),!!rlang::sym('X2')) |> 
+    tidyr::drop_na() |>
     mutate_all(as.character)
 
   out[, c("position", "stat", "geom")] <- sapply(c("position", "stat", "geom"), function(x) {

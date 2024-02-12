@@ -12,9 +12,9 @@
 #' @importFrom rlang sym '!!'
 gg_vetting <- function(p, obj=ggedit_opts$get('session_geoms')) {
   
-  purrr::map_df(p$layers, proto_features) %>%
+  purrr::map_df(p$layers, proto_features)  |> 
     inner_join(
-      obj %>%
+      obj  |> 
         filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )

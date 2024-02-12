@@ -18,7 +18,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
 
   if (!"waiver" %in% class(p$data)) {
     mapping_class <- lapply(train_map(p), function(m) {
-      TEMP <- p$data%>%
+      TEMP <- p$data |> 
         dplyr::mutate(.NEWVAR = !!m)
       
       class(TEMP[['.NEWVAR']])
@@ -54,7 +54,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
     } else {
       pData <- p$layer[[l]]$data
 
-      if (class(pData) == "ggproto_method") {
+      if (inherits(pData, "ggproto_method")) {
         pData <- pData(p$data)
       }
     }
@@ -71,7 +71,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (m %in% names(pData)) {
           class(as.data.frame(pData)[, m])
         } else {
-          TEMP <- as.data.frame(pData) %>% mutate(.NEWVAR = !!m)
+          TEMP <- as.data.frame(pData)  |>  mutate(.NEWVAR = !!m)
 
           class(TEMP[[".NEWVAR"]])
         }
@@ -97,7 +97,7 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (aes.var.nm %in% names(pData)) {
           aes.var <- pData[aes.var.nm]
         } else {
-          TEMP <- as.data.frame(pData) %>% mutate(.NEWVAR = !!rlang::sym(aes.var.nm))
+          TEMP <- as.data.frame(pData)  |>  mutate(.NEWVAR = !!rlang::sym(aes.var.nm))
 
           aes.var <- TEMP[".NEWVAR"]
 
@@ -107,21 +107,21 @@ fetch_aes_ggplotBuild <- function(p, geom_list) {
         if (any(names(pData) %in% names(gb$layout$panel_layout))) {
           order.nms <- c("PANEL", names(gb$layout$panel_layout)[which(names(gb$layout$panel_layout) %in% names(pData))])
 
-          aes.var <- pData %>%
+          aes.var <- pData  |> 
             left_join(
-              gb$layout$panel_layout %>% select(!!!rlang::syms(order.nms)),
+              gb$layout$panel_layout  |>  select(!!!rlang::syms(order.nms)),
               by = order.nms[-1]
-            ) %>%
+            )  |> 
             arrange_(order.nms)
         }
 
         if (nrow(x$data) != nrow(aes.var)) {
           x$data[aes.var.nm] <- factor(x$data[[item]], labels = unique(aes.var[[aes.var.nm]]))
 
-          val.new <- x$data %>% select(!!!rlang::syms(c(item, aes.var.nm))) %>% distinct()
+          val.new <- x$data  |>  select(!!!rlang::syms(c(item, aes.var.nm)))  |>  distinct()
         } else {
-          val.new <- data.frame(x$data, aes.var = as.character(aes.var[, aes.var.nm]), stringsAsFactors = FALSE) %>%
-            select(!!!rlang::syms(c(item, "aes.var"))) %>%
+          val.new <- data.frame(x$data, aes.var = as.character(aes.var[, aes.var.nm]), stringsAsFactors = FALSE)  |> 
+            select(!!!rlang::syms(c(item, "aes.var")))  |> 
             distinct()
         }
 

@@ -6,14 +6,14 @@
 #' @import ggplot2
 #' @import dplyr
 #' @importFrom rlang quo_name quo_squash
-#' @importFrom  plyr ddply
+#' @importFrom  purrr map2_chr map2_dbl
 #' 
 class_layer <- function(p){
 
-  if( 'tbl'%in%class(p$data) ) 
+  if('tbl' %in% class(p$data) ) 
     p$data <- data.frame(p$data)
 
-  plot_aes = layer_aes = NULL
+  plot_aes <- layer_aes <- VAR <- NULL
   
   if( length(as.character(p$mapping))>0 ){
     
@@ -29,20 +29,20 @@ class_layer <- function(p){
   
   plot_cl <- lapply(plot_aes$aes,function(x){
     
-    TEMP <- p$data%>%
+    TEMP <- p$data |> 
       dplyr::mutate(.NEWVAR = !!rlang::quo_squash(p$mapping[[x]]))
     
     class(TEMP[['.NEWVAR']])
 
     })
     
-  chkIdx <- which(unlist(lapply(plot_cl,length))!=1)
+  chkIdx <- which(unlist(lapply(plot_cl, length)) != 1)
   
   for( i in chkIdx ){
     
     if( 'data.frame'%in%plot_cl[[i]] ){
       
-      plot_cl[[i]]='data.frame'
+      plot_cl[[i]] <- 'data.frame'
       
     }else{
       
@@ -58,56 +58,44 @@ class_layer <- function(p){
   
   }
   
-  layer_aes <- lapply(p$layers,function(x){
+  layer_aes <- lapply(p$layers,function(x) {
     mappings <- x$mapping
     data.frame(VAR = if(is.null(mappings)) character() else sapply(mappings, quo_name),
-               aes = if(is.null(mappings)) character() else names(x$mapping),stringsAsFactors = FALSE) %>%
+               aes = if(is.null(mappings)) character() else names(x$mapping), stringsAsFactors = FALSE)  |> 
       dplyr::filter(!is.null(!!rlang::sym('VAR')))
     
   })
   
-  layer_data <- lapply(p$layers,function(x){
+  layer_data <- lapply(p$layers,function(x) {
     
              dOut <- x$data
              
-             if('tbl'%in%class(dOut)) 
-               dOut <- data.frame(dOut,stringsAsFactors = FALSE)
+             if('tbl' %in% class(dOut))
+               dOut <- data.frame(dOut, stringsAsFactors = FALSE)
              
              dOut
              
   })
 
-  pData <- lapply(p$layers,function(l,d) l$layer_data(d), p$data)
+  pData <- lapply(p$layers, function(l, d) l$layer_data(d), p$data)
     
   names(pData) <- names(layer_aes) <- names(layer_data) <- geom_list(p)
   
   pData$plot <- p$data
   
-  layer_aes <- dplyr::bind_rows(layer_aes,.id = 'layer')
+  layer_aes <- dplyr::bind_rows(layer_aes, .id = 'layer')
 
-  layer_aes <- plyr::ddply(layer_aes,.variables = c('layer','VAR','aes'),.fun=function(df){
+  layer_aes <- layer_aes |>
+    dplyr::mutate(
+      class = purrr::map2_chr(layer, VAR, ~class(pData[[which(grepl(.x, names(pData)))]][[.y]]))
+    )
 
-      TEMP <- pData[[df$layer]]%>%
-        dplyr::mutate(.NEWVAR = eval(parse(text = df$VAR)))
-    
-      df$class <-class(TEMP[['.NEWVAR']])
-    
-    df
-  })
+  layer_bind <- rbind(plot_aes, layer_aes)
   
-  layer_bind <- rbind(plot_aes,layer_aes)
-  
-  layer_bind <- plyr::ddply(layer_bind,
-                            .variables = c('layer','VAR','aes'),
-                            .fun=function(df){
-    
-        TEMP <- pData[[df$layer]]%>%
-          dplyr::mutate(.NEWVAR = eval(parse(text = df$VAR)))
-        
-        df$level.num <- length(unique(TEMP[,'.NEWVAR']))
-                              
-    df
-  })
-  
+  layer_bind <- layer_bind |>
+    dplyr::mutate(
+      level.num = purrr::map2_dbl(layer, VAR, ~length(unique(pData[[which(grepl(.x, names(pData)))]][[.y]])))
+    )
+
   return(layer_bind)
 }

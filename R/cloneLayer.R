@@ -23,14 +23,10 @@
 #' p$layers[[1]]
 #'
 #' newLayer <- cloneLayer(l=p$layers[[1]])
-#'
-#' all.equal(p$layers[[1]],newLayer)
-#'
+#' 
 #' (v <- cloneLayer(l=p$layers[[1]],verbose=TRUE))
 #'
 #' eval(parse(text=v))
-#'
-#' all.equal(p$layers[[1]],eval(parse(text=v)))
 #'
 #' @importFrom utils capture.output
 #' @importFrom rlang sym '!!'
@@ -38,9 +34,9 @@ cloneLayer <- function(l, verbose=FALSE, showDefaults=TRUE) {
   
   geom_opts <- ggedit_opts$get("session_geoms")
 
-  parent.layer <- proto_features(l) %>%
+  parent.layer <- proto_features(l)  |> 
     dplyr::left_join(
-      geom_opts %>% dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
+      geom_opts  |>  dplyr::filter(!grepl("^stat", !!rlang::sym('fn'))),
       by = c("position", "geom", "stat")
     )
 
@@ -98,8 +94,7 @@ cloneLayer <- function(l, verbose=FALSE, showDefaults=TRUE) {
       paste0(geom_aes$geom, collapse = ","),
       paste0(geom_aes$mapping, collapse = ","),
       paste0(geom_aes$params, collapse = ","),
-      paste0(geom_aes$layer, collapse = ","),
-      geom_aes$data
+      paste0(geom_aes$layer, collapse = ",")
     )
 
     if (!showDefaults) {

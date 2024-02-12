@@ -18,11 +18,11 @@
 #'
 #' p
 #'
-#' p%>%rgg('point',1)
+#' p |> rgg('point',1)
 #'
 #' if( interactive() ){
 #' x <- ggedit(p)
-#' pnew <- p%>%rgg('point',1,x$updatedLayers[[1]])
+#' pnew <- p |> rgg('point',1,x$updatedLayers[[1]])
 #' pnew
 #' }
 #' @import ggplot2

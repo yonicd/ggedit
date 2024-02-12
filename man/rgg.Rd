@@ -30,11 +30,11 @@ p <- p+ggplot2::geom_point(ggplot2::aes(colour=Species))+ggplot2::geom_line()
 
 p
 
-p\%>\%rgg('point',1)
+p |> rgg('point',1)
 
 if( interactive() ){
 x <- ggedit(p)
-pnew <- p\%>\%rgg('point',1,x$updatedLayers[[1]])
+pnew <- p |> rgg('point',1,x$updatedLayers[[1]])
 pnew
 }
 }

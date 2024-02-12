@@ -40,12 +40,8 @@ p$layers[[1]]
 
 newLayer <- cloneLayer(l=p$layers[[1]])
 
-all.equal(p$layers[[1]],newLayer)
-
 (v <- cloneLayer(l=p$layers[[1]],verbose=TRUE))
 
 eval(parse(text=v))
-
-all.equal(p$layers[[1]],eval(parse(text=v)))
 
 }

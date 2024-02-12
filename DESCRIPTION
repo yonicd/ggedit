@@ -1,28 +1,28 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.3.1
-Date: 2020-06-01
+Version: 0.4.0
+Date: 2024-02-11
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonicd@gmail.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
 Depends:
-    R (>= 3.2.0),
-    ggplot2 (>= 3.0.0)
+    R (>= 4.0.0),
+    ggplot2 (>= 3.5.0)
 Imports:
-    dplyr (>= 1.0.0),
     plyr,
+    dplyr,
     tidyr,
     purrr,
     rlang,
+    tibble,
     scales,
     rstudioapi,
     shiny,
     miniUI,
     shinyBS,    
-    colourpicker (>= 0.2),
+    colourpicker,
     shinyAce,
-    magrittr,
     utils,
     graphics,
     grid,
@@ -37,4 +37,4 @@ BugReports: https://github.com/yonicd/ggedit/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
