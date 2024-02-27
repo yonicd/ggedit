@@ -3,6 +3,7 @@
 Miscellaneous
 NEWS.Rmd
 NEWS_files/*
+README_files/*
 tests/*
 docs
 man-roxygen
@@ -11,3 +12,4 @@ man-roxygen
 ^data-raw$
 ^cran-comments\.md$
 ^\.vscode$
+^CRAN-SUBMISSION$

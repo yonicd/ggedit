@@ -14,6 +14,13 @@ r <- getOption("repos")
   options(repos = r)
 ```
 
+# 0.4.0
+## Update
+Refactor functions to align with `ggplot2` version (3.5.0). 
+
+  - Replace plyr with purrr dependency
+  - Update faceting cloning to support new formals in `ggplot2`
+
 # 0.2.6
 ## Update
 Collapse internal files to run the module and gadget from same base script.
@@ -67,7 +74,7 @@ ggedit_opts$get('session_geoms')
 
 ```
   
-manipulate gg_extension pacakges (still in development, but works for a lot of the [ggplot2 extension packages](http://www.ggplot2-exts.org/))
+manipulate gg_extension pacakges (still in development, but works for a lot of the [ggplot2 extension packages](https://ggplot2-exts.org/))
   
 **dput.ggedit** returns dput for ggplot2 object in script form and not a structure.
   
