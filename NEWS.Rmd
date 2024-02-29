@@ -16,6 +16,10 @@ r <- getOption("repos")
 
 # 0.4.0
 ## Update
+Bump R version to align with native pipe
+
+# 0.4.0
+## Update
 Refactor functions to align with `ggplot2` version (3.5.0). 
 
   - Replace plyr with purrr dependency
