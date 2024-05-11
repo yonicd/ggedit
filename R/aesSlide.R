@@ -13,7 +13,7 @@ aesSlide <- function(type, session = NULL) {
   }
 
   slideDefaults <- ggedit_opts$get("slideDefaults")
-
+  
   list(
     type = shiny::sliderInput,
     args = list(
@@ -21,7 +21,7 @@ aesSlide <- function(type, session = NULL) {
       label = type,
       min = slideDefaults[[type]][1],
       max = slideDefaults[[type]][2],
-      value = NA
+      value = NA_real_
     )
   )
 }

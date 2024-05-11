@@ -6,6 +6,7 @@
 #' @importFrom purrr map
 print.gglist <- function(x, ...) purrr::map(x, print.ggplot, ...)
 
+#' @export
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
 
   set_last_plot(x)

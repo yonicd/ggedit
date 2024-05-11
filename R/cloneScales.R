@@ -8,30 +8,15 @@
 #'  # p <- pList$pointSmooth+scale_colour_continuous(low='red')
 #'  # p
 #'  # pList$pointSmooth+cloneScales(p)
+#' @export
 #' @rdname cloneScales
 cloneScales <- function(p, verbose=FALSE) {
   sapply(p$scales$scales, function(obj) {
-    a <- as.character(obj$call)
 
-    tempscale <- vector("list", length(names(formals(a[1]))))
-    names(tempscale) <- names(formals(a[1]))
-
-    tempscale.cl <- sapply(names(tempscale), function(idx) class(obj[[idx]]))
-
-    skip.val <- grep("super", names(tempscale))
-
-    for (idx in names(tempscale)[-skip.val]) tempscale[[idx]] <- obj[[idx]]
-
-    tempscale$super <- formals(a[1])[["super"]]
-
-    scaleout <- do.call(a[1], tempscale)
-    structure(scaleout, class = class(obj))
-
+    obj_list <- as.list(obj$call)
+    scaleout <- do.call(as.character(obj_list[[1]]), obj_list[-1])
     if (verbose) {
-      scaleout_cl <- sapply(scaleout$call, class)
-      idx_methods <- names(scaleout_cl)[scaleout_cl == "ggproto_method"]
-      for (idx in idx_methods) scaleout$call[[idx]] <- eval(parse(text = make_proto_method_str(scaleout$call[[idx]], environment(scaleout$call[[idx]])$f)))
-      scale_return <- gsub('"', "'", paste0(format(scaleout$call), collapse = "\n"))
+      scale_return <- gsub('"', "'", toString(as.expression(obj$call)))
     } else {
       scale_return <- scaleout
     }

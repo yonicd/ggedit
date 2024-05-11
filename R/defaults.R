@@ -111,6 +111,7 @@ ggedit_opts <- new_defaults(list(
     vjust = c(min = -10, max = 10),
     stroke = c(min = 0, max = 10),
     lineheight = c(min = 0, max = 10),
+    linewidth = c(min = 0, max = 5),
     fontface = c(min = 1, max = 4),
     rel_min_height = c(min = 0, max = 1),
     scale = c(min = 0, max = 100)

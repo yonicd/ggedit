@@ -1,8 +1,8 @@
 Package: ggedit
 Type: Package
 Title: Interactive 'ggplot2' Layer and Theme Aesthetic Editor
-Version: 0.4.1
-Date: 2024-02-29
+Version: 0.4.2
+Date: 2024-05-10
 Author: Jonathan Sidi [aut, cre]
 Maintainer: Jonathan Sidi <yonicd@gmail.com>
 Description: Interactively edit 'ggplot2' layer and theme aesthetics definitions.
@@ -27,7 +27,8 @@ Imports:
     graphics,
     grid,
     tools,
-    stats
+    stats,
+    cli
 Suggests:
     testthat,
     covr

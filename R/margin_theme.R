@@ -1,5 +1,5 @@
+#' @importFrom grid unitType
 margin_theme <- function(a,obj,obj.class,obj.names,i) {
-  
   if(grepl('\\.margin$',obj.names[i])){
     b <- split(
       c(
@@ -18,7 +18,7 @@ margin_theme <- function(a,obj,obj.class,obj.names,i) {
       b <- split(
         c(
           a[[obj.names[[i]]]][[midx]],
-          attr(a[[obj.names[[i]]]][[midx]], "unit")
+          grid::unitType(a[[obj.names[[i]]]][[midx]])[1]
         ),
         c("t", "r", "b", "l", "unit")
       )
